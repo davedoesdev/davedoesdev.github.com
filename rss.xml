@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://sample.com</link>
-    <pubDate>2012-09-14 10:20:03 +0100</pubDate>
+    <pubDate>2012-09-14 10:42:18 +0100</pubDate>
     <item>
       <title>testing</title>
       <link>http://sample.com/testing</link>
@@ -21,9 +21,9 @@
     &lt;![endif]--&gt;
 
     &lt;!-- Le styles --&gt;
-    &lt;link href="/assets/my_twitter/stylesheets/bootstrap.min.css?0.09263794463706854" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_twitter/stylesheets/style.css?0.009317535189998893" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css?0.24656068047185398" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_twitter/stylesheets/bootstrap.min.css?0.6331904191811417" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_twitter/stylesheets/style.css?0.23228994961556715" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css?0.7551084089194633" type="text/css" rel="stylesheet" media="all"&gt;
 
  
 
