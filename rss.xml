@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://sample.com</link>
-    <pubDate>2012-09-14 23:10:54 +0100</pubDate>
+    <pubDate>2012-09-15 00:14:08 +0100</pubDate>
     <item>
       <title>testing</title>
       <link>http://sample.com/testing</link>
@@ -19,17 +19,18 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.34087954743921167" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9788087877855148" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6097591533936351" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11756478031144846" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.5939459436679905" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9032600077567863" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.2626823380359615" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4953906485633164" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.46187011652595555" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8888171878039659" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.605538348381716" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7652532675107834" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.20408833415896244"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8154312349165733"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.28616181795450335"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4122217945793917"&gt;&lt;/script&gt;
  
     
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
     &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
     &lt;!-- fav and touch icons --&gt;
   &lt;!-- Update these with your own images
@@ -74,7 +75,7 @@
                   &lt;a href="https://www.github.com/davedoesdev" class="zocial github" target="_blank"&gt;&lt;/a&gt;
                 &lt;/li&gt;
                 &lt;li&gt;
-                  &lt;a href="http://www.twitter.com/username" class="zocial twitter icon" target="_blank"&gt;&lt;/a&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_blank"&gt;&lt;/a&gt;
                 &lt;/li&gt;
             &lt;/ul&gt;
           &lt;/div&gt;
