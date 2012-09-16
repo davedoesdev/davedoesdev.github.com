@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://sample.com</link>
-    <pubDate>2012-09-15 00:14:08 +0100</pubDate>
+    <pubDate>2012-09-16 08:51:52 +0100</pubDate>
     <item>
       <title>testing</title>
       <link>http://sample.com/testing</link>
@@ -19,15 +19,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.2626823380359615" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4953906485633164" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.46187011652595555" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8888171878039659" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.605538348381716" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7652532675107834" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.41899622403878856" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.1372895543397401" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.766565872052661" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8004634041057813" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.7629488378427378" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.26944884779354283" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.28616181795450335"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4122217945793917"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.13125937124128895"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7672896282343779"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -72,11 +72,17 @@
             &lt;ul class="nav pull-right social"&gt;
               &lt;li class="divider-vertical"&gt;&lt;/li&gt;
                 &lt;li&gt;
-                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github" target="_blank"&gt;&lt;/a&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_blank"&gt;&lt;/a&gt;
                 &lt;/li&gt;
                 &lt;li&gt;
                   &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_blank"&gt;&lt;/a&gt;
                 &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_blank"&gt;&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_blank"&gt;&lt;/a&gt;
+              &lt;/li&gt;
             &lt;/ul&gt;
           &lt;/div&gt;
         &lt;/div&gt;
@@ -138,15 +144,22 @@
           with help from &lt;a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;
           and &lt;a href="http://twitter.github.com/bootstrap/" target="_blank"&gt;Twitter Bootstrap&lt;/a&gt;
         &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_blank"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_blank"&gt;commenting&lt;/a&gt;&lt;/p&gt;
       &lt;/footer&gt;
     &lt;/div&gt; &lt;!-- /container --&gt;
 
     &lt;script&gt;
-  var _gaq=[['_setAccount','UA-123-12'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
 &lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
     &lt;!-- Google Prettify --&gt;
 &lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
 &lt;script&gt;
