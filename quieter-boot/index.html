@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Quieter Boot - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7495172045960264" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.48924496758164415" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6009204847217932" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5531535154382103" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.14764946371845566" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.24482348827159583" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9219617584672366"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9743511848042523"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Quieter Boot 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>One of my PCs has a rather unique boot sequence:</p>
+
+<ol>
+<li><p><a href="http://www.syslinux.org">Syslinux</a>, from an SD card and configured to chain
+load the next stage.</p></li>
+<li><p>A pre-boot environment, <a href="http://www.freedos.org">FreeDOS</a>, from the SD card.
+The pre-boot environment does the following:</p>
+
+<ol>
+<li>Check if a USB stick is inserted. If there is one inserted, then continue
+to the next stage in the boot sequence. Otherwise...</li>
+<li>Display a message asking the user to insert the USB stick.</li>
+<li>Wait 20 seconds for the USB stick to be inserted.</li>
+<li>If the USB stick is inserted within those 20 seconds, then continue to
+the next stage in the boot sequence, but pass a flag indicating to boot
+into a maintenance mode. Otherwise...</li>
+<li>Go to a DOS prompt.</li>
+</ol>
+
+<p>FreeDOS makes a great pre-boot environment - it&#39;s super fast to boot, very
+small and you don&#39;t have to faff about producing custom initrds. I used
+<a href="http://bretjohnson.us">Bret Johnson</a>&#39;s USBDOS drivers to do the USB stick
+detection.</p></li>
+<li><p><a href="http://www.solemnwarning.net/kexec-loader/">kexec-loader</a>, from the SD card
+(via <a href="http://busybox.net/%7Evda/linld/">Linld</a>) and configured to boot the next
+stage from the USB stick. I used kexec-loader here because it contains
+USB 2.0 drivers, so loading the next stage is much faster than using the
+BIOS&#39;s legacy emulation mode.</p></li>
+<li><p>The fantastic <a href="http://distro.ibiblio.org/tinycorelinux/welcome.html">Tiny Core Linux</a>,
+from the USB stick, booting into X with some custom extensions.</p></li>
+</ol>
+
+<p>Now, this all works well but I wanted to reduce the copious level of noise
+(messages) displayed while booting to a minimum.</p>
+
+<h2 id="toc_0">Syslinux</h2>
+
+<p>Syslinux itself makes some noise. I had to <a href="https://gist.github.com/3748363#file_syslinux_4.03.patch">patch</a> it to make it quiet. You can see the patch is mostly about supressing
+<strong>puts</strong> and <strong>printf</strong>. You can also see that the copyright notice is still
+displayed.</p>
+
+<p>I also added some new control codes to Syslinux display files:</p>
+
+<ul>
+<li><p><strong>STX</strong> (\002): Home the cursor without clearing the screen.
+I found this useful if I displayed a message in the centre of the screen.
+Any text that was displayed afterwards was less likely to cause the screen
+to scroll.</p></li>
+<li><p><strong>SOH</strong> (\001): Hide the cursor.
+Useful for a completely black screen.</p></li>
+<li><p><strong>ETX</strong> (\003): Change palette register 1 (normally blue) to bright white,
+using <a href="http://webpages.charter.net/danrollins/techhelp/0137.HTM">INT 10H 1000H</a>.</p></li>
+</ul>
+
+<p>In the end I used just <strong>ETX</strong> in my Syslinux display file.</p>
+
+<h2 id="toc_1">FreeDOS</h2>
+
+<p>Confession: I didn&#39;t bother supressing messages in FreeDOS. Therefore, the
+FreeDOS copyright notice was displayed momentarily until the next stage.
+If you want to remove this notice, you&#39;ll have to patch FreeDOS and recompile
+from source.</p>
+
+<p>I did use <a href="http://help.fdos.org/en/hhstndrd/base/nansi.htm">nansi.sys</a>
+to display a greeting message in blue before starting kexec-loader with Linld:</p>
+
+<pre><code>echo ESC[34mWelcome!ESC[0m
+linld image=vmlinux initrd=initrd.img ...
+</code></pre>
+
+<p>(Note: you&#39;ll need to get the literal ESC character into your bat file,
+e.g. using ^V in Vim and then pressing the Escape key).</p>
+
+<p>Of course, since we used <strong>ETX</strong> in the Syslinux display file, this message
+was actually shown in bright white.</p>
+
+<h2 id="toc_2">kexec-loader</h2>
+
+<p>To hide all further messages until X starts, I passed the following kernel
+parameters to kexec-loader using Linld:</p>
+
+<pre><code>quiet
+console=tty2
+vt.default_blu=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_grn=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_red=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+</code></pre>
+
+<p><strong>quiet</strong> hides most kernel log messages, but unfortunately not all of them -
+as the <a href="http://www.kernel.org/doc/Documentation/kernel-parameters.txt">description</a> of this parameter says:</p>
+
+<blockquote>
+<p><strong>quiet</strong>&nbsp;&nbsp;&nbsp;&nbsp;[KNL] Disable most log messages</p>
+</blockquote>
+
+<p><strong>console=tty2</strong> makes all kexec-loader&#39;s kernel messages go to tty2 - i.e. they
+are hidden because tty1 is shown by default.</p>
+
+<p>The <strong>vt.default_*</strong> parameters change the Linux kernel&#39;s console palette.
+As you can see, I set every colour in the palette to black, <em>except</em> palette
+colour 4. This hid all messages except for those displayed using palette number
+4.</p>
+
+<p>The Linux kernel&#39;s console palette is in a <a href="http://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=blob;f=drivers/tty/vt/vt.c#l1045">different order</a>
+to <strong>INT 10H</strong>&#39;s:</p>
+
+<pre><code>unsigned char color_table[] = { 0, 4, 2, 6, 1, 5, 3, 7,
+                                       8,12,10,14, 9,13,11,15 };
+</code></pre>
+
+<p>Palette colour 4 here corresponds to <strong>INT 10H</strong>&#39;s palette register 1 (i.e.
+normally blue). So the effect of this is to hide everything except the
+<strong>Welcome!</strong> message we displayed in the FreeDOS pre-boot environment.</p>
+
+<h2 id="toc_3">Tiny Core Linux</h2>
+
+<p>To keep Tiny Core Linux quiet, I got kexec-loader to boot it with these
+parameters:</p>
+
+<pre><code>quiet
+vt.default_blu=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_grn=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_red=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+</code></pre>
+
+<p>I repeated <strong>vt.default_*</strong> because otherwise the Linux kernel resets the
+palette to the default colours.</p>
+
+<p>I didn&#39;t boot with <strong>console=tty2</strong> because I wanted the flexibility to display
+messages later in the boot process.</p>
+
+<h2 id="toc_4">Summary</h2>
+
+<p>My goal was to reduce the amount of noise during boot for a PC booting from
+Syslinux into FreeDOS then (via Linld) from kexec-loader into Tiny Core Linux.</p>
+
+<ul>
+<li>I patched Syslinux to remove all messages apart from the copyright one.</li>
+<li>I patched Syslinux with an extra display file control code to turn the blue
+palette register into bright white.</li>
+<li>I displayed a welcome message in FreeDOS using this colour.</li>
+<li>I started kexec-loader with options to turn all except this colour into black.</li>
+<li>I did the same when starting Tiny Core Linux.</li>
+</ul>
+
+<p>The effect of this is that the following are shown before kexec-loader starts:</p>
+
+<ol>
+<li>The BIOS blurb.</li>
+<li>The Syslinux copyright message.</li>
+<li>The FreeDOS copyright message.</li>
+<li>The welcome message.</li>
+</ol>
+
+<p>After kexec-loader starts, and until X comes up, only the welcome message is
+displayed.</p>
+
+<p>If you wanted to do more, you could clear the screen in the Syslinux display
+file and remove the copyright messages from Syslinux and FreeDOS.</p>
+
+    <hr>
+    <div class="pagination btn-group">
+        <a class="btn disabled prev">&larr; Previous</a>
+
+        <a class="btn" href="">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2012-09-16</span></div>
+    </section>
+
+    <section>
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#boot-ref">boot <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#syslinux-ref">syslinux <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#freedos-ref">freedos <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#usb-ref">usb <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#kexec-loader-ref">kexec-loader <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#tinycorelinux-ref">tinycorelinux <span>1</span></a>
+          </li>      </ul>
+    </section>
+
+    <section>
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls</a><span class="icon-envelope icon-white"></span> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

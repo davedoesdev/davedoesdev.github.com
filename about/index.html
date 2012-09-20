@@ -2,22 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>About Me</title>
+    <title>About Me - Dave Does Dev</title>
     <meta name="author" content="David Halls">
 
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4671110665131891" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.671274062663193" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.04974823326614308" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9760996946499525" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.14183337264754325" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7968921633742528" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7748686945259037" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9822327223983734" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8759054077838437" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.21286460311741529" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.008345879803174028" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2806821269604809" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.23550116484264838"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.31998173113993555"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4353856577970503"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.666050467235652"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,20 +58,40 @@
                   <li><a href="/pages">Pages</a></li>
                   <li class="active"><a href="/about" class="active">About Me</a></li>
                 
-            </ul>
-            <ul class="nav pull-right social">
-              <li class="divider-vertical"></li>
                 <li>
-                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_blank"></a>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
                 </li>
                 <li>
-                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_blank"></a>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
                 </li>
                 <li>
-                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_blank"></a>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
                 </li>
               <li>
-                <a href="/rss.xml" class="zocial rss icon" target="_blank"></a>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -89,7 +109,17 @@
 
 <div class="row">
   <div class="span12">
-    <p>Hello, how are you?</p>
+    <p>In 1982, Dad bought me a Spectrum and I&#39;ve been programming ever since. Went to University, got a job.</p>
+
+<p>This blog is about bits and bobs I&#39;ve been doing. Hopefully it&#39;ll all lead
+somewhere interesting.</p>
+
+<p>Feel free to <a href="mailto:dave@davedoesdev.com">get in touch</a> and check out
+what I&#39;m <a href="http://www.linkedin.com/in/dhalls">doing for my day job</a>.
+Check out the source to this blog <a href="https://www.github.com/davedoesdev">on github</a>. Maybe in the future I&#39;ll put some real projects up there. I might
+even <a href="http://www.twitter.com/davedoesdev">start tweeting</a>.</p>
+
+<p>If you <em>really</em> like my posts, why not <a href="/rss.xml">subscribe to the RSS feed</a>?</p>
 
   </div>
 </div>
@@ -97,11 +127,12 @@
       </div>
 
       <footer>
-        <p>&copy; David Halls 2012 
-          with help from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
-          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls</a><span class="icon-envelope icon-white"></span> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
         </p>
-        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_blank">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_blank">commenting</a></p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
       </footer>
     </div> <!-- /container -->
 
@@ -122,7 +153,7 @@ clicky_site_ids.push(66642016);
 <script>
   var pres = document.getElementsByTagName("pre");
   for (var i=0; i < pres.length; ++i) {
-    pres[i].className = "prettyprint linenums";
+    pres[i].className = "prettyprint ";
   }
   prettyPrint();
 </script>

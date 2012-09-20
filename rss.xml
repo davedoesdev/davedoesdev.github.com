@@ -3,31 +3,31 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://sample.com</link>
-    <pubDate>2012-09-16 10:05:24 +0100</pubDate>
+    <pubDate>2012-09-20 22:15:47 +0100</pubDate>
     <item>
-      <title>testing</title>
-      <link>http://sample.com/testing</link>
-      <pubDate>2012-09-13</pubDate>
+      <title>Quieter Boot</title>
+      <link>http://sample.com/quieter-boot</link>
+      <pubDate>2012-09-16</pubDate>
       <description>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;testing&lt;/title&gt;
+    &lt;title&gt;Quieter Boot - Dave Does Dev&lt;/title&gt;
     &lt;meta name="author" content="David Halls"&gt;
 
     &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.646338374662678" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2216367325989197" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.297169064493922" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5123764076067967" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?body=1?0.18248264303977113" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7786653505678925" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6737865438824514" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.19897494376738756" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.21023665243373546" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7860152747544683" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9911095115569724" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.984519608276181" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5919527587831042"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.43459577079252265"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9150818554020087"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5286227791091541"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -68,20 +68,40 @@
                   &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
                 
                   &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;ul class="nav pull-right social"&gt;
-              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
                 &lt;li&gt;
-                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_blank"&gt;&lt;/a&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
                 &lt;/li&gt;
                 &lt;li&gt;
-                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_blank"&gt;&lt;/a&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
                 &lt;/li&gt;
                 &lt;li&gt;
-                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_blank"&gt;&lt;/a&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
                 &lt;/li&gt;
               &lt;li&gt;
-                &lt;a href="/rss.xml" class="zocial rss icon" target="_blank"&gt;&lt;/a&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
               &lt;/li&gt;
             &lt;/ul&gt;
           &lt;/div&gt;
@@ -93,13 +113,171 @@
       &lt;div class="content"&gt;
         &lt;div class="page-header"&gt;
   &lt;h1&gt;
-    testing 
+    Quieter Boot 
   &lt;/h1&gt;
 &lt;/div&gt;
 
 &lt;div class="row"&gt;
   &lt;div class="span8"&gt;
-    &lt;p&gt;hi there&lt;/p&gt;
+    &lt;p&gt;One of my PCs has a rather unique boot sequence:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="http://www.syslinux.org"&gt;Syslinux&lt;/a&gt;, from an SD card and configured to chain
+load the next stage.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A pre-boot environment, &lt;a href="http://www.freedos.org"&gt;FreeDOS&lt;/a&gt;, from the SD card.
+The pre-boot environment does the following:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Check if a USB stick is inserted. If there is one inserted, then continue
+to the next stage in the boot sequence. Otherwise...&lt;/li&gt;
+&lt;li&gt;Display a message asking the user to insert the USB stick.&lt;/li&gt;
+&lt;li&gt;Wait 20 seconds for the USB stick to be inserted.&lt;/li&gt;
+&lt;li&gt;If the USB stick is inserted within those 20 seconds, then continue to
+the next stage in the boot sequence, but pass a flag indicating to boot
+into a maintenance mode. Otherwise...&lt;/li&gt;
+&lt;li&gt;Go to a DOS prompt.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;FreeDOS makes a great pre-boot environment - it&amp;#39;s super fast to boot, very
+small and you don&amp;#39;t have to faff about producing custom initrds. I used
+&lt;a href="http://bretjohnson.us"&gt;Bret Johnson&lt;/a&gt;&amp;#39;s USBDOS drivers to do the USB stick
+detection.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="http://www.solemnwarning.net/kexec-loader/"&gt;kexec-loader&lt;/a&gt;, from the SD card
+(via &lt;a href="http://busybox.net/%7Evda/linld/"&gt;Linld&lt;/a&gt;) and configured to boot the next
+stage from the USB stick. I used kexec-loader here because it contains
+USB 2.0 drivers, so loading the next stage is much faster than using the
+BIOS&amp;#39;s legacy emulation mode.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The fantastic &lt;a href="http://distro.ibiblio.org/tinycorelinux/welcome.html"&gt;Tiny Core Linux&lt;/a&gt;,
+from the USB stick, booting into X with some custom extensions.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, this all works well but I wanted to reduce the copious level of noise
+(messages) displayed while booting to a minimum.&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;Syslinux&lt;/h2&gt;
+
+&lt;p&gt;Syslinux itself makes some noise. I had to &lt;a href="https://gist.github.com/3748363#file_syslinux_4.03.patch"&gt;patch&lt;/a&gt; it to make it quiet. You can see the patch is mostly about supressing
+&lt;strong&gt;puts&lt;/strong&gt; and &lt;strong&gt;printf&lt;/strong&gt;. You can also see that the copyright notice is still
+displayed.&lt;/p&gt;
+
+&lt;p&gt;I also added some new control codes to Syslinux display files:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;STX&lt;/strong&gt; (\002): Home the cursor without clearing the screen.
+I found this useful if I displayed a message in the centre of the screen.
+Any text that was displayed afterwards was less likely to cause the screen
+to scroll.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SOH&lt;/strong&gt; (\001): Hide the cursor.
+Useful for a completely black screen.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ETX&lt;/strong&gt; (\003): Change palette register 1 (normally blue) to bright white,
+using &lt;a href="http://webpages.charter.net/danrollins/techhelp/0137.HTM"&gt;INT 10H 1000H&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the end I used just &lt;strong&gt;ETX&lt;/strong&gt; in my Syslinux display file.&lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;FreeDOS&lt;/h2&gt;
+
+&lt;p&gt;Confession: I didn&amp;#39;t bother supressing messages in FreeDOS. Therefore, the
+FreeDOS copyright notice was displayed momentarily until the next stage.
+If you want to remove this notice, you&amp;#39;ll have to patch FreeDOS and recompile
+from source.&lt;/p&gt;
+
+&lt;p&gt;I did use &lt;a href="http://help.fdos.org/en/hhstndrd/base/nansi.htm"&gt;nansi.sys&lt;/a&gt;
+to display a greeting message in blue before starting kexec-loader with Linld:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo ESC[34mWelcome!ESC[0m
+linld image=vmlinux initrd=initrd.img ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(Note: you&amp;#39;ll need to get the literal ESC character into your bat file,
+e.g. using ^V in Vim and then pressing the Escape key).&lt;/p&gt;
+
+&lt;p&gt;Of course, since we used &lt;strong&gt;ETX&lt;/strong&gt; in the Syslinux display file, this message
+was actually shown in bright white.&lt;/p&gt;
+
+&lt;h2 id="toc_2"&gt;kexec-loader&lt;/h2&gt;
+
+&lt;p&gt;To hide all further messages until X starts, I passed the following kernel
+parameters to kexec-loader using Linld:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;quiet
+console=tty2
+vt.default_blu=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_grn=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_red=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;quiet&lt;/strong&gt; hides most kernel log messages, but unfortunately not all of them -
+as the &lt;a href="http://www.kernel.org/doc/Documentation/kernel-parameters.txt"&gt;description&lt;/a&gt; of this parameter says:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;quiet&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[KNL] Disable most log messages&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;console=tty2&lt;/strong&gt; makes all kexec-loader&amp;#39;s kernel messages go to tty2 - i.e. they
+are hidden because tty1 is shown by default.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;vt.default_*&lt;/strong&gt; parameters change the Linux kernel&amp;#39;s console palette.
+As you can see, I set every colour in the palette to black, &lt;em&gt;except&lt;/em&gt; palette
+colour 4. This hid all messages except for those displayed using palette number
+4.&lt;/p&gt;
+
+&lt;p&gt;The Linux kernel&amp;#39;s console palette is in a &lt;a href="http://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=blob;f=drivers/tty/vt/vt.c#l1045"&gt;different order&lt;/a&gt;
+to &lt;strong&gt;INT 10H&lt;/strong&gt;&amp;#39;s:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;unsigned char color_table[] = { 0, 4, 2, 6, 1, 5, 3, 7,
+                                       8,12,10,14, 9,13,11,15 };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Palette colour 4 here corresponds to &lt;strong&gt;INT 10H&lt;/strong&gt;&amp;#39;s palette register 1 (i.e.
+normally blue). So the effect of this is to hide everything except the
+&lt;strong&gt;Welcome!&lt;/strong&gt; message we displayed in the FreeDOS pre-boot environment.&lt;/p&gt;
+
+&lt;h2 id="toc_3"&gt;Tiny Core Linux&lt;/h2&gt;
+
+&lt;p&gt;To keep Tiny Core Linux quiet, I got kexec-loader to boot it with these
+parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;quiet
+vt.default_blu=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_grn=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+vt.default_red=0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I repeated &lt;strong&gt;vt.default_*&lt;/strong&gt; because otherwise the Linux kernel resets the
+palette to the default colours.&lt;/p&gt;
+
+&lt;p&gt;I didn&amp;#39;t boot with &lt;strong&gt;console=tty2&lt;/strong&gt; because I wanted the flexibility to display
+messages later in the boot process.&lt;/p&gt;
+
+&lt;h2 id="toc_4"&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;My goal was to reduce the amount of noise during boot for a PC booting from
+Syslinux into FreeDOS then (via Linld) from kexec-loader into Tiny Core Linux.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I patched Syslinux to remove all messages apart from the copyright one.&lt;/li&gt;
+&lt;li&gt;I patched Syslinux with an extra display file control code to turn the blue
+palette register into bright white.&lt;/li&gt;
+&lt;li&gt;I displayed a welcome message in FreeDOS using this colour.&lt;/li&gt;
+&lt;li&gt;I started kexec-loader with options to turn all except this colour into black.&lt;/li&gt;
+&lt;li&gt;I did the same when starting Tiny Core Linux.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The effect of this is that the following are shown before kexec-loader starts:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The BIOS blurb.&lt;/li&gt;
+&lt;li&gt;The Syslinux copyright message.&lt;/li&gt;
+&lt;li&gt;The FreeDOS copyright message.&lt;/li&gt;
+&lt;li&gt;The welcome message.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;After kexec-loader starts, and until X comes up, only the welcome message is
+displayed.&lt;/p&gt;
+
+&lt;p&gt;If you wanted to do more, you could clear the screen in the Syslinux display
+file and remove the copyright messages from Syslinux and FreeDOS.&lt;/p&gt;
 
     &lt;hr&gt;
     &lt;div class="pagination btn-group"&gt;
@@ -127,24 +305,46 @@
   &lt;/div&gt;
   
   &lt;div class="span4"&gt;
-    &lt;h4&gt;Published&lt;/h4&gt;
-    &lt;div class="date"&gt;&lt;span&gt;2012-09-13&lt;/span&gt;&lt;/div&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2012-09-16&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
 
-    &lt;h4&gt;Tags&lt;/h4&gt;
-    &lt;ul class="tag_box"&gt;
-    &lt;/ul&gt;
-    
+    &lt;section&gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#boot-ref"&gt;boot &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#syslinux-ref"&gt;syslinux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#freedos-ref"&gt;freedos &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#usb-ref"&gt;usb &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#kexec-loader-ref"&gt;kexec-loader &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#tinycorelinux-ref"&gt;tinycorelinux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; David Halls 2012 
-          with help from &lt;a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;
-          and &lt;a href="http://twitter.github.com/bootstrap/" target="_blank"&gt;Twitter Bootstrap&lt;/a&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;/a&gt;&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt; 2012 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
         &lt;/p&gt;
-        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_blank"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_blank"&gt;commenting&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
       &lt;/footer&gt;
     &lt;/div&gt; &lt;!-- /container --&gt;
 
@@ -165,7 +365,7 @@ clicky_site_ids.push(66642016);
 &lt;script&gt;
   var pres = document.getElementsByTagName("pre");
   for (var i=0; i &lt; pres.length; ++i) {
-    pres[i].className = "prettyprint linenums";
+    pres[i].className = "prettyprint ";
   }
   prettyPrint();
 &lt;/script&gt;
