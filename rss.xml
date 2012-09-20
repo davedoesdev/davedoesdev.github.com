@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://sample.com</link>
-    <pubDate>2012-09-20 22:15:47 +0100</pubDate>
+    <pubDate>2012-09-20 22:25:25 +0100</pubDate>
     <item>
       <title>Quieter Boot</title>
       <link>http://sample.com/quieter-boot</link>
@@ -19,15 +19,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6737865438824514" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.19897494376738756" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.21023665243373546" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7860152747544683" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9911095115569724" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.984519608276181" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8933137871297229" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.0786723190957539" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.0870398689894889" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7428234928464114" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.527834901933874" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5734619527899001" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9150818554020087"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5286227791091541"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8855868212397053"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6888219617734077"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -339,7 +339,7 @@ file and remove the copyright messages from Syslinux and FreeDOS.&lt;/p&gt;
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;/a&gt;&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
