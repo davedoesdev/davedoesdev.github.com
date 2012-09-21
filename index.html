@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8306598075078047" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.34214105546059514" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.30357381810571926" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.450734455870753" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.08524425034840533" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8276918542351126" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7410039229344063" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9499198631947369" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.739466199901282" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11161362802967212" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.3861813577607298" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.35079598378713095" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.41712980469701"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2332852825434738"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7521152666291074"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6249049244986933"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,18 +103,26 @@
       <div class="content">
         <div class="page-header-wrapper">
   <div class="page-header">
-      <h1>Welcome </h1>
+      <h1>Welcome  <small>this is my blog</small></h1>
     </div>
 </div>
 
 <div class="row">
   <div class="span12">
-    <p>
-This is my blog. I hope you enjoy reading it.
-</p>
+    <h2>Latest Posts</h2>
 
-<h2>Latest Posts</h2>
+<div class="post">
+  <h3 class="title"><a href="/old-skool-splash">Old Skool Splash</a> <span class="date">2012-09-20</span></h3>
 
+  <p>include:
+how to make lss16 image
+how I run and stop zgv in startup script</p>
+
+
+  <div class="more">
+    <a href="/old-skool-splash" class="btn">read more..</a>
+  </div>
+</div>
 <div class="post">
   <h3 class="title"><a href="/quieter-boot">Quieter Boot</a> <span class="date">2012-09-16</span></h3>
 
@@ -134,18 +142,7 @@ to the next stage in the boot sequence. Otherwise...</li>
 <li>If the USB stick is inserted within those 20 seconds, then continue to
 the next stage in the boot sequence, but pass a flag indicating to boot
 into a maintenance mode. Otherwise...</li>
-<li>Go to a DOS prompt.</li>
-</ol>
-
-<p>FreeDOS makes a great pre-boot environment - it&#39;s super fast to boot, very
-small and you don&#39;t have to faff about producing custom initrds. I used
-<a href="http://bretjohnson.us">Bret Johnson</a>&#39;s USBDOS drivers to do the USB stick
-detection.</p></li>
-<li><p><a href="http://www.solemnwarning.net/kexec-loader/">kexec-loader</a>, from the SD card
-(via <a href="http://busybox.net/%7Evda/linld/">Linld</a>) and configured to boot the next
-stage from the USB stick. I used kexec-loader here because it contains
-USB 2.0 drivers, so loading the next stage is much faster than using the
-BIOS&#39;s legacy emulation mode.</p></li>
+</ol></li>
 </ol>
 
 
