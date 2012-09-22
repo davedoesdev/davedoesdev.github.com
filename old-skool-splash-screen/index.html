@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Old Skool Splash Screen - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9571057797103838" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.29725086564563785" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4455743317395555" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.36843642674516996" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.2710464874216858" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.22187816760327583" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.34031509340850186"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9015253172358596"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Old Skool Splash Screen 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>After I <a href="/quieter-boot">got rid of most boot messages</a>, I wanted to display a
+splash screen.</p>
+
+<p><a href="http://www.syslinux.org">Syslinux</a> can show a splash screen but it doesn&#39;t stay around until X starts.
+I could have taken the easy route and put <a href="https://launchpad.net/usplash">Usplash</a>
+or <a href="http://alioth.debian.org/projects/splashy/">Splashy</a> into <a href="http://distro.ibiblio.org/tinycorelinux/">Tiny Core Linux</a>
+on my USB stick.</p>
+
+<p>But no! I took another route. I decided to use
+<a href="http://www.svgalib.org/rus/zgv/">Zgv</a>. Zgv is an <a href="http://www.svgalib.org">SVGAlib</a>-based image viewer,
+so it runs on the Linux console. Feed it an image early on in the Tiny
+Core <strong>init.d</strong> scripts and voila, a splash screen!</p>
+
+<h2 id="toc_0">SVGALib</h2>
+
+<p>It wasn&#39;t all plain sailing though. The first thing was to get SVGAlib compiling
+on a modern Linux distribution (let&#39;s assume Ubuntu here). Of course, I had
+to make some <a href="https://gist.github.com/3764135#file_svgalib_1.4.3.patch">patches</a>. There wasn&#39;t much to
+fix:</p>
+
+<ul>
+<li><p>Only build static libraries. I didn&#39;t need to use SVGAlib with anything else
+on Tiny Core Linux.</p></li>
+<li><p>Don&#39;t bother with assembly optimizations.</p></li>
+<li><p>Various type, macro and syntax changes - probably due to a tightening-up of
+compiler rules.</p></li>
+</ul>
+
+<h2 id="toc_1">Zgv</h2>
+
+<p>I also <a href="https://gist.github.com/3767626#file_zgv_5.9.patch">patched</a> Zgv - not to fix compile errors, but to:</p>
+
+<ul>
+<li><p>Support <a href="http://www.syslinux.org/wiki/index.php/SYSLINUX#Display_graphic_from_filename:">LSS16</a>
+image files. LSS16 is an arbitrary format which Syslinux supports for
+displaying splash screens. I wanted to use the same files in Syslinux later
+on if I wanted to.</p>
+
+<p>I implemented the main logic for loading LSS16
+images as separate <a href="https://gist.github.com/3767626#file_readlss16.c">source</a>
+and <a href="https://gist.github.com/3767626#file_readlss16.h">header</a> files.</p></li>
+<li><p>Remove support for JPEG, PNG and TIFF images in Zgv. I didn&#39;t need these
+libraries so it was pointless to add them to Tiny Core Linux and load them
+from the USB stick.</p></li>
+<li><p>Add support for 640 x 480 x 16 colours <a href="http://en.wikipedia.org/wiki/Planar_(computer_graphics)">planar</a> VGA mode. </p>
+
+<p>SVGALib&#39;s <strong>vga_getmodeinfo</strong> returns 0 bytes per pixel for planar VGA modes.
+For my graphics adapter it was only returning one 640 x 480 mode, and it was
+planar.</p>
+
+<p>Since I was only going to be using this mode for 640 x 480, I made a hack
+and changed only the graphics mode selection algorithm. From the patch:</p>
+
+<pre><code>+  if(bpp==4) bytepp=0; else bytepp=(bpp+7)/8;</code></pre></li>
+<li><p>Don&#39;t dither LSS16 images to 16 colours! In 16 colour mode, Zgv dithers
+images, even if they have 16 colours or less. It defines its own palette
+and maps the image onto it. Obviously, it&#39;s better to use the 16 colours in
+the image itself.</p></li>
+<li><p>Fix a SEGV, caused by not setting a global (<strong>image_palette</strong>).</p></li>
+</ul>
+
+<h2 id="toc_2">Making LSS16 files</h2>
+
+<p>I created my splash screen in <a href="http://inkscape.org">Inkscape</a> as a vector
+graphic, <strong>splash.svg</strong>. Here&#39;s the script I used for creating a LSS16 file,
+<strong>splash.rle</strong>, from it:</p>
+
+<pre><code>inkscape -e splash-pic.png -w 300 -h 300 -b &#39;#000000&#39; splash.svg
+convert splash-pic.png \
+        -bordercolor &#39;#000000&#39; \
+        -border 170x40 \
+        -gravity north \
+        -background &#39;#000000&#39; \
+        -extend 640x480 \
+        -gravity south \
+        -fill &#39;#ffffff&#39; \
+        -pointsize 30 \
+        -annotate +0+50 &#39;Almost there, just a few moments...&#39; \
+        splash.png
+convert splash.png -colors 16 splash.ppm
+ppmtolss16 &#39;#000000=0&#39; &#39;#ffffff=7&#39; &lt; splash.ppm &gt; splash.rle
+</code></pre>
+
+<p>In other words:</p>
+
+<ol>
+<li><p>Export the file from Inkscape, 300 x 300 on black background.</p></li>
+<li><p>Use <a href="http://www.imagemagick.org">ImageMagick</a> to:</p>
+
+<ol>
+<li>Add a border around the image - 40px of space at the top and extending
+the width to 640px by adding 170px either side.</li>
+<li>Extend the height of the image to 480px.</li>
+<li>Add a message 50px from the bottom of the image.</li>
+</ol></li>
+<li><p>Use ImageMagick to convert the image to 16 color PPM format.</p></li>
+<li><p>Use <strong>ppmtolss16</strong> to convert the PPM image to LSS16 format. <strong>ppmtolss16</strong> comes with Syslinux. 
+The <strong>.rle</strong> extension because LSS16 uses run-length encoding compression.</p>
+
+<p>Note how I set the background colour to index 0 and the foreground color to
+index 7. Zgv doesn&#39;t treat these indices as special, but Syslinux sets the
+console&#39;s text foreground and background to the colours at these indices.</p></li>
+</ol>
+
+<h2 id="toc_3">Displaying the Splash Screen in Tiny Core</h2>
+
+<p>Finally, we need to call Zgv to display the image while Tiny Core Linux is
+loading. I do this by putting the following at the start of
+<strong>/etc/init.d/tc-config</strong>:</p>
+
+<pre><code>[ -f /proc/cmdline ] || /bin/mount /proc
+if grep -q quiet /proc/cmdline
+then
+  echo -en &quot;\033[2J\033[1;1H&quot;
+  exec &gt; /dev/null
+  if ! ps -o comm | grep zgv
+  then
+    sh -c &quot;zgv -p -m \&quot;640 480 4\&quot; --viewer-16col-colour /usr/share/splash.rle &amp;&quot;
+  fi
+fi
+</code></pre>
+
+<p>This clears the screen, homes the cursor, redirects output from the
+script to <strong>/dev/null</strong> and then runs Zgv. <strong>-p</strong> hides the loading progress
+bar. <strong>-m</strong> selects the display mode to 640 x 480 x 4 bits per pixel.
+<strong>--viewer-16col-colour</strong> seems a bit superfluous given that it knows there
+are 4 bits per pixel, but Zgv needs it anyway.</p>
+
+<p>To stop Zgv before X loads, I put the following at the end of
+<strong>/etc/init.d/tc-config</strong>:</p>
+
+<pre><code>if grep -q quiet /proc/cmdline
+then
+  sudo killall -INT zgv
+  while ps -o comm | grep zgv; do sleep 1; done
+fi
+</code></pre>
+
+<p>Note I only run Zgv if <strong>quiet</strong> was passed as a kernel boot parameter.</p>
+
+<p>You might want to <a href="http://wiki.tinycorelinux.net/wiki:remastering">remaster</a>
+your Tiny Core image to put these changes in.</p>
+
+    <hr>
+    <div class="pagination btn-group">
+        <a class="btn prev" href="/quieter-boot" title="Quieter Boot">&larr; Previous</a>
+
+        <a class="btn" href="">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2012-09-22</span></div>
+    </section>
+
+    <section>
+      <h4>Tags</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section>
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

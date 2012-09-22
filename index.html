@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7410039229344063" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9499198631947369" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.739466199901282" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11161362802967212" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.3861813577607298" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.35079598378713095" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3082822832966178" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.003904796193338833" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.32622363840804025" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6982979091694278" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.23977223913626766" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9968823064872294" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7521152666291074"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6249049244986933"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8359731072619679"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6772073399269052"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,15 +112,24 @@
     <h2>Latest Posts</h2>
 
 <div class="post">
-  <h3 class="title"><a href="/old-skool-splash">Old Skool Splash</a> <span class="date">2012-09-20</span></h3>
+  <h3 class="title"><a href="/old-skool-splash-screen">Old Skool Splash Screen</a> <span class="date">2012-09-22</span></h3>
 
-  <p>include:
-how to make lss16 image
-how I run and stop zgv in startup script</p>
+  <p>After I <a href="/quieter-boot">got rid of most boot messages</a>, I wanted to display a
+splash screen.</p>
+
+<p><a href="http://www.syslinux.org">Syslinux</a> can show a splash screen but it doesn&#39;t stay around until X starts.
+I could have taken the easy route and put <a href="https://launchpad.net/usplash">Usplash</a>
+or <a href="http://alioth.debian.org/projects/splashy/">Splashy</a> into <a href="http://distro.ibiblio.org/tinycorelinux/">Tiny Core Linux</a>
+on my USB stick.</p>
+
+<p>But no! I took another route. I decided to use
+<a href="http://www.svgalib.org/rus/zgv/">Zgv</a>. Zgv is an <a href="http://www.svgalib.org">SVGAlib</a>-based image viewer,
+so it runs on the Linux console. Feed it an image early on in the Tiny
+Core <strong>init.d</strong> scripts and voila, a splash screen!</p>
 
 
   <div class="more">
-    <a href="/old-skool-splash" class="btn">read more..</a>
+    <a href="/old-skool-splash-screen" class="btn">read more..</a>
   </div>
 </div>
 <div class="post">

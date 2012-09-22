@@ -262,10 +262,10 @@ strong {
   padding-bottom: 5px; }
 .content ol ol {
   list-style: lower-roman; }
-.content ul ul li,
-.content ul ol li,
-.content ol ul li,
-.content ol ol li {
+.content ul ul li:not(:last-child),
+.content ul ol li:not(:last-child),
+.content ol ul li:not(:last-child),
+.content ol ol li:not(:last-child) {
   padding-bottom: 10px; }
 
 a.btn:hover, a.btn.disabled:hover {
@@ -276,3 +276,18 @@ a.btn:hover, a.btn.disabled:hover {
 
 .post > .title::before {
   content: "> "; }
+
+.post > .title {
+  padding-bottom: 5px; }
+
+ul, ol {
+  margin-bottom: 0px; }
+
+h1, h2 {
+  margin-top: 15px; }
+
+h1:first-child, h2:first-child {
+  margin-top: 0px; }
+
+pre.prettyprint {
+  margin-top: 18px; }

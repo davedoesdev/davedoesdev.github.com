@@ -3,31 +3,31 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-09-21 09:16:43 +0100</pubDate>
+    <pubDate>2012-09-22 22:50:07 +0100</pubDate>
     <item>
-      <title>Old Skool Splash</title>
-      <link>http://www.davedoesdev.com/old-skool-splash</link>
-      <pubDate>2012-09-20</pubDate>
+      <title>Old Skool Splash Screen</title>
+      <link>http://www.davedoesdev.com/old-skool-splash-screen</link>
+      <pubDate>2012-09-22</pubDate>
       <description>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;Old Skool Splash - Dave Does Dev&lt;/title&gt;
+    &lt;title&gt;Old Skool Splash Screen - Dave Does Dev&lt;/title&gt;
     &lt;meta name="author" content="David Halls"&gt;
 
     &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.639594160666584" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.547252408674767" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.25538721600044034" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7730758309137707" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6412172015105577" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5080710024289294" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.697105470316817" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4761504133111133" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4933187507177055" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5930618004205448" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.036814494459029734" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3702226645364344" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2912626680113872"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.46738672757983035"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6870672351366315"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6725827446433219"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -113,15 +113,154 @@
       &lt;div class="content"&gt;
         &lt;div class="page-header"&gt;
   &lt;h1&gt;
-    Old Skool Splash 
+    Old Skool Splash Screen 
   &lt;/h1&gt;
 &lt;/div&gt;
 
 &lt;div class="row"&gt;
   &lt;div class="span8"&gt;
-    &lt;p&gt;include:
-how to make lss16 image
-how I run and stop zgv in startup script&lt;/p&gt;
+    &lt;p&gt;After I &lt;a href="/quieter-boot"&gt;got rid of most boot messages&lt;/a&gt;, I wanted to display a
+splash screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.syslinux.org"&gt;Syslinux&lt;/a&gt; can show a splash screen but it doesn&amp;#39;t stay around until X starts.
+I could have taken the easy route and put &lt;a href="https://launchpad.net/usplash"&gt;Usplash&lt;/a&gt;
+or &lt;a href="http://alioth.debian.org/projects/splashy/"&gt;Splashy&lt;/a&gt; into &lt;a href="http://distro.ibiblio.org/tinycorelinux/"&gt;Tiny Core Linux&lt;/a&gt;
+on my USB stick.&lt;/p&gt;
+
+&lt;p&gt;But no! I took another route. I decided to use
+&lt;a href="http://www.svgalib.org/rus/zgv/"&gt;Zgv&lt;/a&gt;. Zgv is an &lt;a href="http://www.svgalib.org"&gt;SVGAlib&lt;/a&gt;-based image viewer,
+so it runs on the Linux console. Feed it an image early on in the Tiny
+Core &lt;strong&gt;init.d&lt;/strong&gt; scripts and voila, a splash screen!&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;SVGALib&lt;/h2&gt;
+
+&lt;p&gt;It wasn&amp;#39;t all plain sailing though. The first thing was to get SVGAlib compiling
+on a modern Linux distribution (let&amp;#39;s assume Ubuntu here). Of course, I had
+to make some &lt;a href="https://gist.github.com/3764135#file_svgalib_1.4.3.patch"&gt;patches&lt;/a&gt;. There wasn&amp;#39;t much to
+fix:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Only build static libraries. I didn&amp;#39;t need to use SVGAlib with anything else
+on Tiny Core Linux.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Don&amp;#39;t bother with assembly optimizations.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Various type, macro and syntax changes - probably due to a tightening-up of
+compiler rules.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="toc_1"&gt;Zgv&lt;/h2&gt;
+
+&lt;p&gt;I also &lt;a href="https://gist.github.com/3767626#file_zgv_5.9.patch"&gt;patched&lt;/a&gt; Zgv - not to fix compile errors, but to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Support &lt;a href="http://www.syslinux.org/wiki/index.php/SYSLINUX#Display_graphic_from_filename:"&gt;LSS16&lt;/a&gt;
+image files. LSS16 is an arbitrary format which Syslinux supports for
+displaying splash screens. I wanted to use the same files in Syslinux later
+on if I wanted to.&lt;/p&gt;
+
+&lt;p&gt;I implemented the main logic for loading LSS16
+images as separate &lt;a href="https://gist.github.com/3767626#file_readlss16.c"&gt;source&lt;/a&gt;
+and &lt;a href="https://gist.github.com/3767626#file_readlss16.h"&gt;header&lt;/a&gt; files.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Remove support for JPEG, PNG and TIFF images in Zgv. I didn&amp;#39;t need these
+libraries so it was pointless to add them to Tiny Core Linux and load them
+from the USB stick.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add support for 640 x 480 x 16 colours &lt;a href="http://en.wikipedia.org/wiki/Planar_(computer_graphics)"&gt;planar&lt;/a&gt; VGA mode. &lt;/p&gt;
+
+&lt;p&gt;SVGALib&amp;#39;s &lt;strong&gt;vga_getmodeinfo&lt;/strong&gt; returns 0 bytes per pixel for planar VGA modes.
+For my graphics adapter it was only returning one 640 x 480 mode, and it was
+planar.&lt;/p&gt;
+
+&lt;p&gt;Since I was only going to be using this mode for 640 x 480, I made a hack
+and changed only the graphics mode selection algorithm. From the patch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+  if(bpp==4) bytepp=0; else bytepp=(bpp+7)/8;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Don&amp;#39;t dither LSS16 images to 16 colours! In 16 colour mode, Zgv dithers
+images, even if they have 16 colours or less. It defines its own palette
+and maps the image onto it. Obviously, it&amp;#39;s better to use the 16 colours in
+the image itself.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Fix a SEGV, caused by not setting a global (&lt;strong&gt;image_palette&lt;/strong&gt;).&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="toc_2"&gt;Making LSS16 files&lt;/h2&gt;
+
+&lt;p&gt;I created my splash screen in &lt;a href="http://inkscape.org"&gt;Inkscape&lt;/a&gt; as a vector
+graphic, &lt;strong&gt;splash.svg&lt;/strong&gt;. Here&amp;#39;s the script I used for creating a LSS16 file,
+&lt;strong&gt;splash.rle&lt;/strong&gt;, from it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;inkscape -e splash-pic.png -w 300 -h 300 -b &amp;#39;#000000&amp;#39; splash.svg
+convert splash-pic.png \
+        -bordercolor &amp;#39;#000000&amp;#39; \
+        -border 170x40 \
+        -gravity north \
+        -background &amp;#39;#000000&amp;#39; \
+        -extend 640x480 \
+        -gravity south \
+        -fill &amp;#39;#ffffff&amp;#39; \
+        -pointsize 30 \
+        -annotate +0+50 &amp;#39;Almost there, just a few moments...&amp;#39; \
+        splash.png
+convert splash.png -colors 16 splash.ppm
+ppmtolss16 &amp;#39;#000000=0&amp;#39; &amp;#39;#ffffff=7&amp;#39; &amp;lt; splash.ppm &amp;gt; splash.rle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In other words:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Export the file from Inkscape, 300 x 300 on black background.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;a href="http://www.imagemagick.org"&gt;ImageMagick&lt;/a&gt; to:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add a border around the image - 40px of space at the top and extending
+the width to 640px by adding 170px either side.&lt;/li&gt;
+&lt;li&gt;Extend the height of the image to 480px.&lt;/li&gt;
+&lt;li&gt;Add a message 50px from the bottom of the image.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use ImageMagick to convert the image to 16 color PPM format.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;strong&gt;ppmtolss16&lt;/strong&gt; to convert the PPM image to LSS16 format. &lt;strong&gt;ppmtolss16&lt;/strong&gt; comes with Syslinux. 
+The &lt;strong&gt;.rle&lt;/strong&gt; extension because LSS16 uses run-length encoding compression.&lt;/p&gt;
+
+&lt;p&gt;Note how I set the background colour to index 0 and the foreground color to
+index 7. Zgv doesn&amp;#39;t treat these indices as special, but Syslinux sets the
+console&amp;#39;s text foreground and background to the colours at these indices.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id="toc_3"&gt;Displaying the Splash Screen in Tiny Core&lt;/h2&gt;
+
+&lt;p&gt;Finally, we need to call Zgv to display the image while Tiny Core Linux is
+loading. I do this by putting the following at the start of
+&lt;strong&gt;/etc/init.d/tc-config&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[ -f /proc/cmdline ] || /bin/mount /proc
+if grep -q quiet /proc/cmdline
+then
+  echo -en &amp;quot;\033[2J\033[1;1H&amp;quot;
+  exec &amp;gt; /dev/null
+  if ! ps -o comm | grep zgv
+  then
+    sh -c &amp;quot;zgv -p -m \&amp;quot;640 480 4\&amp;quot; --viewer-16col-colour /usr/share/splash.rle &amp;amp;&amp;quot;
+  fi
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This clears the screen, homes the cursor, redirects output from the
+script to &lt;strong&gt;/dev/null&lt;/strong&gt; and then runs Zgv. &lt;strong&gt;-p&lt;/strong&gt; hides the loading progress
+bar. &lt;strong&gt;-m&lt;/strong&gt; selects the display mode to 640 x 480 x 4 bits per pixel.
+&lt;strong&gt;--viewer-16col-colour&lt;/strong&gt; seems a bit superfluous given that it knows there
+are 4 bits per pixel, but Zgv needs it anyway.&lt;/p&gt;
+
+&lt;p&gt;To stop Zgv before X loads, I put the following at the end of
+&lt;strong&gt;/etc/init.d/tc-config&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if grep -q quiet /proc/cmdline
+then
+  sudo killall -INT zgv
+  while ps -o comm | grep zgv; do sleep 1; done
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note I only run Zgv if &lt;strong&gt;quiet&lt;/strong&gt; was passed as a kernel boot parameter.&lt;/p&gt;
+
+&lt;p&gt;You might want to &lt;a href="http://wiki.tinycorelinux.net/wiki:remastering"&gt;remaster&lt;/a&gt;
+your Tiny Core image to put these changes in.&lt;/p&gt;
 
     &lt;hr&gt;
     &lt;div class="pagination btn-group"&gt;
@@ -151,7 +290,7 @@ how I run and stop zgv in startup script&lt;/p&gt;
   &lt;div class="span4"&gt;
     &lt;section&gt;
       &lt;h4&gt;Published&lt;/h4&gt;
-      &lt;div class="date"&gt;&lt;span&gt;2012-09-20&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2012-09-22&lt;/span&gt;&lt;/div&gt;
     &lt;/section&gt;
 
     &lt;section&gt;
@@ -221,15 +360,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9624346169227685" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.11935219010362463" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.1620812228562094" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11632499959850084" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8233676181835229" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.12876075693174838" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9520457755277126" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8053818925910734" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5922612348090133" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3158571544777248" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8886083059234869" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.09241084411506428" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7762377720559176"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9006591385629475"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6597087230844179"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.39105668647123726"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -484,7 +623,7 @@ displayed.&lt;/p&gt;
 
         &lt;a class="btn" href=""&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next" href="/old-skool-splash" title="Old Skool Splash"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/old-skool-splash-screen" title="Old Skool Splash Screen"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
