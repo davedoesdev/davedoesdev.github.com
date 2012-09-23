@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-09-22 22:50:07 +0100</pubDate>
+    <pubDate>2012-09-23 09:07:54 +0100</pubDate>
     <item>
       <title>Old Skool Splash Screen</title>
       <link>http://www.davedoesdev.com/old-skool-splash-screen</link>
@@ -19,15 +19,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.697105470316817" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4761504133111133" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4933187507177055" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5930618004205448" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.036814494459029734" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3702226645364344" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.01889970470066138" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23562963883381738" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.818377078081766" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.632596796291586" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.45011813106564424" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.12706866381050175" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6870672351366315"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6725827446433219"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.18559880240342508"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8582363389807732"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -127,7 +127,7 @@ I could have taken the easy route and put &lt;a href="https://launchpad.net/uspl
 or &lt;a href="http://alioth.debian.org/projects/splashy/"&gt;Splashy&lt;/a&gt; into &lt;a href="http://distro.ibiblio.org/tinycorelinux/"&gt;Tiny Core Linux&lt;/a&gt;
 on my USB stick.&lt;/p&gt;
 
-&lt;p&gt;But no! I took another route. I decided to use
+&lt;p&gt;But no! I took another route. I used
 &lt;a href="http://www.svgalib.org/rus/zgv/"&gt;Zgv&lt;/a&gt;. Zgv is an &lt;a href="http://www.svgalib.org"&gt;SVGAlib&lt;/a&gt;-based image viewer,
 so it runs on the Linux console. Feed it an image early on in the Tiny
 Core &lt;strong&gt;init.d&lt;/strong&gt; scripts and voila, a splash screen!&lt;/p&gt;
@@ -360,15 +360,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9520457755277126" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8053818925910734" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5922612348090133" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3158571544777248" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8886083059234869" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.09241084411506428" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5507685082775395" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.06970814287228677" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.08152500042804955" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.10485217081931231" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9198974517374957" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.13997725376470527" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6597087230844179"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.39105668647123726"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8328799937402583"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.857571993707619"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
