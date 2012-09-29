@@ -313,3 +313,12 @@ h1:first-child, h2:first-child {
 
 pre.prettyprint {
   margin-top: 18px; }
+
+.pagination a, .btn-group > .btn {
+  float: none; }
+
+.tag_box_container {
+  padding: 10px 0; }
+
+.tag_box_container_empty {
+  display: none; }

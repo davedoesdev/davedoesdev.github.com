@@ -3,7 +3,375 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-09-23 09:07:54 +0100</pubDate>
+    <pubDate>2012-09-29 08:32:22 +0100</pubDate>
+    <item>
+      <title>Script Cleanup</title>
+      <link>http://www.davedoesdev.com/script-cleanup</link>
+      <pubDate>2012-09-29</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Script Cleanup - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.42559654682763826" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6496614407642514" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.16758884398724427" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8497249286690138" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.05497099955186335" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.888074691450817" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6769653574523904"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8076533759186941"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Script Cleanup 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;Sometimes I like to write complicated &lt;a href="http://www.gnu.org/software/bash/bash.html"&gt;Bash&lt;/a&gt; scripts. You know the ones - multiple background subprocesses,
+communicating through pipes or fifos. In fact, my next post will be about
+one I&amp;#39;ve written recently.&lt;/p&gt;
+
+&lt;p&gt;At the end of the script, you have to make sure all those background processes
+are killed.&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;rkill.sh&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#39;ve pulled code to do this out into a separate file, &lt;strong&gt;rkill.sh&lt;/strong&gt;.
+It&amp;#39;s listed below, but I&amp;#39;ve split it into sections here to make it easier to
+explain.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+
+function contains
+{
+  local arr=(&amp;quot;${!1}&amp;quot;)
+
+  for v in &amp;quot;${arr[@]}&amp;quot;
+  do
+    if test &amp;quot;$v&amp;quot; = &amp;quot;$2&amp;quot;
+    then
+      return 0
+    fi
+  done
+
+  return 1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;contains&lt;/strong&gt; function returns 0 if its second argument is in the array whose
+name is passed as the first argument. Otherwise it returns 1.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function rkill
+{
+  local pid=$1 p d s
+
+  done_pids=(&amp;quot;${done_pids[@]}&amp;quot; $pid)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;rkill&lt;/strong&gt; function is where the action happens. It takes one parameter -
+the ID of the process at the root of the tree to kill (&lt;strong&gt;pid&lt;/strong&gt;). This is added
+to the list of processes already dealt with so we don&amp;#39;t end up in a loop.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  if test $pid -eq $BASHPID
+  then
+    return
+  fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Don&amp;#39;t kill the process running this script!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  if ! contains skip[@] $pid
+  then
+    kill -s STOP $pid
+    while true
+    do
+      s=$(ps -o pid,stat | grep $pid | awk &amp;#39;{print substr($NF, 0, 1)}&amp;#39;)
+      if test -z &amp;quot;$s&amp;quot; -o &amp;quot;$s&amp;quot; = T
+      then
+        break
+      fi
+      sleep 1
+    done
+  fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;skip&lt;/strong&gt; array can contain a list of processes not to kill. If &lt;strong&gt;pid&lt;/strong&gt;
+isn&amp;#39;t in this list, then suspend it so it doesn&amp;#39;t continue to create new
+children. We also wait until &lt;strong&gt;ps&lt;/strong&gt; shows the process is suspended.&lt;/p&gt;
+
+&lt;p&gt;Then, even if we skip a process, we recurse to its children:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  while true
+  do
+    d=0
+
+    for p in $(pgrep -P $pid)
+    do
+      if ! contains done_pids[@] $p
+      then
+        d=1
+        rkill $p
+        break
+      fi
+    done
+
+    if test $d -eq 0
+    then
+      break
+    fi
+  done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we do is find all the children of &lt;strong&gt;pid&lt;/strong&gt; and call &lt;strong&gt;rkill&lt;/strong&gt; on
+each of them, checking we haven&amp;#39;t seen a process before recursing.&lt;/p&gt;
+
+&lt;p&gt;We keep going until there are no child processes left that we haven&amp;#39;t seen
+before.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  if ! contains skip[@] $pid
+  then
+    if ! contains nokill[@] $pid
+    then
+      kill $pid
+    fi
+    kill -s CONT $pid
+  fi
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, if we&amp;#39;re not skipping &lt;strong&gt;pid&lt;/strong&gt; and it&amp;#39;s not in the &lt;strong&gt;nokill&lt;/strong&gt; array
+then we kill it. We need to resume the process even after killing it so it can
+die.&lt;/p&gt;
+
+&lt;p&gt;Note that &lt;strong&gt;nokill&lt;/strong&gt; is slightly different to &lt;strong&gt;skip&lt;/strong&gt;. A &lt;strong&gt;nokill&lt;/strong&gt; process
+is suspended while its children are killed; a &lt;strong&gt;skip&lt;/strong&gt; process is not.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for arg in &amp;quot;$@&amp;quot;
+do
+  case $arg in
+    --skip=*) skip=(&amp;quot;${skip[@]}&amp;quot; $(echo &amp;quot;$arg&amp;quot; | sed &amp;#39;s/^.*=//&amp;#39;));;
+    --nokill=*) nokill=(&amp;quot;${nokill[@]} $(echo &amp;quot;$arg&amp;quot; | sed &amp;#39;s/^.*=//&amp;#39;)&amp;quot;);;
+    *) pid=&amp;quot;$arg&amp;quot;;;
+  esac
+done  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a simple command line parser which accumulates &lt;strong&gt;skip&lt;/strong&gt; and &lt;strong&gt;nokill&lt;/strong&gt;
+process IDs. Any other argument is assumed to be the process ID at the root
+of the tree to kill.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if test $pid
+then
+  rkill $pid
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we kick things off by calling &lt;strong&gt;rkill&lt;/strong&gt; with the process ID passed on
+the command line.&lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;To check it works, put &lt;strong&gt;rkill.sh&lt;/strong&gt; somewhere on your path and run something
+like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+
+( echo 12; sleep 20; echo 54;
+  ( ls; ls ) &amp;gt; /dev/null &amp;amp;
+  ( sleep 30; (echo foo) ) &amp;amp;
+  echo 90
+) | (
+  read x
+  rkill.sh --skip=$BASHPID $$
+  echo finished
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script should suspend and then terminate without leaving any new processes
+behind. It&amp;#39;ll display &lt;strong&gt;finished&lt;/strong&gt; after killing all subprocesses - any extra
+cleanup can be done after &lt;strong&gt;rkill.sh&lt;/strong&gt; returns.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/old-skool-splash-screen" title="Old Skool Splash Screen"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2012-09-29&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#script-ref"&gt;script &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#linux-ref"&gt;linux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#bash-ref"&gt;bash &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Old Skool Splash Screen</title>
       <link>http://www.davedoesdev.com/old-skool-splash-screen</link>
@@ -19,15 +387,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.01889970470066138" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23562963883381738" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.818377078081766" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.632596796291586" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.45011813106564424" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.12706866381050175" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.07654144917801786" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9424450399728784" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8728456400658485" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4424032750322856" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9057112048250548" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3403821935770067" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.18559880240342508"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8582363389807732"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.983883445699024"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6723772573681075"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -118,7 +486,7 @@
 &lt;/div&gt;
 
 &lt;div class="row"&gt;
-  &lt;div class="span8"&gt;
+  &lt;div class="span9"&gt;
     &lt;p&gt;After I &lt;a href="/quieter-boot"&gt;got rid of most boot messages&lt;/a&gt;, I wanted to display a
 splash screen.&lt;/p&gt;
 
@@ -263,12 +631,12 @@ fi
 your Tiny Core image to put these changes in.&lt;/p&gt;
 
     &lt;hr&gt;
-    &lt;div class="pagination btn-group"&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
         &lt;a class="btn prev" href="/quieter-boot" title="Quieter Boot"&gt;&amp;larr; Previous&lt;/a&gt;
 
-        &lt;a class="btn" href=""&gt;Archive&lt;/a&gt;
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/script-cleanup" title="Script Cleanup"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -287,22 +655,30 @@ your Tiny Core image to put these changes in.&lt;/p&gt;
 
   &lt;/div&gt;
   
-  &lt;div class="span4"&gt;
+  &lt;div class="span3"&gt;
     &lt;section&gt;
       &lt;h4&gt;Published&lt;/h4&gt;
       &lt;div class="date"&gt;&lt;span&gt;2012-09-22&lt;/span&gt;&lt;/div&gt;
     &lt;/section&gt;
 
-    &lt;section&gt;
-      &lt;h4&gt;Tags&lt;/h4&gt;
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
       &lt;/ul&gt;
     &lt;/section&gt;
 
-    &lt;section&gt;
-      &lt;h4&gt;Categories&lt;/h4&gt;
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
-      &lt;/ul&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#boot-ref"&gt;boot &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#svgalib-ref"&gt;svgalib &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#graphics-ref"&gt;graphics &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#tinycorelinux-ref"&gt;tinycorelinux &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
     &lt;/section&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -360,15 +736,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5507685082775395" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.06970814287228677" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.08152500042804955" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.10485217081931231" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9198974517374957" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.13997725376470527" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.0033185946069977934" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.09327102570082346" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9038474129962181" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8319603726901236" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5271034262592763" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8295770773142874" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8328799937402583"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.857571993707619"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.04938052659226466"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2542842800851344"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -459,7 +835,7 @@ clicky_site_ids.push(66642016);
 &lt;/div&gt;
 
 &lt;div class="row"&gt;
-  &lt;div class="span8"&gt;
+  &lt;div class="span9"&gt;
     &lt;p&gt;One of my PCs has a rather unique boot sequence:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -618,10 +994,10 @@ palette register into bright white.&lt;/li&gt;
 displayed.&lt;/p&gt;
 
     &lt;hr&gt;
-    &lt;div class="pagination btn-group"&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
         &lt;a class="btn disabled prev"&gt;&amp;larr; Previous&lt;/a&gt;
 
-        &lt;a class="btn" href=""&gt;Archive&lt;/a&gt;
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
         &lt;a class="btn next" href="/old-skool-splash-screen" title="Old Skool Splash Screen"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
@@ -642,17 +1018,23 @@ displayed.&lt;/p&gt;
 
   &lt;/div&gt;
   
-  &lt;div class="span4"&gt;
+  &lt;div class="span3"&gt;
     &lt;section&gt;
       &lt;h4&gt;Published&lt;/h4&gt;
       &lt;div class="date"&gt;&lt;span&gt;2012-09-16&lt;/span&gt;&lt;/div&gt;
     &lt;/section&gt;
 
-    &lt;section&gt;
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#boot-ref"&gt;boot &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#boot-ref"&gt;boot &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#syslinux-ref"&gt;syslinux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -662,14 +1044,8 @@ displayed.&lt;/p&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#kexec-loader-ref"&gt;kexec-loader &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#tinycorelinux-ref"&gt;tinycorelinux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#tinycorelinux-ref"&gt;tinycorelinux &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;      &lt;/ul&gt;
-    &lt;/section&gt;
-
-    &lt;section&gt;
-      &lt;h4&gt;Categories&lt;/h4&gt;
-      &lt;ul class="tag_box"&gt;
-      &lt;/ul&gt;
     &lt;/section&gt;
   &lt;/div&gt;
 &lt;/div&gt;

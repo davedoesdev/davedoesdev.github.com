@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Script Cleanup - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.13428934253436708" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.14990340328620155" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.48329287302615653" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8883040786043706" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9700931036515635" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6689532496856082" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5587799412146688"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2788527529982082"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Script Cleanup 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>Sometimes I like to write complicated <a href="http://www.gnu.org/software/bash/bash.html">Bash</a> scripts. You know the ones - multiple background subprocesses,
+communicating through pipes or fifos. In fact, my next post will be about
+one I&#39;ve written recently.</p>
+
+<p>At the end of the script, you have to make sure all those background processes
+are killed.</p>
+
+<h2 id="toc_0">rkill.sh</h2>
+
+<p>I&#39;ve pulled code to do this out into a separate file, <strong>rkill.sh</strong>.
+It&#39;s listed below, but I&#39;ve split it into sections here to make it easier to
+explain.</p>
+
+<pre><code>#!/bin/bash
+
+function contains
+{
+  local arr=(&quot;${!1}&quot;)
+
+  for v in &quot;${arr[@]}&quot;
+  do
+    if test &quot;$v&quot; = &quot;$2&quot;
+    then
+      return 0
+    fi
+  done
+
+  return 1
+}
+</code></pre>
+
+<p>The <strong>contains</strong> function returns 0 if its second argument is in the array whose
+name is passed as the first argument. Otherwise it returns 1.</p>
+
+<pre><code>function rkill
+{
+  local pid=$1 p d s
+
+  done_pids=(&quot;${done_pids[@]}&quot; $pid)
+</code></pre>
+
+<p>The <strong>rkill</strong> function is where the action happens. It takes one parameter -
+the ID of the process at the root of the tree to kill (<strong>pid</strong>). This is added
+to the list of processes already dealt with so we don&#39;t end up in a loop.</p>
+
+<pre><code>  if test $pid -eq $BASHPID
+  then
+    return
+  fi
+</code></pre>
+
+<p>Don&#39;t kill the process running this script!</p>
+
+<pre><code>  if ! contains skip[@] $pid
+  then
+    kill -s STOP $pid
+    while true
+    do
+      s=$(ps -o pid,stat | grep $pid | awk &#39;{print substr($NF, 0, 1)}&#39;)
+      if test -z &quot;$s&quot; -o &quot;$s&quot; = T
+      then
+        break
+      fi
+      sleep 1
+    done
+  fi
+</code></pre>
+
+<p>The <strong>skip</strong> array can contain a list of processes not to kill. If <strong>pid</strong>
+isn&#39;t in this list, then suspend it so it doesn&#39;t continue to create new
+children. We also wait until <strong>ps</strong> shows the process is suspended.</p>
+
+<p>Then, even if we skip a process, we recurse to its children:</p>
+
+<pre><code>  while true
+  do
+    d=0
+
+    for p in $(pgrep -P $pid)
+    do
+      if ! contains done_pids[@] $p
+      then
+        d=1
+        rkill $p
+        break
+      fi
+    done
+
+    if test $d -eq 0
+    then
+      break
+    fi
+  done
+</code></pre>
+
+<p>What we do is find all the children of <strong>pid</strong> and call <strong>rkill</strong> on
+each of them, checking we haven&#39;t seen a process before recursing.</p>
+
+<p>We keep going until there are no child processes left that we haven&#39;t seen
+before.</p>
+
+<pre><code>  if ! contains skip[@] $pid
+  then
+    if ! contains nokill[@] $pid
+    then
+      kill $pid
+    fi
+    kill -s CONT $pid
+  fi
+}
+</code></pre>
+
+<p>Finally, if we&#39;re not skipping <strong>pid</strong> and it&#39;s not in the <strong>nokill</strong> array
+then we kill it. We need to resume the process even after killing it so it can
+die.</p>
+
+<p>Note that <strong>nokill</strong> is slightly different to <strong>skip</strong>. A <strong>nokill</strong> process
+is suspended while its children are killed; a <strong>skip</strong> process is not.</p>
+
+<pre><code>for arg in &quot;$@&quot;
+do
+  case $arg in
+    --skip=*) skip=(&quot;${skip[@]}&quot; $(echo &quot;$arg&quot; | sed &#39;s/^.*=//&#39;));;
+    --nokill=*) nokill=(&quot;${nokill[@]} $(echo &quot;$arg&quot; | sed &#39;s/^.*=//&#39;)&quot;);;
+    *) pid=&quot;$arg&quot;;;
+  esac
+done  
+</code></pre>
+
+<p>This is a simple command line parser which accumulates <strong>skip</strong> and <strong>nokill</strong>
+process IDs. Any other argument is assumed to be the process ID at the root
+of the tree to kill.</p>
+
+<pre><code>if test $pid
+then
+  rkill $pid
+fi
+</code></pre>
+
+<p>Finally, we kick things off by calling <strong>rkill</strong> with the process ID passed on
+the command line.</p>
+
+<h2 id="toc_1">Example</h2>
+
+<p>To check it works, put <strong>rkill.sh</strong> somewhere on your path and run something
+like this:</p>
+
+<pre><code>#!/bin/bash
+
+( echo 12; sleep 20; echo 54;
+  ( ls; ls ) &gt; /dev/null &amp;
+  ( sleep 30; (echo foo) ) &amp;
+  echo 90
+) | (
+  read x
+  rkill.sh --skip=$BASHPID $$
+  echo finished
+)
+</code></pre>
+
+<p>This script should suspend and then terminate without leaving any new processes
+behind. It&#39;ll display <strong>finished</strong> after killing all subprocesses - any extra
+cleanup can be done after <strong>rkill.sh</strong> returns.</p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/old-skool-splash-screen" title="Old Skool Splash Screen">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2012-09-29</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#script-ref">script <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#linux-ref">linux <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#bash-ref">bash <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>
