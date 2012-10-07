@@ -3,7 +3,473 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-09-30 22:01:49 +0100</pubDate>
+    <pubDate>2012-10-07 21:06:17 +0100</pubDate>
+    <item>
+      <title>Vu Meter</title>
+      <link>http://www.davedoesdev.com/vu-meter</link>
+      <pubDate>2012-10-07</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Vu Meter - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9272289638689659" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6723070671967374" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.20206766192099557" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5904511983486707" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.18734726223109155" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.11722652818703483" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.48898266196782714"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.543524711445399"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Vu Meter 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;I wanted a large on-screen volume indicator showing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The microphone amplification level, changing as you adjust it (by pressing
+keys, for example).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Whether the microphone is muted.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The current microphone level, changing as you speak into the microphone.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here&amp;#39;s what I did.&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;xosdd&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://sourceforge.net/projects/libxosd/"&gt;XOSD&lt;/a&gt; does the real work here.
+It displays text anywhere on your X desktop and it looks like an skool TV/VCR&amp;#39;s
+display.&lt;/p&gt;
+
+&lt;p&gt;XOSD is a library to build into your own projects. &lt;a href="http://phintsan.kapsi.fi/xosdd.html"&gt;xosdd&lt;/a&gt; puts XOSD into a daemon which listens on a named pipe for
+commands using a custom protocol.&lt;/p&gt;
+
+&lt;p&gt;I made a &lt;a href="https://gist.github.com/3847336#file_xosdd_0.0.patch"&gt;2-line patch&lt;/a&gt; to xosdd in order to support display of text in the centre of the screen.&lt;/p&gt;
+
+&lt;p&gt;First, I created some named pipes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for p in /tmp/{audio,display,vumeter,level}_control
+do
+  if ! test -p &amp;quot;$p&amp;quot;
+  then
+    mkfifo &amp;quot;$p&amp;quot;
+  fi
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;display_control&lt;/strong&gt; and &lt;strong&gt;vumeter_control&lt;/strong&gt; are for communicating with xosdd:&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;/tmp/display_control&lt;/dt&gt;
+&lt;dd&gt;For commands to display the microphone amplification level and muted state.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;/tmp/vumeter_control&lt;/dt&gt;
+&lt;dd&gt;For commands to display the current microphone level.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;&lt;strong&gt;audio_control&lt;/strong&gt; and &lt;strong&gt;level_control&lt;/strong&gt; are for receving user input and
+capturing raw microphone level data. They won&amp;#39;t be used with xosdd directly
+but by processes which sit in front of xosdd.&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;/tmp/audio_control&lt;/dt&gt;
+&lt;dd&gt;For user actions: microphone volume up/down, mute/unmute and turn current level monitoring on/off. These will be sent when the user presses
+corresponding keys on the keyboard.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;/tmp/level_control&lt;/dt&gt;
+&lt;dd&gt;For raw microphone level data.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;I ran xosdd twice - once for displaying the amplification level and muted state
+and once for displaying the current level:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;xosdd -l 4 -t 2 -f &amp;#39;-*-terminus-bold-r-*-*-*-240-100-100-*-*-*-*&amp;#39; /tmp/display_control &amp;amp;
+
+cat &amp;gt; /tmp/display_control &amp;lt;&amp;lt;EOF
+align center
+pos middle
+EOF
+
+xosdd -l 4 -f &amp;#39;-*-terminus-bold-r-*-*-*-240-100-100-*-*-*-*&amp;#39; /tmp/vumeter_control &amp;amp;
+
+cat &amp;gt; /tmp/vumeter_control &amp;lt;&amp;lt;EOF
+color orange
+align center
+pos middle
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Both default to displaying information in the centre of the screen. I used the
+&lt;a href="http://terminus-font.sourceforge.net"&gt;Terminus&lt;/a&gt; font here but you may wish to
+use something else. XOSD only supports bitmap fonts.&lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;Displaying amplification level and muted state&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;#39;s define a bash function which we can call at any time to get xosdd to
+display the microphone volume level and whether it&amp;#39;s muted.&lt;/p&gt;
+
+&lt;p&gt;You&amp;#39;ll need to set &lt;strong&gt;ctlIn&lt;/strong&gt; to the name of your microphone under ALSA.
+Run &lt;strong&gt;amixer&lt;/strong&gt; without arguments to list all your devices. On one of my systems
+it&amp;#39;s called &lt;strong&gt;Mic&lt;/strong&gt;, on another it&amp;#39;s called &lt;strong&gt;Capture&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function display_input
+{
+  amixer get &amp;quot;$ctlIn&amp;quot; | egrep -o &amp;#39;([0-9]+%)|(\[off\])&amp;#39; |
+  {
+  local state=On color=yellow percent
+  while read v
+  do
+    if test &amp;quot;$v&amp;quot; = &amp;quot;[off]&amp;quot;
+    then
+      state=Off
+      color=red
+    else
+      percent=&amp;quot;$v&amp;quot;
+    fi
+  done
+  cat &amp;gt; /tmp/display_control &amp;lt;&amp;lt;EOF
+color $color
+string 0 &amp;quot;Microphone: $state&amp;quot;
+bar 1 $percent
+EOF
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we&amp;#39;re doing is calling &lt;strong&gt;amixer&lt;/strong&gt; to get information about the device
+and filtering for amplification level and muted state. Note the egrep option
+&lt;strong&gt;-o&lt;/strong&gt; outputs each match &lt;em&gt;part&lt;/em&gt; on a separate line.&lt;/p&gt;
+
+&lt;p&gt;If the microphone is muted, the colour is set to red; unmuted is yellow.
+We display text for the muted state on the first line and a bar indicating
+the amplification level on the second.&lt;/p&gt;
+
+&lt;h2 id="toc_2"&gt;Monitoring current microphone level&lt;/h2&gt;
+
+&lt;p&gt;This is a bit more complicated but not too bad. Basically, we want to read
+raw microphone level data from &lt;strong&gt;/tmp/level_control&lt;/strong&gt; and turn it into commands
+for xosdd on &lt;strong&gt;tmp/vumeter_control&lt;/strong&gt;. &lt;/p&gt;
+
+&lt;p&gt;At the same time, we want to keep the amplification and muted state display
+updated so the user can press microphone up/down keys and see both the
+amplification and current levels change.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(
+while true
+do
+  gawk &amp;#39;/^.+%$/ {print &amp;quot;&amp;quot;; fflush(); printf(&amp;quot;string 2 \&amp;quot;Current Level\&amp;quot;\nbar 3 %s\n&amp;quot;, $NF) &amp;gt;&amp;quot;/tmp/vumeter_control&amp;quot;; close(&amp;quot;/tmp/vumeter_control&amp;quot;)}&amp;#39; /tmp/level_control |
+  (
+  first=yes
+  while read
+  do
+    if test $first = yes
+    then
+      echo &amp;#39;timeout -1&amp;#39; &amp;gt; /tmp/display_control
+      first=no
+    fi
+    display_input
+  done
+  echo hide &amp;gt; /tmp/vumeter_control
+  echo -e &amp;#39;hide\ntimeout 2&amp;#39; &amp;gt; /tmp/display_control
+  )
+done
+) &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Node that we need to disable the &lt;strong&gt;timeout&lt;/strong&gt; on the amplification and muted
+display while monitoring is active.&lt;br&gt;
+When we stop receiving raw microphone level data, both displays are
+hidden straight away. &lt;/p&gt;
+
+&lt;h2 id="toc_3"&gt;Main control loop&lt;/h2&gt;
+
+&lt;p&gt;Now we need to control the microphone displays. We want to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Allow the user to increase and decrease the microphone amplification level
+and then display the level on the screen.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Mute and unmute the microphone and display the status on the screen.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Start and stop monitoring of the current microphone level, and its display.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here&amp;#39;s how we do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;while true
+do
+  exec 3&amp;lt; /tmp/audio_control
+  while read cmd &amp;lt;&amp;amp;3
+  do
+    case $cmd in
+      d)
+        amixer -q set &amp;quot;$ctlIn&amp;quot; ${ctlDelta}-
+        display_input
+        ;;
+
+      u)
+        amixer -q set &amp;quot;$ctlIn&amp;quot; ${ctlDelta}+
+        display_input
+        ;;
+
+      t)
+        amixer -q set &amp;quot;$ctlIn&amp;quot; toggle
+        display_input
+        ;;
+
+      m)
+        if test &amp;quot;$recpid&amp;quot;
+        then
+          kill $recpid
+          unset recpid
+        else
+          arecord -vvv /dev/null -V mono &amp;gt; /tmp/level_control &amp;amp;
+          recpid=$!
+        fi
+        ;;
+    esac
+  done
+  exec 3&amp;lt;&amp;amp;-
+done
+) &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;arecord&lt;/strong&gt; command supplies raw microphone level data.&lt;/p&gt;
+
+&lt;p&gt;You&amp;#39;ll have to set &lt;strong&gt;ctlDelta&lt;/strong&gt; to the amount you want the microphone level
+changed when &lt;strong&gt;d&lt;/strong&gt; and &lt;strong&gt;u&lt;/strong&gt; commands are received. This will either be a
+percentage (e.g. 5%) or a number (e.g. 1) depending on your audio device.
+You&amp;#39;ll have to try both to see what works for you.&lt;/p&gt;
+
+&lt;h2 id="toc_4"&gt;Keyboard control&lt;/h2&gt;
+
+&lt;p&gt;As you&amp;#39;ll have noticed, everything is controlled through sending single-letter
+commands through &lt;strong&gt;/tmp/audio_control&lt;/strong&gt;.
+We could make the user echo data through this named pipe but that wouldn&amp;#39;t be very
+convenient.&lt;/p&gt;
+
+&lt;p&gt;Better to send a command when the user presses a key on the keyboard.
+How you do this will depend on your environment.&lt;/p&gt;
+
+&lt;p&gt;The window manager I use is &lt;a href="http://www.icewm.org"&gt;IceWM&lt;/a&gt;. It has a
+&lt;strong&gt;$HOME/.icewm/keys&lt;/strong&gt; file where you can specify commands to run when a key
+is pressed.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s my &lt;strong&gt;$HOME/.icewm/keys&lt;/strong&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key &amp;quot;XF86AudioRaiseVolume&amp;quot; sh -c &amp;quot;test -p /tmp/audio_control &amp;amp;&amp;amp; echo u &amp;gt; /tmp/audio_control&amp;quot;
+key &amp;quot;XF86AudioLowerVolume&amp;quot; sh -c &amp;quot;test -p /tmp/audio_control &amp;amp;&amp;amp; echo d &amp;gt; /tmp/audio_control&amp;quot;
+key &amp;quot;XF86AudioMute&amp;quot; sh -c &amp;quot;test -p /tmp/audio_control &amp;amp;&amp;amp; echo t &amp;gt; /tmp/audio_control&amp;quot;
+key &amp;quot;F12&amp;quot; sh -c &amp;quot;test -p /tmp/audio_control &amp;amp;&amp;amp; echo m &amp;gt; /tmp/audio_control&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The volume up (&lt;strong&gt;XF86AudioRaiseVolume&lt;/strong&gt;) and down (&lt;strong&gt;XF86AudioLowerVolume&lt;/strong&gt;)
+keys on the keyboard send the &lt;strong&gt;u&lt;/strong&gt; and &lt;strong&gt;d&lt;/strong&gt; commands through &lt;strong&gt;/tmp/audio_control&lt;/strong&gt; - resulting in the microphone volume being increased or decreased and
+the level displayed on the screen.&lt;/p&gt;
+
+&lt;p&gt;The mute key (&lt;strong&gt;XF86AudioMute&lt;/strong&gt;) key sends the &lt;strong&gt;t&lt;/strong&gt; command through &lt;strong&gt;/tmp/audio_control&lt;/strong&gt;, resulting in the
+microphone being muted or unmuted and the status displayed on the screen.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;F12&lt;/strong&gt; key sends the &lt;strong&gt;m&lt;/strong&gt; command through &lt;strong&gt;/tmp/audio_control&lt;/strong&gt;.
+This starts displaying the current microphone level on the screen, changing
+in real time as you speak into it. Press &lt;strong&gt;F12&lt;/strong&gt; again to stop monitoring the
+microphone level.&lt;/p&gt;
+
+&lt;h2 id="toc_5"&gt;Putting it all together&lt;/h2&gt;
+
+&lt;p&gt;The complete script is &lt;a href="https://gist.github.com/3847759#file_vu_meter.sh"&gt;here&lt;/a&gt;. Remember you need to set &lt;strong&gt;ctlIn&lt;/strong&gt; and &lt;strong&gt;ctlDelta&lt;/strong&gt; for
+your device at the top.
+The script calls &lt;strong&gt;rkill.sh&lt;/strong&gt; from my &lt;a href="/script-cleanup"&gt;previous post&lt;/a&gt;
+to clean things up at the end - press ^C or Enter to exit.&lt;/p&gt;
+
+&lt;p&gt;Finally, here are some screenshots of my Vu Meter in action:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="/assets/media/vu-meter/mic-on.png"&gt;&lt;img src="/assets/media/vu-meter/mic-on.png" alt="Microphone On" title="Microphone On"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="/assets/media/vu-meter/mic-mon.png"&gt;&lt;img src="/assets/media/vu-meter/mic-mon.png" alt="Microphone Monitor" title="Microphone Off"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="/assets/media/vu-meter/mic-off.png"&gt;&lt;img src="/assets/media/vu-meter/mic-off.png" alt="Microphone Off" title="Microphone Monitor"&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/script-cleanup" title="Script Cleanup"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2012-10-07&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Script Cleanup</title>
       <link>http://www.davedoesdev.com/script-cleanup</link>
@@ -19,15 +485,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.996846286668125" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9684506492480718" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6242692036591004" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.46641915899485187" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5228615853795517" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6761495400923087" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4645479286519355" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.36055699753869686" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.06134820941137675" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5397010145800852" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8333095396315903" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6596017335054692" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7970109250792776"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.30915481515421894"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8890839139388047"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.45430803896354977"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -289,7 +755,7 @@ cleanup can be done after &lt;strong&gt;rkill.sh&lt;/strong&gt; returns.&lt;/p&g
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/vu-meter" title="Vu Meter"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -387,15 +853,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.022826458021243057" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5510385111759251" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.10420095584556532" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6059882819814286" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.48244120504108123" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.41891735516826645" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.001589825848800297" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.05301084946990475" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4037467590803038" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5683071564330634" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.504129988651727" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.057290542109247444" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5299163107394876"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5745720530166119"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4073831002291922"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5413294776486969"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -736,15 +1202,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.14858023134412934" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.39314654054182296" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.18239657518013686" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.08340209195263226" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.06687525481874479" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3184181954002697" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.19930874990948433" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2969931648442654" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5217579613592396" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.49974047370849606" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.01879881317950083" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.027591815794450136" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.16428646789356727"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5404868194516161"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7162839915209502"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.0026960466686157813"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;

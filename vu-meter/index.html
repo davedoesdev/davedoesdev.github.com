@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vu Meter - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.34513194184379636" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.07508971034535172" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5036764550739443" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.04540002966187828" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.7319193603178201" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.1969835093070249" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.3064245802073876"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8490933408013253"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Vu Meter 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>I wanted a large on-screen volume indicator showing:</p>
+
+<ul>
+<li><p>The microphone amplification level, changing as you adjust it (by pressing
+keys, for example).</p></li>
+<li><p>Whether the microphone is muted.</p></li>
+<li><p>The current microphone level, changing as you speak into the microphone.</p></li>
+</ul>
+
+<p>Here&#39;s what I did.</p>
+
+<h2 id="toc_0">xosdd</h2>
+
+<p><a href="http://sourceforge.net/projects/libxosd/">XOSD</a> does the real work here.
+It displays text anywhere on your X desktop and it looks like an skool TV/VCR&#39;s
+display.</p>
+
+<p>XOSD is a library to build into your own projects. <a href="http://phintsan.kapsi.fi/xosdd.html">xosdd</a> puts XOSD into a daemon which listens on a named pipe for
+commands using a custom protocol.</p>
+
+<p>I made a <a href="https://gist.github.com/3847336#file_xosdd_0.0.patch">2-line patch</a> to xosdd in order to support display of text in the centre of the screen.</p>
+
+<p>First, I created some named pipes:</p>
+
+<pre><code>for p in /tmp/{audio,display,vumeter,level}_control
+do
+  if ! test -p &quot;$p&quot;
+  then
+    mkfifo &quot;$p&quot;
+  fi
+done
+</code></pre>
+
+<p><strong>display_control</strong> and <strong>vumeter_control</strong> are for communicating with xosdd:</p>
+
+<dl>
+<dt>/tmp/display_control</dt>
+<dd>For commands to display the microphone amplification level and muted state.</dd>
+</dl>
+
+<dl>
+<dt>/tmp/vumeter_control</dt>
+<dd>For commands to display the current microphone level.</dd>
+</dl>
+
+<p><strong>audio_control</strong> and <strong>level_control</strong> are for receving user input and
+capturing raw microphone level data. They won&#39;t be used with xosdd directly
+but by processes which sit in front of xosdd.</p>
+
+<dl>
+<dt>/tmp/audio_control</dt>
+<dd>For user actions: microphone volume up/down, mute/unmute and turn current level monitoring on/off. These will be sent when the user presses
+corresponding keys on the keyboard.</dd>
+</dl>
+
+<dl>
+<dt>/tmp/level_control</dt>
+<dd>For raw microphone level data.</dd>
+</dl>
+
+<p>I ran xosdd twice - once for displaying the amplification level and muted state
+and once for displaying the current level:</p>
+
+<pre><code>xosdd -l 4 -t 2 -f &#39;-*-terminus-bold-r-*-*-*-240-100-100-*-*-*-*&#39; /tmp/display_control &amp;
+
+cat &gt; /tmp/display_control &lt;&lt;EOF
+align center
+pos middle
+EOF
+
+xosdd -l 4 -f &#39;-*-terminus-bold-r-*-*-*-240-100-100-*-*-*-*&#39; /tmp/vumeter_control &amp;
+
+cat &gt; /tmp/vumeter_control &lt;&lt;EOF
+color orange
+align center
+pos middle
+EOF
+</code></pre>
+
+<p>Both default to displaying information in the centre of the screen. I used the
+<a href="http://terminus-font.sourceforge.net">Terminus</a> font here but you may wish to
+use something else. XOSD only supports bitmap fonts.</p>
+
+<h2 id="toc_1">Displaying amplification level and muted state</h2>
+
+<p>Let&#39;s define a bash function which we can call at any time to get xosdd to
+display the microphone volume level and whether it&#39;s muted.</p>
+
+<p>You&#39;ll need to set <strong>ctlIn</strong> to the name of your microphone under ALSA.
+Run <strong>amixer</strong> without arguments to list all your devices. On one of my systems
+it&#39;s called <strong>Mic</strong>, on another it&#39;s called <strong>Capture</strong>.</p>
+
+<pre><code>function display_input
+{
+  amixer get &quot;$ctlIn&quot; | egrep -o &#39;([0-9]+%)|(\[off\])&#39; |
+  {
+  local state=On color=yellow percent
+  while read v
+  do
+    if test &quot;$v&quot; = &quot;[off]&quot;
+    then
+      state=Off
+      color=red
+    else
+      percent=&quot;$v&quot;
+    fi
+  done
+  cat &gt; /tmp/display_control &lt;&lt;EOF
+color $color
+string 0 &quot;Microphone: $state&quot;
+bar 1 $percent
+EOF
+  }
+}
+</code></pre>
+
+<p>What we&#39;re doing is calling <strong>amixer</strong> to get information about the device
+and filtering for amplification level and muted state. Note the egrep option
+<strong>-o</strong> outputs each match <em>part</em> on a separate line.</p>
+
+<p>If the microphone is muted, the colour is set to red; unmuted is yellow.
+We display text for the muted state on the first line and a bar indicating
+the amplification level on the second.</p>
+
+<h2 id="toc_2">Monitoring current microphone level</h2>
+
+<p>This is a bit more complicated but not too bad. Basically, we want to read
+raw microphone level data from <strong>/tmp/level_control</strong> and turn it into commands
+for xosdd on <strong>tmp/vumeter_control</strong>. </p>
+
+<p>At the same time, we want to keep the amplification and muted state display
+updated so the user can press microphone up/down keys and see both the
+amplification and current levels change.</p>
+
+<pre><code>(
+while true
+do
+  gawk &#39;/^.+%$/ {print &quot;&quot;; fflush(); printf(&quot;string 2 \&quot;Current Level\&quot;\nbar 3 %s\n&quot;, $NF) &gt;&quot;/tmp/vumeter_control&quot;; close(&quot;/tmp/vumeter_control&quot;)}&#39; /tmp/level_control |
+  (
+  first=yes
+  while read
+  do
+    if test $first = yes
+    then
+      echo &#39;timeout -1&#39; &gt; /tmp/display_control
+      first=no
+    fi
+    display_input
+  done
+  echo hide &gt; /tmp/vumeter_control
+  echo -e &#39;hide\ntimeout 2&#39; &gt; /tmp/display_control
+  )
+done
+) &amp;
+</code></pre>
+
+<p>Node that we need to disable the <strong>timeout</strong> on the amplification and muted
+display while monitoring is active.<br>
+When we stop receiving raw microphone level data, both displays are
+hidden straight away. </p>
+
+<h2 id="toc_3">Main control loop</h2>
+
+<p>Now we need to control the microphone displays. We want to:</p>
+
+<ul>
+<li><p>Allow the user to increase and decrease the microphone amplification level
+and then display the level on the screen.</p></li>
+<li><p>Mute and unmute the microphone and display the status on the screen.</p></li>
+<li><p>Start and stop monitoring of the current microphone level, and its display.</p></li>
+</ul>
+
+<p>Here&#39;s how we do this:</p>
+
+<pre><code>while true
+do
+  exec 3&lt; /tmp/audio_control
+  while read cmd &lt;&amp;3
+  do
+    case $cmd in
+      d)
+        amixer -q set &quot;$ctlIn&quot; ${ctlDelta}-
+        display_input
+        ;;
+
+      u)
+        amixer -q set &quot;$ctlIn&quot; ${ctlDelta}+
+        display_input
+        ;;
+
+      t)
+        amixer -q set &quot;$ctlIn&quot; toggle
+        display_input
+        ;;
+
+      m)
+        if test &quot;$recpid&quot;
+        then
+          kill $recpid
+          unset recpid
+        else
+          arecord -vvv /dev/null -V mono &gt; /tmp/level_control &amp;
+          recpid=$!
+        fi
+        ;;
+    esac
+  done
+  exec 3&lt;&amp;-
+done
+) &amp;
+</code></pre>
+
+<p>The <strong>arecord</strong> command supplies raw microphone level data.</p>
+
+<p>You&#39;ll have to set <strong>ctlDelta</strong> to the amount you want the microphone level
+changed when <strong>d</strong> and <strong>u</strong> commands are received. This will either be a
+percentage (e.g. 5%) or a number (e.g. 1) depending on your audio device.
+You&#39;ll have to try both to see what works for you.</p>
+
+<h2 id="toc_4">Keyboard control</h2>
+
+<p>As you&#39;ll have noticed, everything is controlled through sending single-letter
+commands through <strong>/tmp/audio_control</strong>.
+We could make the user echo data through this named pipe but that wouldn&#39;t be very
+convenient.</p>
+
+<p>Better to send a command when the user presses a key on the keyboard.
+How you do this will depend on your environment.</p>
+
+<p>The window manager I use is <a href="http://www.icewm.org">IceWM</a>. It has a
+<strong>$HOME/.icewm/keys</strong> file where you can specify commands to run when a key
+is pressed.</p>
+
+<p>Here&#39;s my <strong>$HOME/.icewm/keys</strong> file:</p>
+
+<pre><code>key &quot;XF86AudioRaiseVolume&quot; sh -c &quot;test -p /tmp/audio_control &amp;&amp; echo u &gt; /tmp/audio_control&quot;
+key &quot;XF86AudioLowerVolume&quot; sh -c &quot;test -p /tmp/audio_control &amp;&amp; echo d &gt; /tmp/audio_control&quot;
+key &quot;XF86AudioMute&quot; sh -c &quot;test -p /tmp/audio_control &amp;&amp; echo t &gt; /tmp/audio_control&quot;
+key &quot;F12&quot; sh -c &quot;test -p /tmp/audio_control &amp;&amp; echo m &gt; /tmp/audio_control&quot;
+</code></pre>
+
+<p>The volume up (<strong>XF86AudioRaiseVolume</strong>) and down (<strong>XF86AudioLowerVolume</strong>)
+keys on the keyboard send the <strong>u</strong> and <strong>d</strong> commands through <strong>/tmp/audio_control</strong> - resulting in the microphone volume being increased or decreased and
+the level displayed on the screen.</p>
+
+<p>The mute key (<strong>XF86AudioMute</strong>) key sends the <strong>t</strong> command through <strong>/tmp/audio_control</strong>, resulting in the
+microphone being muted or unmuted and the status displayed on the screen.</p>
+
+<p>The <strong>F12</strong> key sends the <strong>m</strong> command through <strong>/tmp/audio_control</strong>.
+This starts displaying the current microphone level on the screen, changing
+in real time as you speak into it. Press <strong>F12</strong> again to stop monitoring the
+microphone level.</p>
+
+<h2 id="toc_5">Putting it all together</h2>
+
+<p>The complete script is <a href="https://gist.github.com/3847759#file_vu_meter.sh">here</a>. Remember you need to set <strong>ctlIn</strong> and <strong>ctlDelta</strong> for
+your device at the top.
+The script calls <strong>rkill.sh</strong> from my <a href="/script-cleanup">previous post</a>
+to clean things up at the end - press ^C or Enter to exit.</p>
+
+<p>Finally, here are some screenshots of my Vu Meter in action:</p>
+
+<p><a href="/assets/media/vu-meter/mic-on.png"><img src="/assets/media/vu-meter/mic-on.png" alt="Microphone On" title="Microphone On"></a></p>
+
+<p><a href="/assets/media/vu-meter/mic-mon.png"><img src="/assets/media/vu-meter/mic-mon.png" alt="Microphone Monitor" title="Microphone Off"></a></p>
+
+<p><a href="/assets/media/vu-meter/mic-off.png"><img src="/assets/media/vu-meter/mic-off.png" alt="Microphone Off" title="Microphone Monitor"></a></p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/script-cleanup" title="Script Cleanup">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2012-10-07</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>
