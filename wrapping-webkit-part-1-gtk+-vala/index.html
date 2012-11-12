@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wrapping Webkit (Part 1 - GTK+/Vala) - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5305131906443836" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.04748237357019558" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9935247629592264" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.014066158435486087" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.8391607775746771" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.11595298696963985" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8451589997866336"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.19586541342043295"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Wrapping Webkit (Part 1 - GTK+/Vala) 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>I wanted to write a user interface in HTML and Javascript but run the rest of
+the application in some other language that has access to system facilities.
+Therefore I needed
+bi-directional communication between the user interface and the application
+logic. I also wanted to run it as a normal standalone application.</p>
+
+<p><a href="http://www.gtk.org/">GTK+</a> and <a href="http://qt-project.org/">Qt</a> both let you embed
+the <a href="http://www.webkit.org">Webkit</a> browser engine to do this. Another option
+is to run <a href="http://www.chromium.org/Home">Chromium</a> in kiosk mode.</p>
+
+<p>This post is about using GTK+&#39;s Webkit component. Future posts will look at
+Qt and Chromium.</p>
+
+<h2 id="toc_0">Vala</h2>
+
+<p>I&#39;m not a big fan of C++. It&#39;s much too complicated for me. Add in GTK+&#39;s <a href="http://www.demko.ca/blog/posts/200705_gtkmm_refcoutning.txt">wacky reference
+counting</a> and using
+GTK+ to run Webkit from C++ gets a big no from me.</p>
+
+<p>Fortunately, there are <a href="http://www.gtk.org/language-bindings.php">many other language bindings for GTK+</a>. Although I could have used most of these, I wanted to
+try something new - so I chose <a href="https://live.gnome.org/Vala">Vala</a>.</p>
+
+<p>Vala&#39;s pretty interesting:</p>
+
+<ul>
+<li>It&#39;s statically typed.</li>
+<li>It&#39;s a a lot like Java/C#, with a similar set of language features.</li>
+<li>But it&#39;s compiled, via source translation to C.</li>
+<li>The only dependency it has is <a href="http://developer.gnome.org/glib/">GLib</a>,
+which is available pretty much everywhere nowadays.</li>
+<li>It does the GTK+ reference counting for you.</li>
+<li>It&#39;s officially supported by GNOME/GTK+.</li>
+</ul>
+
+<p>What&#39;s not to like?!</p>
+
+<h1 id="toc_1">Example</h1>
+
+<p>We&#39;ll have two classes in our example:</p>
+
+<ol>
+<li>A main class for parsing command line options and initializing things.</li>
+<li>A window class which embeds Webkit and puts it in a GTK+ window.</li>
+</ol>
+
+<h2 id="toc_2">Main class</h2>
+
+<p>As with most languages, in Vala the startup function is called <strong>main</strong> and
+it&#39;s declared as a static method:</p>
+
+<pre><code>using Gtk;
+
+class WebkitExample.Main : GLib.Object
+{
+    public static int main(string[] args)
+    {
+        ...
+    }
+}
+</code></pre>
+
+<p>Our example is going to support the following command line options:</p>
+
+<dl>
+<dt>url</dt>
+<dd>which URL to load into Webkit</dd>
+</dl>
+
+<dl>
+<dt>fullscreen</dt>
+<dd>run in full screen (kiosk) mode</dd>
+</dl>
+
+<dl>
+<dt>hidecursor</dt>
+<dd>hide the mouse cursor</dd>
+</dl>
+
+<dl>
+<dt>debug</dt>
+<dd>enable the Webkit developer tools in the context menu</dd>
+</dl>
+
+<p>It also needs to create and show our window class (which embeds Webkit) and
+initialize GTK+.</p>
+
+<p>First we set the defaults for the command line options:</p>
+
+<pre><code>try
+{
+    url = &quot;file://&quot; + Path.get_dirname(FileUtils.read_link(&quot;/proc/self/exe&quot;)) + &quot;/test.html&quot;;
+}
+catch (FileError e)
+{
+    stderr.printf(&quot;%s\n&quot;, e.message);
+    return 1;
+}
+
+fullscreen = false;
+hidecursor = false;
+debug = false;
+</code></pre>
+
+<p>You&#39;ll see by default we load a file named <strong>test.html</strong> in the same directory
+as the program.</p>
+
+<p>Parsing command line options in Vala is pretty easy. You list the options in an
+array, along with the type of argument expected (if any), some help text and in
+which variable to put the argument. For our options:</p>
+
+<pre><code>static string url;
+static bool fullscreen;
+static bool showcursor;
+static bool debug;
+
+const OptionEntry[] options =
+{
+    { &quot;url&quot;, &#39;u&#39;, 0, OptionArg.STRING, out url, &quot;page to load&quot;, &quot;URL&quot; },
+    { &quot;fullscreen&quot;, &#39;f&#39;, 0, OptionArg.NONE, out fullscreen, &quot;run in fullscreen mode&quot;, null },
+    { &quot;hidecursor&quot;, &#39;s&#39;, 0, OptionArg.NONE, out hidecursor, &quot;hide mouse cursor&quot;, null },
+    { &quot;debug&quot;, &#39;d&#39;, 0, OptionArg.NONE, out debug, &quot;enable web developer tools&quot;, null },
+    { null }
+};
+</code></pre>
+
+<p>Then you create an <strong>OptionContext</strong> with a description of the program,
+and add the options to it:</p>
+
+<pre><code>OptionContext context = new OptionContext(&quot;- Webkit example&quot;);
+
+context.add_main_entries(options, null);
+</code></pre>
+
+<p>To parse the options, call the <strong>parse</strong> method:</p>
+
+<pre><code>try
+{
+    context.parse(ref args);
+}
+catch (OptionError e)
+{
+    stderr.printf(&quot;%s: failed to parse arguments: %s\n&quot;, prog_name, e.message);
+    return 1;
+}
+</code></pre>
+
+<p>To initialize GTK+, we add an optional .gtkrc file (I don&#39;t use it but it&#39;s
+good practice) and call <strong>Gtk.init</strong>:</p>
+
+<pre><code>Gtk.rc_add_default_file(&quot;webkit-example.gtkrc&quot;);
+Gtk.init(ref args);
+</code></pre>
+
+<p>Then we can create our GTK+ window which embeds Webkit (see the next section
+for details of our window class):</p>
+
+<pre><code>MainWindow w = new MainWindow(hidecursor, debug);
+</code></pre>
+
+<p>Make it full screen if the command line option was passed:</p>
+
+<pre><code>if (fullscreen)
+{
+        w.fullscreen();
+}
+</code></pre>
+
+<p>Show it and all its children (including Webkit):</p>
+
+<pre><code>w.show_all();
+</code></pre>
+
+<p>And then load the URL into Webkit (this is a method on our window class which
+ends up calling into Webkit):</p>
+
+<pre><code>w.load(url);
+</code></pre>
+
+<p>Finally, we have to enter the GTK+ main loop which makes sure things are
+displayed and user input events are dispatched properly:</p>
+
+<pre><code>Gtk.main();
+</code></pre>
+
+<h2 id="toc_3">Window class</h2>
+
+<p>This class is going to do the following:</p>
+
+<ul>
+<li>Inherit from the GTK+ Window class so it&#39;s a... erm... window.</li>
+<li>Create a new Webkit browser component and add it to the window.</li>
+<li>Configure things like the the window size and Webkit settings.</li>
+<li>Arrange for the mouse cursor to be hidden if the user requested to do so.</li>
+<li>Expose a function to Javascript running in Webkit which returns data read
+from standard input. This shows we can get data from Vala into the Web app.</li>
+<li>Expose a function to Javascript running in Webkit which writes its argument to
+standard output and then terminates the application. This shows we can call Vala
+functions and pass them data from the Web app.</li>
+</ul>
+
+<h2 id="toc_4">Setting things up</h2>
+
+<p>Here&#39;s how we declare our window class:</p>
+
+<pre><code>public class WebkitExample.MainWindow : Window
+{
+    private const string TITLE = &quot;Webkit Example&quot;;
+
+    private WebView webview;
+    private Gdk.Cursor cursor;
+    private static string data;
+</code></pre>
+
+<p>You can see we inherit from <strong>Window</strong> and define a title which we&#39;ll set 
+below. There are private instance variables for a Webkit component (<strong>webview</strong>),
+an invisible mouse cursor (<strong>cursor</strong>), and data read from standard
+input (<strong>data</strong>).</p>
+
+<p>Next we define the constructor:</p>
+
+<pre><code>public MainWindow (bool hidecursor, bool debug)
+{  
+    title = TITLE;
+    set_default_size(800, 600);
+    destroy.connect(Gtk.main_quit);
+
+    if (hidecursor)
+    {
+        cursor = new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR);
+    }
+</code></pre>
+
+<p>Simple stuff here:</p>
+
+<ul>
+<li>Set the window title and size.</li>
+<li>Connect the <strong>destroy</strong> event which is fired when the user closes the window
+to <strong>Gtk.main_quit</strong> function which exits the application.</li>
+<li>If the user wants to hide the cursor, set <strong>cursor</strong> to an invisible cursor.</li>
+</ul>
+
+<p>Now we can create a Webkit component and initialize it:</p>
+
+<pre><code>    webview = new WebView();
+
+    WebSettings settings = webview.get_settings();
+
+    settings.enable_plugins = true;
+    settings.enable_scripts = true;
+    settings.enable_universal_access_from_file_uris = true;
+</code></pre>
+
+<p>Here I&#39;m enabling plugins and scripts. I&#39;m also enabling documents loaded from
+the local system to make network calls. We won&#39;t use it in this example but
+you&#39;ll need it if, for example, you have a user interface bundled with your
+application that ends up talking to a Web service somewhere.</p>
+
+<p>Next we need to set up the Webkit developer tools (also known as the Web
+inspector).</p>
+
+<pre><code>if (debug)
+{
+    settings.enable_developer_extras = true;
+    webview.web_inspector.inspect_web_view.connect(getInspectorView);
+}
+</code></pre>
+
+<p>We enable the <em>Inspect Element</em> option in the right-click menu of
+the main Webkit component, which opens the Web inspector (and the rest of the
+developer tools like the console and network tracer)</p>
+
+<p>The <strong>inspect_web_view</strong> event is fired when the user selects the menu option.
+We connect it to a method (<strong>getInspectorView</strong>) which returns the Webkit
+component we want the Webkit inspector to display itself in.
+The <strong>getInspectorView</strong> method is described in the next section.</p>
+
+<p>Now we need to connect up another event, <strong>window_object_cleared</strong>. This is
+fired by Webkit when a new page is loaded. We&#39;ll connect it to a method which
+exposes functions for Javascript in the page to call:</p>
+
+<pre><code>webview.window_object_cleared.connect(addApp);
+</code></pre>
+
+<p>We&#39;ll get to <strong>addApp</strong> a bit later on.</p>
+
+<p>Finally, we finish configuring Webkit and add it to the main window:</p>
+
+<pre><code>get_default_session().add_feature_by_type = typeof(CookieJar);
+
+ScrolledWindow sWindow = new ScrolledWindow(null, null);
+sWindow.set_policy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+
+sWindow.add(webview);
+add(sWindow);
+</code></pre>
+
+<p>You can see that we enable cookies and allow the Webkit component to scroll.</p>
+
+<h2 id="toc_5">Returning a Webkit component for the Webkit inspector</h2>
+
+<p>Here&#39;s <strong>getInspectorView</strong>, which we hooked up to the <strong>inspect_web_view</strong>
+event in the constructor. 
+This involves creating separate window and Webkit components for
+the Web inspector:</p>
+
+<pre><code>public unowned WebView getInspectorView(WebView v)
+{
+    Window iWindow = new Window();
+    WebView iWebview = new WebView();
+
+    ScrolledWindow sWindow = new ScrolledWindow(null, null);
+    sWindow.set_policy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+
+    sWindow.add(iWebview);
+    iWindow.add(sWindow);
+</code></pre>
+
+<p>Note I add the Webkit component (<strong>iWebview</strong>) to a scrolled window (<strong>sWindow</strong>)
+so it doesn&#39;t matter if it doesn&#39;t all fit inside. I then add the scrolled
+window to a top-level window (<strong>iWindow</strong>).</p>
+
+<p>Next we set <strong>iWindow</strong>&#39;s title based on the main window&#39;s title and its size
+to the same as the main window&#39;s size. Then we show <strong>iWindow</strong>.
+Finally we return <strong>iWebview</strong> so the Web inspector uses it to display itself
+in:</p>
+
+<pre><code>    iWindow.title = title + &quot; (Web Inspector)&quot;;
+
+    int width, height;
+    get_size(out width, out height);
+    iWindow.set_default_size(width, height);
+
+    iWindow.show_all();
+
+    iWindow.delete_event.connect(() =&gt;
+    {
+        webview.web_inspector.close();
+        return false;
+    });
+
+    unowned WebView r = iWebview;
+    return r;
+}
+</code></pre>
+
+<p>Note intercepting the <strong>delete_event</strong> from the window in order to close the
+Web inspector before the window is destroyed. I found I got segmentation faults
+if I didn&#39;t do this.</p>
+
+<p>Note also the <strong>unowned</strong> keyword. This means there will be no reference count
+on the Webkit component so it will be deleted once the user closes <strong>iWindow</strong>.</p>
+
+<h2 id="toc_6">Hiding the mouse cursor</h2>
+
+<p>In the constructor, we set <strong>cursor</strong> to an invisible cursor if the user asked
+for the mouse cursor to be hidden. Let&#39;s define a function to check if
+<strong>cursor</strong> was set and use it on the main window and Webkit component if it was:</p>
+
+<pre><code>private void hide_cursor()
+{
+    if (cursor != null)
+    {
+        window.set_cursor(cursor);
+        webview.window.set_cursor(cursor);
+    }
+}
+</code></pre>
+
+<p>I found I had to call <strong>hide_cursor</strong> in a couple of places. Firstly, whenever
+the mouse is moved:</p>
+
+<pre><code>public override bool motion_notify_event(Gdk.EventMotion event)
+{
+    hide_cursor(); 
+
+    if (base.motion_notify_event == null)
+    {
+        return false;
+    }
+    else
+    {
+        return base.motion_notify_event(event);
+    }
+}
+</code></pre>
+
+<p>and secondly when the <a href="#load">page is loaded</a>.</p>
+
+<h2 id="toc_7">Getting data from standard input</h2>
+
+<p>We want to read all of standard input and expose it to Javascript running in
+Webkit. We&#39;ll see in the next section how to expose functions for Javascript to
+call. What we do first is start a thread which reads from standard input:</p>
+
+<pre><code>static construct
+{
+    try
+    {
+        Thread.create&lt;void*&gt;(() =&gt;
+        {
+            StringBuilder sb = new StringBuilder();
+            char buffer[1024];
+
+            while (!stdin.eof())
+            {
+                string s = stdin.gets(buffer);
+
+                if (s != null)
+                {
+                    sb.append(s);
+                }
+            }
+
+            lock (data)
+            {
+                data = sb.str;
+            }
+
+            return null;
+        }, false);
+    }
+    catch (ThreadError e)
+    {
+        stderr.printf(&quot;%s: failed to create data reader thread: %s\n&quot;, Main.prog_name, e.message);
+        Gtk.main_quit();
+    }
+}
+</code></pre>
+
+<p>This code is only run once, when the <strong>MainWindow</strong> class is first used. We
+build up a string buffer from standard input until end-of-file is reached.</p>
+
+<p>Then we set the <strong>data</strong> class variable that we declared at the top of the class
+to the contents of the string buffer. Note we take out a <strong>lock</strong> on <strong>data</strong>
+first because we&#39;re going to be reading it from a different thread:</p>
+
+<pre><code>public static JSCore.Value getData(JSCore.Context ctx,
+                                   JSCore.Object function,
+                                   JSCore.Object thisObject,
+                                   JSCore.ConstValue[] arguments,
+                                   out JSCore.Value exception)
+{
+    exception = null;
+
+    lock (data)
+    {
+        return new JSCore.Value.string(ctx, new JSCore.String.with_utf8_c_string(data));
+    }
+}
+</code></pre>
+
+<p>We&#39;ll be calling this function from Javascript and exposing it to Webkit in the
+next section. It simply returns <strong>data</strong> to Javascript.</p>
+
+<h2 id="toc_8">Passing data to Javascript</h2>
+
+<p>The cleanest way to pass data to Javascript is to expose functions for
+Javascript to call when it&#39;s ready to do so. You can then return the data from
+those functions.</p>
+
+<p>In the constructor for <strong>MainWindow</strong>, we arranged for a method called
+<strong>addApp</strong> to be called whenever Webkit loaded a new page. Here&#39;s the start
+of <strong>addApp</strong>:</p>
+
+<pre><code>public void addApp(WebFrame frame, void *context, void *window_object)
+{
+    unowned JSCore.Context ctx = (JSCore.Context) context;
+    JSCore.Object global = ctx.get_global_object();
+</code></pre>
+
+<p>Here we get the global object from the Javascript context that&#39;s passed to us.
+This represents the global variables in the page our Webkit component (<strong>webview</strong>) has loaded.</p>
+
+<p>We can then use this to expose the <strong>getData</strong> method we defined in the previous
+section:</p>
+
+<pre><code>    JSCore.String name = new JSCore.String.with_utf8_c_string(&quot;app_getData&quot;);
+    JSCore.Value ex;
+
+    global.set_property(ctx,
+                        name,
+                        new JSCore.Object.function_with_callback(ctx, name, getData),
+                        JSCore.PropertyAttribute.ReadOnly,
+                        out ex);
+</code></pre>
+
+<p>In Javascript, <strong>getData</strong> will be available as <strong>app_getData</strong>.</p>
+
+<h2 id="toc_9">Receiving data from Javascript</h2>
+
+<p>Let&#39;s continue the definition of <strong>addApp</strong> from the previous section to expose
+a method, <strong>exit</strong>, which Javascript can call to exit the application:</p>
+
+<pre><code>    name = new JSCore.String.with_utf8_c_string(&quot;app_exit&quot;);
+
+    global.set_property(ctx,
+                        name,
+                        new JSCore.Object.function_with_callback(ctx, name, exit),
+                        JSCore.PropertyAttribute.ReadOnly,
+                        out ex);
+}
+</code></pre>
+
+<p><strong>exit</strong> will take an argument, which it will print to standard output before
+exiting the application:</p>
+
+<pre><code>public static JSCore.Value exit(JSCore.Context ctx,
+                                JSCore.Object function,
+                                JSCore.Object thisObject,
+                                JSCore.ConstValue[] arguments,
+                                out JSCore.Value exception)
+{
+    exception = null;
+
+    JSCore.String js_string = arguments[0].to_string_copy(ctx, null);
+
+    size_t max_size = js_string.get_maximum_utf8_c_string_size();
+    char *c_string = new char[max_size];
+    js_string.get_utf8_c_string(c_string, max_size);
+
+    stdout.printf(&quot;%s\n&quot;, (string) c_string);
+
+    Gtk.main_quit();
+
+    return new JSCore.Value.null(ctx);
+}
+</code></pre>
+
+<p>As you can see, we have to convert the Javascript string argument to UTF-8.
+You&#39;ll need a UTF-8 locale set up to display the string if you use
+any Unicode characters.</p>
+
+<h2 id="toc_10"><a id="load"></a>Loading a page</h2>
+
+<p>Finally, we need to define the <strong>load</strong> method which allows users of
+<strong>MainWindow</strong> to specify the page which will be loaded into Webkit:</p>
+
+<pre><code>public void load(string url)
+{
+    webview.open(url);
+    hide_cursor();
+}
+</code></pre>
+
+<p>It just calls the <strong>open</strong> method of our Webkit component and then hides the
+cursor (if necessary).</p>
+
+<h2 id="toc_11">Compiling</h2>
+
+<p>That&#39;s it for the Vala code but there are a couple of other things to do before
+we can compile it and get a binary we can run.</p>
+
+<p>Firstly, the class and type definitions for interoperating with Javascript
+aren&#39;t built into Vala. They have to be defined separately. This is done by
+<a href="https://live.gnome.org/Vala/Tutorial#Binding_Libraries_with_VAPI_Files">defining them in a VAPI file</a>.</p>
+
+<p>I won&#39;t go into the details here, but the hard
+work has already been done by Sam Thursfield and is available <a href="http://gitorious.org/seed-vapi/seed-vapi/blobs/master/javascriptcore.vapi">here</a>.
+I had to make a few patches, which are available <a href="https://gist.github.com/4058053#file_javascriptcore.vapi.patch">here</a>.</p>
+
+<p>Secondly, when you compile a Vala program, especially one which uses some
+complex types, it&#39;s fairly common to get warnings about const and type
+incompatibility from the C compiler (remember Vala is translated into C).
+Most people ignore these but I like to compile without warnings. I&#39;ve adopted a
+rather skanky workaround to do this. Basically, I insert a script to fix up the
+types in the generated C source code.</p>
+
+<p>You can find all the source from this article <a href="https://gist.github.com/4058053">here</a>. You&#39;ll also find a working
+Makefile, a patched version of the Javascript VAPI file, my skanky workaround script
+and the test Web page described in the next section.</p>
+
+<h2 id="toc_12">Test Web page</h2>
+
+<p>Finally, let&#39;s take a look a Web page we can load into our example
+application. It needs to:</p>
+
+<ul>
+<li><p>Call <strong>app_getData</strong> periodically until it returns something other than the
+empty string. This will be the data read from standard input and we&#39;ll display
+it in the page once it&#39;s read.</p></li>
+<li><p>Call <strong>app_exit</strong> at some point, passing in a message which the application
+will write to standard output before exiting. We&#39;ll do this when the user
+presses a button.</p></li>
+</ul>
+
+<p>The HTML turns out to be pretty simple:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function check_data()
+{
+    var data = app_getData();
+
+    if (data === &quot;&quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&#39;data&#39;).innerText = data;
+    }
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&#39;check_data()&#39;&gt;
+&lt;p&gt;
+data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;input type=&quot;button&quot; value=&quot;Exit&quot; onclick=&quot;app_exit(&#39;goodbye from Javascript&#39;)&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>We poll <strong>app_getData</strong> every second once the page has loaded. When we have the
+data from standard input, we display it in the <strong>#data</strong> element.</p>
+
+<p>When the user clicks on the <strong>Exit</strong> button, we call <strong>app_exit</strong> with a
+message.</p>
+
+<p>You can test it by piping some data through to the <strong>webkit-example</strong> binary
+you get by building the <a href="https://gist.github.com/4058053">source</a>. For example:</p>
+
+<pre><code>echo &#39;Hello World!&#39; | ./webkit-example
+</code></pre>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/vu-meter" title="Vu Meter">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2012-11-10</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#webkit-ref">webkit <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#html-ref">html <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#javascript-ref">javascript <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#gtk-ref">gtk <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#vala-ref">vala <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

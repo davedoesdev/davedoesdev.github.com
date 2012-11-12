@@ -3,7 +3,841 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-10-18 08:45:01 +0100</pubDate>
+    <pubDate>2012-11-12 08:10:28 +0000</pubDate>
+    <item>
+      <title>Wrapping Webkit (Part 1 - GTK+/Vala)</title>
+      <link>http://www.davedoesdev.com/wrapping-webkit-part-1-gtk%2B-vala</link>
+      <pubDate>2012-11-10</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Wrapping Webkit (Part 1 - GTK+/Vala) - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46767150188035267" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9038668545528128" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7291697243429026" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7181911543348384" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6695019085798876" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9330568839550005" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9902166774063638"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7644667946775967"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Wrapping Webkit (Part 1 - GTK+/Vala) 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;I wanted to write a user interface in HTML and Javascript but run the rest of
+the application in some other language that has access to system facilities.
+Therefore I needed
+bi-directional communication between the user interface and the application
+logic. I also wanted to run it as a normal standalone application.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.gtk.org/"&gt;GTK+&lt;/a&gt; and &lt;a href="http://qt-project.org/"&gt;Qt&lt;/a&gt; both let you embed
+the &lt;a href="http://www.webkit.org"&gt;Webkit&lt;/a&gt; browser engine to do this. Another option
+is to run &lt;a href="http://www.chromium.org/Home"&gt;Chromium&lt;/a&gt; in kiosk mode.&lt;/p&gt;
+
+&lt;p&gt;This post is about using GTK+&amp;#39;s Webkit component. Future posts will look at
+Qt and Chromium.&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;Vala&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#39;m not a big fan of C++. It&amp;#39;s much too complicated for me. Add in GTK+&amp;#39;s &lt;a href="http://www.demko.ca/blog/posts/200705_gtkmm_refcoutning.txt"&gt;wacky reference
+counting&lt;/a&gt; and using
+GTK+ to run Webkit from C++ gets a big no from me.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, there are &lt;a href="http://www.gtk.org/language-bindings.php"&gt;many other language bindings for GTK+&lt;/a&gt;. Although I could have used most of these, I wanted to
+try something new - so I chose &lt;a href="https://live.gnome.org/Vala"&gt;Vala&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Vala&amp;#39;s pretty interesting:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It&amp;#39;s statically typed.&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s a a lot like Java/C#, with a similar set of language features.&lt;/li&gt;
+&lt;li&gt;But it&amp;#39;s compiled, via source translation to C.&lt;/li&gt;
+&lt;li&gt;The only dependency it has is &lt;a href="http://developer.gnome.org/glib/"&gt;GLib&lt;/a&gt;,
+which is available pretty much everywhere nowadays.&lt;/li&gt;
+&lt;li&gt;It does the GTK+ reference counting for you.&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s officially supported by GNOME/GTK+.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What&amp;#39;s not to like?!&lt;/p&gt;
+
+&lt;h1 id="toc_1"&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;We&amp;#39;ll have two classes in our example:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A main class for parsing command line options and initializing things.&lt;/li&gt;
+&lt;li&gt;A window class which embeds Webkit and puts it in a GTK+ window.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id="toc_2"&gt;Main class&lt;/h2&gt;
+
+&lt;p&gt;As with most languages, in Vala the startup function is called &lt;strong&gt;main&lt;/strong&gt; and
+it&amp;#39;s declared as a static method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using Gtk;
+
+class WebkitExample.Main : GLib.Object
+{
+    public static int main(string[] args)
+    {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our example is going to support the following command line options:&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;url&lt;/dt&gt;
+&lt;dd&gt;which URL to load into Webkit&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;fullscreen&lt;/dt&gt;
+&lt;dd&gt;run in full screen (kiosk) mode&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;hidecursor&lt;/dt&gt;
+&lt;dd&gt;hide the mouse cursor&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;debug&lt;/dt&gt;
+&lt;dd&gt;enable the Webkit developer tools in the context menu&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;It also needs to create and show our window class (which embeds Webkit) and
+initialize GTK+.&lt;/p&gt;
+
+&lt;p&gt;First we set the defaults for the command line options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;try
+{
+    url = &amp;quot;file://&amp;quot; + Path.get_dirname(FileUtils.read_link(&amp;quot;/proc/self/exe&amp;quot;)) + &amp;quot;/test.html&amp;quot;;
+}
+catch (FileError e)
+{
+    stderr.printf(&amp;quot;%s\n&amp;quot;, e.message);
+    return 1;
+}
+
+fullscreen = false;
+hidecursor = false;
+debug = false;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You&amp;#39;ll see by default we load a file named &lt;strong&gt;test.html&lt;/strong&gt; in the same directory
+as the program.&lt;/p&gt;
+
+&lt;p&gt;Parsing command line options in Vala is pretty easy. You list the options in an
+array, along with the type of argument expected (if any), some help text and in
+which variable to put the argument. For our options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;static string url;
+static bool fullscreen;
+static bool showcursor;
+static bool debug;
+
+const OptionEntry[] options =
+{
+    { &amp;quot;url&amp;quot;, &amp;#39;u&amp;#39;, 0, OptionArg.STRING, out url, &amp;quot;page to load&amp;quot;, &amp;quot;URL&amp;quot; },
+    { &amp;quot;fullscreen&amp;quot;, &amp;#39;f&amp;#39;, 0, OptionArg.NONE, out fullscreen, &amp;quot;run in fullscreen mode&amp;quot;, null },
+    { &amp;quot;hidecursor&amp;quot;, &amp;#39;s&amp;#39;, 0, OptionArg.NONE, out hidecursor, &amp;quot;hide mouse cursor&amp;quot;, null },
+    { &amp;quot;debug&amp;quot;, &amp;#39;d&amp;#39;, 0, OptionArg.NONE, out debug, &amp;quot;enable web developer tools&amp;quot;, null },
+    { null }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you create an &lt;strong&gt;OptionContext&lt;/strong&gt; with a description of the program,
+and add the options to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;OptionContext context = new OptionContext(&amp;quot;- Webkit example&amp;quot;);
+
+context.add_main_entries(options, null);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To parse the options, call the &lt;strong&gt;parse&lt;/strong&gt; method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;try
+{
+    context.parse(ref args);
+}
+catch (OptionError e)
+{
+    stderr.printf(&amp;quot;%s: failed to parse arguments: %s\n&amp;quot;, prog_name, e.message);
+    return 1;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To initialize GTK+, we add an optional .gtkrc file (I don&amp;#39;t use it but it&amp;#39;s
+good practice) and call &lt;strong&gt;Gtk.init&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Gtk.rc_add_default_file(&amp;quot;webkit-example.gtkrc&amp;quot;);
+Gtk.init(ref args);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we can create our GTK+ window which embeds Webkit (see the next section
+for details of our window class):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MainWindow w = new MainWindow(hidecursor, debug);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make it full screen if the command line option was passed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (fullscreen)
+{
+        w.fullscreen();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Show it and all its children (including Webkit):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w.show_all();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then load the URL into Webkit (this is a method on our window class which
+ends up calling into Webkit):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w.load(url);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we have to enter the GTK+ main loop which makes sure things are
+displayed and user input events are dispatched properly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Gtk.main();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_3"&gt;Window class&lt;/h2&gt;
+
+&lt;p&gt;This class is going to do the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inherit from the GTK+ Window class so it&amp;#39;s a... erm... window.&lt;/li&gt;
+&lt;li&gt;Create a new Webkit browser component and add it to the window.&lt;/li&gt;
+&lt;li&gt;Configure things like the the window size and Webkit settings.&lt;/li&gt;
+&lt;li&gt;Arrange for the mouse cursor to be hidden if the user requested to do so.&lt;/li&gt;
+&lt;li&gt;Expose a function to Javascript running in Webkit which returns data read
+from standard input. This shows we can get data from Vala into the Web app.&lt;/li&gt;
+&lt;li&gt;Expose a function to Javascript running in Webkit which writes its argument to
+standard output and then terminates the application. This shows we can call Vala
+functions and pass them data from the Web app.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="toc_4"&gt;Setting things up&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;#39;s how we declare our window class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class WebkitExample.MainWindow : Window
+{
+    private const string TITLE = &amp;quot;Webkit Example&amp;quot;;
+
+    private WebView webview;
+    private Gdk.Cursor cursor;
+    private static string data;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see we inherit from &lt;strong&gt;Window&lt;/strong&gt; and define a title which we&amp;#39;ll set 
+below. There are private instance variables for a Webkit component (&lt;strong&gt;webview&lt;/strong&gt;),
+an invisible mouse cursor (&lt;strong&gt;cursor&lt;/strong&gt;), and data read from standard
+input (&lt;strong&gt;data&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;Next we define the constructor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public MainWindow (bool hidecursor, bool debug)
+{  
+    title = TITLE;
+    set_default_size(800, 600);
+    destroy.connect(Gtk.main_quit);
+
+    if (hidecursor)
+    {
+        cursor = new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR);
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Simple stuff here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set the window title and size.&lt;/li&gt;
+&lt;li&gt;Connect the &lt;strong&gt;destroy&lt;/strong&gt; event which is fired when the user closes the window
+to &lt;strong&gt;Gtk.main_quit&lt;/strong&gt; function which exits the application.&lt;/li&gt;
+&lt;li&gt;If the user wants to hide the cursor, set &lt;strong&gt;cursor&lt;/strong&gt; to an invisible cursor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now we can create a Webkit component and initialize it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    webview = new WebView();
+
+    WebSettings settings = webview.get_settings();
+
+    settings.enable_plugins = true;
+    settings.enable_scripts = true;
+    settings.enable_universal_access_from_file_uris = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here I&amp;#39;m enabling plugins and scripts. I&amp;#39;m also enabling documents loaded from
+the local system to make network calls. We won&amp;#39;t use it in this example but
+you&amp;#39;ll need it if, for example, you have a user interface bundled with your
+application that ends up talking to a Web service somewhere.&lt;/p&gt;
+
+&lt;p&gt;Next we need to set up the Webkit developer tools (also known as the Web
+inspector).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (debug)
+{
+    settings.enable_developer_extras = true;
+    webview.web_inspector.inspect_web_view.connect(getInspectorView);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We enable the &lt;em&gt;Inspect Element&lt;/em&gt; option in the right-click menu of
+the main Webkit component, which opens the Web inspector (and the rest of the
+developer tools like the console and network tracer)&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;inspect_web_view&lt;/strong&gt; event is fired when the user selects the menu option.
+We connect it to a method (&lt;strong&gt;getInspectorView&lt;/strong&gt;) which returns the Webkit
+component we want the Webkit inspector to display itself in.
+The &lt;strong&gt;getInspectorView&lt;/strong&gt; method is described in the next section.&lt;/p&gt;
+
+&lt;p&gt;Now we need to connect up another event, &lt;strong&gt;window_object_cleared&lt;/strong&gt;. This is
+fired by Webkit when a new page is loaded. We&amp;#39;ll connect it to a method which
+exposes functions for Javascript in the page to call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;webview.window_object_cleared.connect(addApp);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We&amp;#39;ll get to &lt;strong&gt;addApp&lt;/strong&gt; a bit later on.&lt;/p&gt;
+
+&lt;p&gt;Finally, we finish configuring Webkit and add it to the main window:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;get_default_session().add_feature_by_type = typeof(CookieJar);
+
+ScrolledWindow sWindow = new ScrolledWindow(null, null);
+sWindow.set_policy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+
+sWindow.add(webview);
+add(sWindow);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see that we enable cookies and allow the Webkit component to scroll.&lt;/p&gt;
+
+&lt;h2 id="toc_5"&gt;Returning a Webkit component for the Webkit inspector&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;#39;s &lt;strong&gt;getInspectorView&lt;/strong&gt;, which we hooked up to the &lt;strong&gt;inspect_web_view&lt;/strong&gt;
+event in the constructor. 
+This involves creating separate window and Webkit components for
+the Web inspector:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public unowned WebView getInspectorView(WebView v)
+{
+    Window iWindow = new Window();
+    WebView iWebview = new WebView();
+
+    ScrolledWindow sWindow = new ScrolledWindow(null, null);
+    sWindow.set_policy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+
+    sWindow.add(iWebview);
+    iWindow.add(sWindow);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note I add the Webkit component (&lt;strong&gt;iWebview&lt;/strong&gt;) to a scrolled window (&lt;strong&gt;sWindow&lt;/strong&gt;)
+so it doesn&amp;#39;t matter if it doesn&amp;#39;t all fit inside. I then add the scrolled
+window to a top-level window (&lt;strong&gt;iWindow&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;Next we set &lt;strong&gt;iWindow&lt;/strong&gt;&amp;#39;s title based on the main window&amp;#39;s title and its size
+to the same as the main window&amp;#39;s size. Then we show &lt;strong&gt;iWindow&lt;/strong&gt;.
+Finally we return &lt;strong&gt;iWebview&lt;/strong&gt; so the Web inspector uses it to display itself
+in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    iWindow.title = title + &amp;quot; (Web Inspector)&amp;quot;;
+
+    int width, height;
+    get_size(out width, out height);
+    iWindow.set_default_size(width, height);
+
+    iWindow.show_all();
+
+    iWindow.delete_event.connect(() =&amp;gt;
+    {
+        webview.web_inspector.close();
+        return false;
+    });
+
+    unowned WebView r = iWebview;
+    return r;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note intercepting the &lt;strong&gt;delete_event&lt;/strong&gt; from the window in order to close the
+Web inspector before the window is destroyed. I found I got segmentation faults
+if I didn&amp;#39;t do this.&lt;/p&gt;
+
+&lt;p&gt;Note also the &lt;strong&gt;unowned&lt;/strong&gt; keyword. This means there will be no reference count
+on the Webkit component so it will be deleted once the user closes &lt;strong&gt;iWindow&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id="toc_6"&gt;Hiding the mouse cursor&lt;/h2&gt;
+
+&lt;p&gt;In the constructor, we set &lt;strong&gt;cursor&lt;/strong&gt; to an invisible cursor if the user asked
+for the mouse cursor to be hidden. Let&amp;#39;s define a function to check if
+&lt;strong&gt;cursor&lt;/strong&gt; was set and use it on the main window and Webkit component if it was:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private void hide_cursor()
+{
+    if (cursor != null)
+    {
+        window.set_cursor(cursor);
+        webview.window.set_cursor(cursor);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I found I had to call &lt;strong&gt;hide_cursor&lt;/strong&gt; in a couple of places. Firstly, whenever
+the mouse is moved:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public override bool motion_notify_event(Gdk.EventMotion event)
+{
+    hide_cursor(); 
+
+    if (base.motion_notify_event == null)
+    {
+        return false;
+    }
+    else
+    {
+        return base.motion_notify_event(event);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and secondly when the &lt;a href="#load"&gt;page is loaded&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="toc_7"&gt;Getting data from standard input&lt;/h2&gt;
+
+&lt;p&gt;We want to read all of standard input and expose it to Javascript running in
+Webkit. We&amp;#39;ll see in the next section how to expose functions for Javascript to
+call. What we do first is start a thread which reads from standard input:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;static construct
+{
+    try
+    {
+        Thread.create&amp;lt;void*&amp;gt;(() =&amp;gt;
+        {
+            StringBuilder sb = new StringBuilder();
+            char buffer[1024];
+
+            while (!stdin.eof())
+            {
+                string s = stdin.gets(buffer);
+
+                if (s != null)
+                {
+                    sb.append(s);
+                }
+            }
+
+            lock (data)
+            {
+                data = sb.str;
+            }
+
+            return null;
+        }, false);
+    }
+    catch (ThreadError e)
+    {
+        stderr.printf(&amp;quot;%s: failed to create data reader thread: %s\n&amp;quot;, Main.prog_name, e.message);
+        Gtk.main_quit();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This code is only run once, when the &lt;strong&gt;MainWindow&lt;/strong&gt; class is first used. We
+build up a string buffer from standard input until end-of-file is reached.&lt;/p&gt;
+
+&lt;p&gt;Then we set the &lt;strong&gt;data&lt;/strong&gt; class variable that we declared at the top of the class
+to the contents of the string buffer. Note we take out a &lt;strong&gt;lock&lt;/strong&gt; on &lt;strong&gt;data&lt;/strong&gt;
+first because we&amp;#39;re going to be reading it from a different thread:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static JSCore.Value getData(JSCore.Context ctx,
+                                   JSCore.Object function,
+                                   JSCore.Object thisObject,
+                                   JSCore.ConstValue[] arguments,
+                                   out JSCore.Value exception)
+{
+    exception = null;
+
+    lock (data)
+    {
+        return new JSCore.Value.string(ctx, new JSCore.String.with_utf8_c_string(data));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We&amp;#39;ll be calling this function from Javascript and exposing it to Webkit in the
+next section. It simply returns &lt;strong&gt;data&lt;/strong&gt; to Javascript.&lt;/p&gt;
+
+&lt;h2 id="toc_8"&gt;Passing data to Javascript&lt;/h2&gt;
+
+&lt;p&gt;The cleanest way to pass data to Javascript is to expose functions for
+Javascript to call when it&amp;#39;s ready to do so. You can then return the data from
+those functions.&lt;/p&gt;
+
+&lt;p&gt;In the constructor for &lt;strong&gt;MainWindow&lt;/strong&gt;, we arranged for a method called
+&lt;strong&gt;addApp&lt;/strong&gt; to be called whenever Webkit loaded a new page. Here&amp;#39;s the start
+of &lt;strong&gt;addApp&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void addApp(WebFrame frame, void *context, void *window_object)
+{
+    unowned JSCore.Context ctx = (JSCore.Context) context;
+    JSCore.Object global = ctx.get_global_object();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here we get the global object from the Javascript context that&amp;#39;s passed to us.
+This represents the global variables in the page our Webkit component (&lt;strong&gt;webview&lt;/strong&gt;) has loaded.&lt;/p&gt;
+
+&lt;p&gt;We can then use this to expose the &lt;strong&gt;getData&lt;/strong&gt; method we defined in the previous
+section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    JSCore.String name = new JSCore.String.with_utf8_c_string(&amp;quot;app_getData&amp;quot;);
+    JSCore.Value ex;
+
+    global.set_property(ctx,
+                        name,
+                        new JSCore.Object.function_with_callback(ctx, name, getData),
+                        JSCore.PropertyAttribute.ReadOnly,
+                        out ex);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Javascript, &lt;strong&gt;getData&lt;/strong&gt; will be available as &lt;strong&gt;app_getData&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id="toc_9"&gt;Receiving data from Javascript&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;#39;s continue the definition of &lt;strong&gt;addApp&lt;/strong&gt; from the previous section to expose
+a method, &lt;strong&gt;exit&lt;/strong&gt;, which Javascript can call to exit the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    name = new JSCore.String.with_utf8_c_string(&amp;quot;app_exit&amp;quot;);
+
+    global.set_property(ctx,
+                        name,
+                        new JSCore.Object.function_with_callback(ctx, name, exit),
+                        JSCore.PropertyAttribute.ReadOnly,
+                        out ex);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;exit&lt;/strong&gt; will take an argument, which it will print to standard output before
+exiting the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static JSCore.Value exit(JSCore.Context ctx,
+                                JSCore.Object function,
+                                JSCore.Object thisObject,
+                                JSCore.ConstValue[] arguments,
+                                out JSCore.Value exception)
+{
+    exception = null;
+
+    JSCore.String js_string = arguments[0].to_string_copy(ctx, null);
+
+    size_t max_size = js_string.get_maximum_utf8_c_string_size();
+    char *c_string = new char[max_size];
+    js_string.get_utf8_c_string(c_string, max_size);
+
+    stdout.printf(&amp;quot;%s\n&amp;quot;, (string) c_string);
+
+    Gtk.main_quit();
+
+    return new JSCore.Value.null(ctx);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, we have to convert the Javascript string argument to UTF-8.
+You&amp;#39;ll need a UTF-8 locale set up to display the string if you use
+any Unicode characters.&lt;/p&gt;
+
+&lt;h2 id="toc_10"&gt;&lt;a id="load"&gt;&lt;/a&gt;Loading a page&lt;/h2&gt;
+
+&lt;p&gt;Finally, we need to define the &lt;strong&gt;load&lt;/strong&gt; method which allows users of
+&lt;strong&gt;MainWindow&lt;/strong&gt; to specify the page which will be loaded into Webkit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void load(string url)
+{
+    webview.open(url);
+    hide_cursor();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It just calls the &lt;strong&gt;open&lt;/strong&gt; method of our Webkit component and then hides the
+cursor (if necessary).&lt;/p&gt;
+
+&lt;h2 id="toc_11"&gt;Compiling&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#39;s it for the Vala code but there are a couple of other things to do before
+we can compile it and get a binary we can run.&lt;/p&gt;
+
+&lt;p&gt;Firstly, the class and type definitions for interoperating with Javascript
+aren&amp;#39;t built into Vala. They have to be defined separately. This is done by
+&lt;a href="https://live.gnome.org/Vala/Tutorial#Binding_Libraries_with_VAPI_Files"&gt;defining them in a VAPI file&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I won&amp;#39;t go into the details here, but the hard
+work has already been done by Sam Thursfield and is available &lt;a href="http://gitorious.org/seed-vapi/seed-vapi/blobs/master/javascriptcore.vapi"&gt;here&lt;/a&gt;.
+I had to make a few patches, which are available &lt;a href="https://gist.github.com/4058053#file_javascriptcore.vapi.patch"&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Secondly, when you compile a Vala program, especially one which uses some
+complex types, it&amp;#39;s fairly common to get warnings about const and type
+incompatibility from the C compiler (remember Vala is translated into C).
+Most people ignore these but I like to compile without warnings. I&amp;#39;ve adopted a
+rather skanky workaround to do this. Basically, I insert a script to fix up the
+types in the generated C source code.&lt;/p&gt;
+
+&lt;p&gt;You can find all the source from this article &lt;a href="https://gist.github.com/4058053"&gt;here&lt;/a&gt;. You&amp;#39;ll also find a working
+Makefile, a patched version of the Javascript VAPI file, my skanky workaround script
+and the test Web page described in the next section.&lt;/p&gt;
+
+&lt;h2 id="toc_12"&gt;Test Web page&lt;/h2&gt;
+
+&lt;p&gt;Finally, let&amp;#39;s take a look a Web page we can load into our example
+application. It needs to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Call &lt;strong&gt;app_getData&lt;/strong&gt; periodically until it returns something other than the
+empty string. This will be the data read from standard input and we&amp;#39;ll display
+it in the page once it&amp;#39;s read.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Call &lt;strong&gt;app_exit&lt;/strong&gt; at some point, passing in a message which the application
+will write to standard output before exiting. We&amp;#39;ll do this when the user
+presses a button.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The HTML turns out to be pretty simple:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+function check_data()
+{
+    var data = app_getData();
+
+    if (data === &amp;quot;&amp;quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&amp;#39;data&amp;#39;).innerText = data;
+    }
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body onload=&amp;#39;check_data()&amp;#39;&amp;gt;
+&amp;lt;p&amp;gt;
+data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Exit&amp;quot; onclick=&amp;quot;app_exit(&amp;#39;goodbye from Javascript&amp;#39;)&amp;quot;&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We poll &lt;strong&gt;app_getData&lt;/strong&gt; every second once the page has loaded. When we have the
+data from standard input, we display it in the &lt;strong&gt;#data&lt;/strong&gt; element.&lt;/p&gt;
+
+&lt;p&gt;When the user clicks on the &lt;strong&gt;Exit&lt;/strong&gt; button, we call &lt;strong&gt;app_exit&lt;/strong&gt; with a
+message.&lt;/p&gt;
+
+&lt;p&gt;You can test it by piping some data through to the &lt;strong&gt;webkit-example&lt;/strong&gt; binary
+you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&lt;/a&gt;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;#39;Hello World!&amp;#39; | ./webkit-example
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/vu-meter" title="Vu Meter"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2012-11-10&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#gtk-ref"&gt;gtk &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#vala-ref"&gt;vala &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Vu Meter</title>
       <link>http://www.davedoesdev.com/vu-meter</link>
@@ -19,15 +853,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.01886627275255237" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.35615353169353237" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5624796485258514" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3895548848436393" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.4233122322511461" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6351827873145749" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9207846877302327" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5284859094742904" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5429727875571942" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3889557759958615" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.42208274389219" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6054375408205989" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.43317827740949233"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5774679738347547"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.903645366901301"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6491365671382113"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -393,7 +1227,7 @@ to clean things up at the end - press ^C or Enter to exit.&lt;/p&gt;
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/wrapping-webkit-part-1-gtk%2B-vala" title="Wrapping Webkit (Part 1 - GTK+/Vala)"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -485,15 +1319,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.395531780257535" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5413817073058964" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.42940072915181593" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4284444056329101" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.24093441946470795" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8149305767341514" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.44987507257415005" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7491620997497054" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4562634297276176" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5193764694950793" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.3242654000684151" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.01732313441708988" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.08545700576168747"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.27584246283313374"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2590250719235814"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9221435341231148"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -853,15 +1687,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8069786886512532" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5634776759930075" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9539240011880273" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.21917639507418119" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8194171275521377" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6344099770442662" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.37436044508815636" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.296282776659504" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3363390675993432" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.05107207828763172" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.859833722073707" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.22568099137450204" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.0761527037529568"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.025876132672522867"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.35762274252520865"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8618829410147716"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1202,15 +2036,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7239154167390999" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.14152092204701971" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5396795830933675" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.016533372290676418" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7926302558270132" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.013296699532711953" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.16506449362623388" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8153941454598567" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.20630456932060126" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7061244991377114" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5052369735868998" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6339094341442701" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.19451962043884918"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.46949573995876936"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.22219630943696356"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.47774969235771436"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
