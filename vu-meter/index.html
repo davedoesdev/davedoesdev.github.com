@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.1335883947471469" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.24007801583759747" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9309610382436131" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.04180324962863213" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.8468962415763656" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5092317623622432" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9693844215398637" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.11282149747998593" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.02346675610682869" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11082712528778027" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.1555879059310944" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.1914347602550427" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.023448813391715895"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.23276744519891923"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5778744773849286"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6478001777246853"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -129,7 +129,7 @@ display.</p>
 <p>XOSD is a library to build into your own projects. <a href="http://phintsan.kapsi.fi/xosdd.html">xosdd</a> puts XOSD into a daemon which listens on a named pipe for
 commands using a custom protocol.</p>
 
-<p>I made a <a href="https://gist.github.com/3847336#file_xosdd_0.0.patch">2-line patch</a> to xosdd in order to support display of text in the centre of the screen.</p>
+<p>I made a <a href="https://gist.github.com/3847336#file-xosdd-0-0-patch">2-line patch</a> to xosdd in order to support display of text in the centre of the screen.</p>
 
 <p>First, I created some named pipes:</p>
 
@@ -364,7 +364,7 @@ microphone level.</p>
 
 <h2 id="toc_5">Putting it all together</h2>
 
-<p>The complete script is <a href="https://gist.github.com/3847759#file_vu_meter.sh">here</a>. Remember you need to set <strong>ctlIn</strong> and <strong>ctlDelta</strong> for
+<p>The complete script is <a href="https://gist.github.com/3847759#file-vu-meter-sh">here</a>. Remember you need to set <strong>ctlIn</strong> and <strong>ctlDelta</strong> for
 your device at the top.
 The script calls <strong>rkill.sh</strong> from my <a href="/script-cleanup">previous post</a>
 to clean things up at the end - press ^C or Enter to exit.</p>

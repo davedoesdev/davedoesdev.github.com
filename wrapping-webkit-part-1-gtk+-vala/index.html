@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5305131906443836" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.04748237357019558" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9935247629592264" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.014066158435486087" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.8391607775746771" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.11595298696963985" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4177854685149376" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.43755742602260894" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4288875720816875" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7107918075716776" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.5634429397265986" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7394600051105517" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8451589997866336"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.19586541342043295"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5947970051462235"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3363584376977252"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -228,7 +228,7 @@ const OptionEntry[] options =
 {
     { &quot;url&quot;, &#39;u&#39;, 0, OptionArg.STRING, out url, &quot;page to load&quot;, &quot;URL&quot; },
     { &quot;fullscreen&quot;, &#39;f&#39;, 0, OptionArg.NONE, out fullscreen, &quot;run in fullscreen mode&quot;, null },
-    { &quot;hidecursor&quot;, &#39;s&#39;, 0, OptionArg.NONE, out hidecursor, &quot;hide mouse cursor&quot;, null },
+    { &quot;hidecursor&quot;, &#39;h&#39;, 0, OptionArg.NONE, out hidecursor, &quot;hide mouse cursor&quot;, null },
     { &quot;debug&quot;, &#39;d&#39;, 0, OptionArg.NONE, out debug, &quot;enable web developer tools&quot;, null },
     { null }
 };
@@ -667,7 +667,7 @@ aren&#39;t built into Vala. They have to be defined separately. This is done by
 
 <p>I won&#39;t go into the details here, but the hard
 work has already been done by Sam Thursfield and is available <a href="http://gitorious.org/seed-vapi/seed-vapi/blobs/master/javascriptcore.vapi">here</a>.
-I had to make a few patches, which are available <a href="https://gist.github.com/4058053#file_javascriptcore.vapi.patch">here</a>.</p>
+I had to make a few patches, which are available <a href="https://gist.github.com/4058053#file-javascriptcore-vapi-patch">here</a>.</p>
 
 <p>Secondly, when you compile a Vala program, especially one which uses some
 complex types, it&#39;s fairly common to get warnings about const and type

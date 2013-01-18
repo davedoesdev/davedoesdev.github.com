@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2012-11-12 08:10:28 +0000</pubDate>
+    <pubDate>2013-01-18 11:34:55 +0000</pubDate>
     <item>
       <title>Wrapping Webkit (Part 1 - GTK+/Vala)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-1-gtk%2B-vala</link>
@@ -19,15 +19,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46767150188035267" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9038668545528128" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7291697243429026" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7181911543348384" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6695019085798876" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9330568839550005" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.30916949996645016" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4507986756491217" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.651463434336849" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6754133684517806" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6250019217854528" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5352798108637109" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9902166774063638"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7644667946775967"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9488642320217014"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9848291199553847"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -238,7 +238,7 @@ const OptionEntry[] options =
 {
     { &amp;quot;url&amp;quot;, &amp;#39;u&amp;#39;, 0, OptionArg.STRING, out url, &amp;quot;page to load&amp;quot;, &amp;quot;URL&amp;quot; },
     { &amp;quot;fullscreen&amp;quot;, &amp;#39;f&amp;#39;, 0, OptionArg.NONE, out fullscreen, &amp;quot;run in fullscreen mode&amp;quot;, null },
-    { &amp;quot;hidecursor&amp;quot;, &amp;#39;s&amp;#39;, 0, OptionArg.NONE, out hidecursor, &amp;quot;hide mouse cursor&amp;quot;, null },
+    { &amp;quot;hidecursor&amp;quot;, &amp;#39;h&amp;#39;, 0, OptionArg.NONE, out hidecursor, &amp;quot;hide mouse cursor&amp;quot;, null },
     { &amp;quot;debug&amp;quot;, &amp;#39;d&amp;#39;, 0, OptionArg.NONE, out debug, &amp;quot;enable web developer tools&amp;quot;, null },
     { null }
 };
@@ -677,7 +677,7 @@ aren&amp;#39;t built into Vala. They have to be defined separately. This is done
 
 &lt;p&gt;I won&amp;#39;t go into the details here, but the hard
 work has already been done by Sam Thursfield and is available &lt;a href="http://gitorious.org/seed-vapi/seed-vapi/blobs/master/javascriptcore.vapi"&gt;here&lt;/a&gt;.
-I had to make a few patches, which are available &lt;a href="https://gist.github.com/4058053#file_javascriptcore.vapi.patch"&gt;here&lt;/a&gt;.&lt;/p&gt;
+I had to make a few patches, which are available &lt;a href="https://gist.github.com/4058053#file-javascriptcore-vapi-patch"&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Secondly, when you compile a Vala program, especially one which uses some
 complex types, it&amp;#39;s fairly common to get warnings about const and type
@@ -853,15 +853,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9207846877302327" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5284859094742904" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5429727875571942" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3889557759958615" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.42208274389219" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6054375408205989" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8179761721546708" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6013844300044083" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5670025158062884" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6716089196161897" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5190588275450174" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.134690016447103" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.903645366901301"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6491365671382113"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9817008534102759"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.49663328019835895"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -973,7 +973,7 @@ display.&lt;/p&gt;
 &lt;p&gt;XOSD is a library to build into your own projects. &lt;a href="http://phintsan.kapsi.fi/xosdd.html"&gt;xosdd&lt;/a&gt; puts XOSD into a daemon which listens on a named pipe for
 commands using a custom protocol.&lt;/p&gt;
 
-&lt;p&gt;I made a &lt;a href="https://gist.github.com/3847336#file_xosdd_0.0.patch"&gt;2-line patch&lt;/a&gt; to xosdd in order to support display of text in the centre of the screen.&lt;/p&gt;
+&lt;p&gt;I made a &lt;a href="https://gist.github.com/3847336#file-xosdd-0-0-patch"&gt;2-line patch&lt;/a&gt; to xosdd in order to support display of text in the centre of the screen.&lt;/p&gt;
 
 &lt;p&gt;First, I created some named pipes:&lt;/p&gt;
 
@@ -1208,7 +1208,7 @@ microphone level.&lt;/p&gt;
 
 &lt;h2 id="toc_5"&gt;Putting it all together&lt;/h2&gt;
 
-&lt;p&gt;The complete script is &lt;a href="https://gist.github.com/3847759#file_vu_meter.sh"&gt;here&lt;/a&gt;. Remember you need to set &lt;strong&gt;ctlIn&lt;/strong&gt; and &lt;strong&gt;ctlDelta&lt;/strong&gt; for
+&lt;p&gt;The complete script is &lt;a href="https://gist.github.com/3847759#file-vu-meter-sh"&gt;here&lt;/a&gt;. Remember you need to set &lt;strong&gt;ctlIn&lt;/strong&gt; and &lt;strong&gt;ctlDelta&lt;/strong&gt; for
 your device at the top.
 The script calls &lt;strong&gt;rkill.sh&lt;/strong&gt; from my &lt;a href="/script-cleanup"&gt;previous post&lt;/a&gt;
 to clean things up at the end - press ^C or Enter to exit.&lt;/p&gt;
@@ -1319,15 +1319,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.44987507257415005" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7491620997497054" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4562634297276176" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5193764694950793" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.3242654000684151" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.01732313441708988" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.04107966844188238" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.17211566815503898" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7332067658111895" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5749491299176736" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.973747236335856" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.33087294086626107" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2590250719235814"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9221435341231148"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.27592904163248044"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.14120128639634744"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1428,7 +1428,7 @@ are killed.&lt;/p&gt;
 
 &lt;h2 id="toc_0"&gt;rkill.sh&lt;/h2&gt;
 
-&lt;p&gt;I&amp;#39;ve pulled code to do this out into a separate file, &lt;a href="https://gist.github.com/3808428#file_rkill.sh"&gt;rkill.sh&lt;/a&gt;.
+&lt;p&gt;I&amp;#39;ve pulled code to do this out into a separate file, &lt;a href="https://gist.github.com/3808428#file-rkill-sh"&gt;rkill.sh&lt;/a&gt;.
 It&amp;#39;s listed below, but I&amp;#39;ve split it into sections here to make it easier to
 explain.&lt;/p&gt;
 
@@ -1687,15 +1687,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.37436044508815636" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.296282776659504" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3363390675993432" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.05107207828763172" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.859833722073707" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.22568099137450204" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3971188388135273" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6968327458777972" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5912721889865673" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.20826687208813321" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.006006745626875087" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.09938219907602819" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.35762274252520865"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8618829410147716"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.00886850455179966"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9807862633666683"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1804,7 +1804,7 @@ Core &lt;strong&gt;init.d&lt;/strong&gt; scripts and voila, a splash screen!&lt;
 
 &lt;p&gt;It wasn&amp;#39;t all plain sailing though. The first thing was to get SVGAlib compiling
 on a modern Linux distribution (let&amp;#39;s assume Ubuntu here). Of course, I had
-to make some &lt;a href="https://gist.github.com/3764135#file_svgalib_1.4.3.patch"&gt;patches&lt;/a&gt;. There wasn&amp;#39;t much to
+to make some &lt;a href="https://gist.github.com/3764135#file-svgalib-1-4-3-patch"&gt;patches&lt;/a&gt;. There wasn&amp;#39;t much to
 fix:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1817,7 +1817,7 @@ compiler rules.&lt;/p&gt;&lt;/li&gt;
 
 &lt;h2 id="toc_1"&gt;Zgv&lt;/h2&gt;
 
-&lt;p&gt;I also &lt;a href="https://gist.github.com/3767626#file_zgv_5.9.patch"&gt;patched&lt;/a&gt; Zgv - not to fix compile errors, but to:&lt;/p&gt;
+&lt;p&gt;I also &lt;a href="https://gist.github.com/3767626#file-zgv-5-9-patch"&gt;patched&lt;/a&gt; Zgv - not to fix compile errors, but to:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Support &lt;a href="http://www.syslinux.org/wiki/index.php/SYSLINUX#Display_graphic_from_filename:"&gt;LSS16&lt;/a&gt;
@@ -1826,8 +1826,8 @@ displaying splash screens. I wanted to use the same files in Syslinux later
 on if I wanted to.&lt;/p&gt;
 
 &lt;p&gt;I implemented the main logic for loading LSS16
-images as separate &lt;a href="https://gist.github.com/3767626#file_readlss16.c"&gt;source&lt;/a&gt;
-and &lt;a href="https://gist.github.com/3767626#file_readlss16.h"&gt;header&lt;/a&gt; files.&lt;/p&gt;&lt;/li&gt;
+images as separate &lt;a href="https://gist.github.com/3767626#file-readlss16-c"&gt;source&lt;/a&gt;
+and &lt;a href="https://gist.github.com/3767626#file-readlss16-h"&gt;header&lt;/a&gt; files.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Remove support for JPEG, PNG and TIFF images in Zgv. I didn&amp;#39;t need these
 libraries so it was pointless to add them to Tiny Core Linux and load them
 from the USB stick.&lt;/p&gt;&lt;/li&gt;
@@ -2036,15 +2036,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.16506449362623388" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8153941454598567" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.20630456932060126" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7061244991377114" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5052369735868998" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6339094341442701" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8185267913703175" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.42342834213129976" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7450568923222373" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7627470625110465" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.03947720280647482" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5863601293347647" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.22219630943696356"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.47774969235771436"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.21242136844753567"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.011331464838373106"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2173,7 +2173,7 @@ from the USB stick, booting into X with some custom extensions.&lt;/p&gt;&lt;/li
 
 &lt;h2 id="toc_0"&gt;Syslinux&lt;/h2&gt;
 
-&lt;p&gt;Syslinux itself makes some noise. I had to &lt;a href="https://gist.github.com/3748363#file_syslinux_4.03.patch"&gt;patch&lt;/a&gt; it to make it quiet. You can see the patch is mostly about supressing
+&lt;p&gt;Syslinux itself makes some noise. I had to &lt;a href="https://gist.github.com/3748363#file-syslinux-4-03-patch"&gt;patch&lt;/a&gt; it to make it quiet. You can see the patch is mostly about supressing
 &lt;strong&gt;puts&lt;/strong&gt; and &lt;strong&gt;printf&lt;/strong&gt;. You can also see that the copyright notice is still
 displayed.&lt;/p&gt;
 

@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5154718737634145" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7066467832256595" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.353767952924231" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5212772068792729" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9128236861935394" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7680091615205416" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6404775009084026" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.024913081179712804" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.26412756206891297" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.08234445034831972" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.45827226089465456" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9833012134513734" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4456258959579744"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4495207042823126"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2854501267751405"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6795035323051042"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +126,7 @@ Core <strong>init.d</strong> scripts and voila, a splash screen!</p>
 
 <p>It wasn&#39;t all plain sailing though. The first thing was to get SVGAlib compiling
 on a modern Linux distribution (let&#39;s assume Ubuntu here). Of course, I had
-to make some <a href="https://gist.github.com/3764135#file_svgalib_1.4.3.patch">patches</a>. There wasn&#39;t much to
+to make some <a href="https://gist.github.com/3764135#file-svgalib-1-4-3-patch">patches</a>. There wasn&#39;t much to
 fix:</p>
 
 <ul>
@@ -139,7 +139,7 @@ compiler rules.</p></li>
 
 <h2 id="toc_1">Zgv</h2>
 
-<p>I also <a href="https://gist.github.com/3767626#file_zgv_5.9.patch">patched</a> Zgv - not to fix compile errors, but to:</p>
+<p>I also <a href="https://gist.github.com/3767626#file-zgv-5-9-patch">patched</a> Zgv - not to fix compile errors, but to:</p>
 
 <ul>
 <li><p>Support <a href="http://www.syslinux.org/wiki/index.php/SYSLINUX#Display_graphic_from_filename:">LSS16</a>
@@ -148,8 +148,8 @@ displaying splash screens. I wanted to use the same files in Syslinux later
 on if I wanted to.</p>
 
 <p>I implemented the main logic for loading LSS16
-images as separate <a href="https://gist.github.com/3767626#file_readlss16.c">source</a>
-and <a href="https://gist.github.com/3767626#file_readlss16.h">header</a> files.</p></li>
+images as separate <a href="https://gist.github.com/3767626#file-readlss16-c">source</a>
+and <a href="https://gist.github.com/3767626#file-readlss16-h">header</a> files.</p></li>
 <li><p>Remove support for JPEG, PNG and TIFF images in Zgv. I didn&#39;t need these
 libraries so it was pointless to add them to Tiny Core Linux and load them
 from the USB stick.</p></li>
