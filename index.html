@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.39654959930057787" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7247984637316338" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.013364067941565971" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.32379733728652427" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.19620184100250726" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5466869396871563" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.14680661149077845" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.49329339185151455" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.1957353002383182" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.286506502003835" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.6064880936843767" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7891568233058305" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.16035882953107305"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9783464521775739"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5276345015320497"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.28862537703701563"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,6 +111,30 @@
   <div class="span12">
     <h2>Latest Posts</h2>
 
+<div class="post">
+  <h3 class="title"><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Wrapping Webkit (Part 2 - Qt/C++)</a> <span class="date">2013-01-27</span></h3>
+
+  <p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
+get bi-directional communication going between Javascript and Vala, using
+GTK+&#39;s Webkit component.</p>
+
+<p>This time I&#39;m going to do the same between Javascript and C++, using
+<a href="http://qt-project.org/">Qt</a>&#39;s Webkit component. Last time out I decided against
+using C++ with GTK+ but Qt seems better suited to the language. Let&#39;s see
+how Qt/C++ compares to GTK+/Vala.</p>
+
+<p>We&#39;ll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
+
+<ol>
+<li>A main function for parsing command line options and initializing things.</li>
+<li>A window class which embeds Webkit and puts it in a Qt window.</li>
+</ol>
+
+
+  <div class="more">
+    <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn">read more..</a>
+  </div>
+</div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-1-gtk%2B-vala">Wrapping Webkit (Part 1 - GTK+/Vala)</a> <span class="date">2012-11-10</span></h3>
 

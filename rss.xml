@@ -3,7 +3,640 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-01-18 11:34:55 +0000</pubDate>
+    <pubDate>2013-03-03 17:54:25 +0000</pubDate>
+    <item>
+      <title>Wrapping Webkit (Part 2 - Qt/C++)</title>
+      <link>http://www.davedoesdev.com/wrapping-webkit-part-2-qt-c%2B%2B</link>
+      <pubDate>2013-01-27</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Wrapping Webkit (Part 2 - Qt/C++) - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7715024620012501" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.934407484978516" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7049294561593074" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6087301856154556" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.47919205479998217" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7125894696518315" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7911532387235658"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.395577133494437"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Wrapping Webkit (Part 2 - Qt/C++) 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;In my &lt;a href="/wrapping-webkit-part-1-gtk%2B-vala"&gt;previous post&lt;/a&gt;, I showed how to
+get bi-directional communication going between Javascript and Vala, using
+GTK+&amp;#39;s Webkit component.&lt;/p&gt;
+
+&lt;p&gt;This time I&amp;#39;m going to do the same between Javascript and C++, using
+&lt;a href="http://qt-project.org/"&gt;Qt&lt;/a&gt;&amp;#39;s Webkit component. Last time out I decided against
+using C++ with GTK+ but Qt seems better suited to the language. Let&amp;#39;s see
+how Qt/C++ compares to GTK+/Vala.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ll be sticking to the same example &lt;a href="/wrapping-webkit-part-1-gtk%2B-vala#example"&gt;we used before with Vala&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A main function for parsing command line options and initializing things.&lt;/li&gt;
+&lt;li&gt;A window class which embeds Webkit and puts it in a Qt window.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id="toc_0"&gt;Main function&lt;/h1&gt;
+
+&lt;p&gt;The first thing to do in a Qt application is declare a &lt;strong&gt;QApplication&lt;/strong&gt; object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This initializes Qt so it&amp;#39;s a good idea to do it early on.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ll support the same command line options: &lt;strong&gt;url&lt;/strong&gt;, &lt;strong&gt;fullscreen&lt;/strong&gt;,
+&lt;strong&gt;hidecursor&lt;/strong&gt; and &lt;strong&gt;debug&lt;/strong&gt;.  Qt doesn&amp;#39;t have a helper class to parse command
+line options so we&amp;#39;ll use
+&lt;a href="http://tclap.sourceforge.net/"&gt;TCLAP&lt;/a&gt;, a nice small library for doing just
+that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;TCLAP::CmdLine cmd(&amp;quot;Webkit Example&amp;quot;);
+TCLAP::ValueArg&amp;lt;std::string&amp;gt; urlArg(&amp;quot;u&amp;quot;, &amp;quot;url&amp;quot;, &amp;quot;page to load&amp;quot;, false, &amp;quot;file://&amp;quot; + QDir(a.applicationDirPath()).filePath(&amp;quot;test.html&amp;quot;).toStdString(), &amp;quot;URL&amp;quot;, cmd);
+TCLAP::SwitchArg fullscreenSwitch(&amp;quot;f&amp;quot;, &amp;quot;fullscreen&amp;quot;, &amp;quot;run in fullscreen mode&amp;quot;, cmd, false);
+TCLAP::SwitchArg hidecursorSwitch(&amp;quot;c&amp;quot;, &amp;quot;hidecursor&amp;quot;, &amp;quot;hide mouse cursor&amp;quot;, cmd, false);
+TCLAP::SwitchArg debugSwitch(&amp;quot;d&amp;quot;, &amp;quot;debug&amp;quot;, &amp;quot;enable web inspector&amp;quot;, cmd, false);
+
+cmd.parse(argc, argv);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, we specify the default value for each option at the same time.
+&lt;strong&gt;url&lt;/strong&gt; defaults to a file called &lt;strong&gt;test.html&lt;/strong&gt; in the same directory as the
+application.&lt;/p&gt;
+
+&lt;p&gt;Now we create our Qt window which embeds Webkit (see the next section for
+details of our window class):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MainWindow w(debugSwitch.getValue());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make it full screen if the command line option was passed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (fullscreenSwitch.getValue())
+{
+    w.setWindowState(Qt::WindowFullScreen);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A slight difference with the Vala version is that we hide the mouse cursor
+using the application object rather than the window:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (hidecursorSwitch.getValue())
+{
+    a.setOverrideCursor(QCursor(Qt::BlankCursor));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we can load the URL into Webkit (this is a method on our window class
+which ends up calling into Webkit):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w.load(urlArg.getValue().c_str());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and show the window and all its children (including Webkit):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w.show():
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we have to start the Qt application (i.e. the main event loop):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return a.exec();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id="toc_1"&gt;Window class&lt;/h1&gt;
+
+&lt;h2 id="toc_2"&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;This class is going to do the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inherit from the Qt &lt;strong&gt;QMainWindow&lt;/strong&gt; class so it&amp;#39;s a top-level window.&lt;/li&gt;
+&lt;li&gt;Apply settings and add widgets defined visually in Qt Creator, Qt&amp;#39;s IDE.
+In our GTK+/Vala example, we did this ourselves in code. With Qt Creator,
+you can configure things like the window&amp;#39;s size and add a Webkit component
+to it visually using a form designer.&lt;/li&gt;
+&lt;li&gt;Specify what Webkit features are enabled.&lt;/li&gt;
+&lt;li&gt;Start a thread which reads data from standard input.&lt;/li&gt;
+&lt;li&gt;Expose an object to Javascript which has two methods:
+
+&lt;ol&gt;
+&lt;li&gt;A method which returns data read by the thread from standard input.
+This shows we can get data from C++ into the Web app.&lt;/li&gt;
+&lt;li&gt;A method which writes its argument to standard output and then terminates
+the application. This shows we can call C++ functions and pass them data
+from the Web app.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here&amp;#39;s how we declare our window class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see we inherit from &lt;strong&gt;QMainWindow&lt;/strong&gt;. We also have to use the
+&lt;strong&gt;Q_OBJECT&lt;/strong&gt; macro in our class because we&amp;#39;ll be using Qt &lt;em&gt;signals&lt;/em&gt; and &lt;em&gt;slots&lt;/em&gt;.
+Signals and slots are declared like any other C++ method but Qt can connect a
+signal to a slot at runtime. When the signal method is called, Qt makes sure
+that any slot methods connected to it are also called. We&amp;#39;ll be using signals
+slots in this example.&lt;/p&gt;
+
+&lt;p&gt;Next we declare our constructor and destructor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public:
+    explicit MainWindow(bool debug, QWidget *parent = 0);
+    ~MainWindow() {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and a public method to load a URL into Webkit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void load(const char *url);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;MainWindow&lt;/strong&gt; class has the following private data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private:
+    Ui::MainWindow ui;
+    DataReader reader;
+    QThread readerThread;
+    Bridge bridge;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Ui::MainWindow&lt;/strong&gt; is a class which Qt Creator&amp;#39;s form designer generates from
+your visual design for the window. Qt Creator saves your design as an XML
+file which is then converted into this class. You can find the XML file for this
+example &lt;a href="https://gist.github.com/davedoesdev/4659070#file-mainwindow-ui"&gt;here&lt;/a&gt;.
+I put a grid layout onto the window and then dragged a &lt;strong&gt;QWebView&lt;/strong&gt; widget
+onto the layout.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;DataReader&lt;/strong&gt; is a class we&amp;#39;ll define later which reads data from standard
+input and raises a signal with the data when it&amp;#39;s done. This will be done in a
+thread (&lt;strong&gt;readerThread&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bridge&lt;/strong&gt; is also a class we&amp;#39;ll define later. It contains the methods we want
+to expose to Javascript: one to retrieve the data read by &lt;strong&gt;reader&lt;/strong&gt; from
+standard input and one to exit the application. It should also have a slot
+which can receive the data from &lt;strong&gt;reader&lt;/strong&gt; and store it.&lt;/p&gt;
+
+&lt;p&gt;Finally, we can define a couple of slots &amp;mdash; we&amp;#39;ll connect them to signals
+later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private slots:
+    void addBridgeToPage();
+    void exit(QString msg);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;addBridgeToPage&lt;/strong&gt; will be called whenever a new page is loaded into Webkit.
+It will add &lt;strong&gt;bridge&lt;/strong&gt; to the page. &lt;strong&gt;exit&lt;/strong&gt; will print its argument to
+standard output and then close the window. Note we declare these slots
+&lt;strong&gt;private&lt;/strong&gt;. This just means the methods which implement them are private to
+the class &amp;mdash; Qt can connect the slots themselves to signals in any class.&lt;/p&gt;
+
+&lt;h2 id="toc_3"&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;MainWindow&lt;/strong&gt;&amp;#39;s implementation is pretty simple. Let&amp;#39;s look at the constructor
+first:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MainWindow::MainWindow(bool debug, QWidget *parent) :
+    QMainWindow(parent)
+{
+    QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::PluginsEnabled, true);
+    QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::JavascriptEnabled, true);
+    QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::LinksIncludedInFocusChain, false);
+    QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls, true);
+    QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::LocalStorageEnabled, true);
+
+    if (debug)
+    {
+        QWebSettings::globalSettings()-&amp;gt;setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see we set a bunch of Webkit options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Enable plugins (you usually don&amp;#39;t need this).&lt;/li&gt;
+&lt;li&gt;Enable Javascript.&lt;/li&gt;
+&lt;li&gt;Enable tabbing between links.&lt;/li&gt;
+&lt;li&gt;Allow pages loaded from local disk to make calls to remote URLs. The
+Javascript in our example doesn&amp;#39;t do this but it&amp;#39;s useful if you want to
+distribute a HTML/JS user interface and have it communicate with a server
+somewhere.&lt;/li&gt;
+&lt;li&gt;Enable Local (DOM) storage. Again, our example doesn&amp;#39;t actually need to do
+this.&lt;/li&gt;
+&lt;li&gt;Enable Webkit&amp;#39;s Web inspector if the &lt;strong&gt;debug&lt;/strong&gt; parameter is true.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Next we have to initialize the user interface we designed visually using
+Qt Creator&amp;#39;s form designer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ui.setupUi(this);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need to hook up a bunch of signals and slots. First, add &lt;strong&gt;bridge&lt;/strong&gt;
+to the global Javascript environment when a page is loaded. We do this by
+connecting the &lt;strong&gt;javaScriptWindowObjectCleared&lt;/strong&gt; signal from Webkit to our
+&lt;strong&gt;addBridgeToPage&lt;/strong&gt; method (which we&amp;#39;ll define later):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;connect(ui.webView-&amp;gt;page()-&amp;gt;mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addBridgeToPage()));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, when Javascript raises the &lt;strong&gt;exit&lt;/strong&gt; signal in &lt;strong&gt;bridge&lt;/strong&gt;, arrange for the
+&lt;strong&gt;exit&lt;/strong&gt; method in &lt;strong&gt;MainWindow&lt;/strong&gt; to be called:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;connect(&amp;amp;bridge, SIGNAL(exit(QString)), this, SLOT(exit(QString)));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When &lt;strong&gt;reader&lt;/strong&gt; has finished reading data from standard input, notify &lt;strong&gt;bridge&lt;/strong&gt;
+so it can store the data for Javascript to receive when it polls for it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;connect(&amp;amp;reader, SIGNAL(dataRead(QString)), &amp;amp;bridge, SLOT(gotData(QString)));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we need to arrange for &lt;strong&gt;reader&lt;/strong&gt; to be run in a separate thread so it
+doesn&amp;#39;t block the main user interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;connect(&amp;amp;readerThread, SIGNAL(started()), &amp;amp;reader, SLOT(read()));
+connect(&amp;amp;reader, SIGNAL(dataRead(QString)), &amp;amp;readerThread, SLOT(quit()));
+
+reader.moveToThread(&amp;amp;readerThread);
+readerThread.start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The recommended approach to starting a thread in Qt uses signals and slots,
+as you can see above. You connect the &lt;strong&gt;started&lt;/strong&gt; signal to the slot that will
+do the work. Then once the work is done (&lt;strong&gt;dataRead&lt;/strong&gt;), tell the thread to stop
+(&lt;strong&gt;quit&lt;/strong&gt;). Before starting the thread, you must set the affinity of the object
+which will be doing the work (&lt;strong&gt;moveToThread&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;Now we can define &lt;strong&gt;MainWindow&lt;/strong&gt;&amp;#39;s methods: &lt;strong&gt;load&lt;/strong&gt;, &lt;strong&gt;addBridgeToPage&lt;/strong&gt; and
+&lt;strong&gt;exit&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void MainWindow::load(const char *url)
+{
+    //ui-&amp;gt;webView-&amp;gt;load(QUrl(url));
+    ui.webView-&amp;gt;setHtml(&amp;quot;&amp;lt;script&amp;gt;location.replace(&amp;#39;&amp;quot; + QString(url) + &amp;quot;&amp;#39;);&amp;lt;/script&amp;gt;&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;load&lt;/strong&gt; tells the Webkit component (&lt;strong&gt;webView&lt;/strong&gt;) to visit a URL. If you use
+Webkit&amp;#39;s &lt;strong&gt;load&lt;/strong&gt; method to do this, you get an extra entry in the history.
+You can see above I use an alternative which runs some Javascript to replace
+the current page instead.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void MainWindow::addBridgeToPage()
+{
+    ui.webView-&amp;gt;page()-&amp;gt;mainFrame()-&amp;gt;addToJavaScriptWindowObject(&amp;quot;bridge&amp;quot;, &amp;amp;bridge);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;addBridgeToPage&lt;/strong&gt; is called whenever a new page is loaded. It adds &lt;strong&gt;bridge&lt;/strong&gt;
+to the page so Javascript can call it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void MainWindow::exit(QString msg)
+{
+    QTextStream(stdout) &amp;lt;&amp;lt; msg &amp;lt;&amp;lt; endl;
+    close();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remember we connected &lt;strong&gt;MainWindow::exit&lt;/strong&gt; to the &lt;strong&gt;exit&lt;/strong&gt; signal raised by
+&lt;strong&gt;bridge&lt;/strong&gt; (this signal is raised when Javascript calls the &lt;strong&gt;exit&lt;/strong&gt; method
+on &lt;strong&gt;bridge&lt;/strong&gt; after we exposed it to the page).&lt;/p&gt;
+
+&lt;h1 id="toc_4"&gt;&lt;strong&gt;DataReader&lt;/strong&gt; class&lt;/h1&gt;
+
+&lt;h2 id="toc_5"&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;This class just has to read data from standard input and raise a signal with
+the data when it&amp;#39;s done:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class DataReader : public QObject
+{
+    Q_OBJECT
+
+private slots:
+    void read();
+
+signals:
+    void dataRead(QString data);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_6"&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;We only need to implement &lt;strong&gt;read&lt;/strong&gt; &amp;mdash; Qt takes care of generating a method
+for raising the &lt;strong&gt;dataRead&lt;/strong&gt; signal (the method has the same prototype as the
+signal but you have to use the &lt;strong&gt;emit&lt;/strong&gt; keyword when calling it from C++):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void DataReader::read()
+{
+    emit dataRead(QTextStream(stdin).readAll());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id="toc_7"&gt;&lt;strong&gt;Bridge&lt;/strong&gt; class&lt;/h1&gt;
+
+&lt;h2 id="toc_8"&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;An object of this class (&lt;strong&gt;bridge&lt;/strong&gt; in &lt;strong&gt;MainWindow&lt;/strong&gt;) will be exposed to
+Javascript. It has:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A signal, &lt;strong&gt;exit&lt;/strong&gt;. Javascript apps can just call the &lt;strong&gt;exit&lt;/strong&gt; method on the
+&lt;strong&gt;Bridge&lt;/strong&gt; object to raise the signal. Remember we connected this
+signal to the &lt;strong&gt;exit&lt;/strong&gt; method in &lt;strong&gt;MainWindow&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;A slot, &lt;strong&gt;getData&lt;/strong&gt;, which can be called from Javascript to retrieve data
+read from standard input. If no data has yet been read, it should return
+an empty string.&lt;/li&gt;
+&lt;li&gt;A slot, &lt;strong&gt;gotData&lt;/strong&gt;, which will receive data read from standard input and
+store it so it can be returned to Javascript when it calls &lt;strong&gt;getData&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here&amp;#39;s what this looks like in code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Bridge : public QObject
+{
+    Q_OBJECT
+
+signals:
+    void exit(QString msg);
+
+public slots:
+    QString getData();
+
+    // Override slot inherited from QObject which shouldn&amp;#39;t be exposed!
+    // See https://bugs.webkit.org/show_bug.cgi?id=34809
+    void deleteLater() {}
+
+private slots:
+    void gotData(QString data);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we need a member variable to store the data and a mutex because
+Javascript may be calling &lt;strong&gt;getData&lt;/strong&gt; at the same time that &lt;strong&gt;gotData&lt;/strong&gt; is
+being called (I&amp;#39;m unclear as to where Javascript calls are handled so it&amp;#39;s
+best to be safe):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private:
+    QMutex mutex;
+    QString data;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_9"&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;getData&lt;/strong&gt; and &lt;strong&gt;gotData&lt;/strong&gt; are really simple: they just get and set &lt;strong&gt;data&lt;/strong&gt;
+inside a lock on &lt;strong&gt;mutex&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;QString Bridge::getData()
+{
+    QMutexLocker locker(&amp;amp;mutex);
+    return data;
+}
+
+void Bridge::gotData(QString data)
+{
+    QMutexLocker locker(&amp;amp;mutex);
+    this-&amp;gt;data = data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id="toc_10"&gt;Test Web page&lt;/h1&gt;
+
+&lt;p&gt;To test our example, we can re-use the &lt;a href="/wrapping-webkit-part-1-gtk%2B-vala#test_page"&gt;Web page we used to test our Vala version&lt;/a&gt;, with a simple modification
+to call call &lt;strong&gt;exit&lt;/strong&gt; and &lt;strong&gt;getData&lt;/strong&gt; via &lt;strong&gt;bridge&lt;/strong&gt; rather than as separate
+functions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+function check_data()
+{
+    var data = bridge.getData();
+
+    if (data === &amp;quot;&amp;quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&amp;#39;data&amp;#39;).innerText = data;
+    }
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body onload=&amp;#39;check_data()&amp;#39;&amp;gt;
+&amp;lt;p&amp;gt;
+data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Exit&amp;quot; onclick=&amp;quot;bridge.exit(&amp;#39;goodbye from Javascript&amp;#39;)&amp;quot;&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test it, as before, by piping data to &lt;strong&gt;webkit-example&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;#39;Hello World!&amp;#39; | ./webkit-example
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find all the source from this article &lt;a href="https://gist.github.com/4659070"&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/wrapping-webkit-part-1-gtk%2B-vala" title="Wrapping Webkit (Part 1 - GTK+/Vala)"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2013-01-27&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#c++-ref"&gt;c++ &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Wrapping Webkit (Part 1 - GTK+/Vala)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-1-gtk%2B-vala</link>
@@ -19,15 +652,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.30916949996645016" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4507986756491217" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.651463434336849" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6754133684517806" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6250019217854528" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5352798108637109" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8941345877534496" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.27361713055328596" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.0602176392504673" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9116525328563282" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5853321060500766" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7522223444001214" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9488642320217014"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9848291199553847"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7926168894382277"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.14832383075645617"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -155,7 +788,7 @@ which is available pretty much everywhere nowadays.&lt;/li&gt;
 
 &lt;p&gt;What&amp;#39;s not to like?!&lt;/p&gt;
 
-&lt;h1 id="toc_1"&gt;Example&lt;/h1&gt;
+&lt;h1 id="toc_1"&gt;&lt;a id="example"&gt;&lt;/a&gt;Example&lt;/h1&gt;
 
 &lt;p&gt;We&amp;#39;ll have two classes in our example:&lt;/p&gt;
 
@@ -690,9 +1323,9 @@ types in the generated C source code.&lt;/p&gt;
 Makefile, a patched version of the Javascript VAPI file, my skanky workaround script
 and the test Web page described in the next section.&lt;/p&gt;
 
-&lt;h2 id="toc_12"&gt;Test Web page&lt;/h2&gt;
+&lt;h2 id="toc_12"&gt;&lt;a id="test_page"&gt;&lt;/a&gt;Test Web page&lt;/h2&gt;
 
-&lt;p&gt;Finally, let&amp;#39;s take a look a Web page we can load into our example
+&lt;p&gt;Finally, let&amp;#39;s take a look at a Web page we can load into our example
 application. It needs to:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -751,7 +1384,7 @@ you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&l
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/wrapping-webkit-part-2-qt-c%2B%2B" title="Wrapping Webkit (Part 2 - Qt/C++)"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -786,11 +1419,11 @@ you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&l
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#gtk-ref"&gt;gtk &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -853,15 +1486,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8179761721546708" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6013844300044083" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5670025158062884" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6716089196161897" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5190588275450174" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.134690016447103" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.21951406711967703" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.48153065668936423" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.36046059859845125" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9819869363237455" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9928041815220685" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.4554958005364791" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9817008534102759"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.49663328019835895"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5242716656074977"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4134292424990853"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1319,15 +1952,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.04107966844188238" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.17211566815503898" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7332067658111895" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5749491299176736" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.973747236335856" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.33087294086626107" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3047997470689082" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2580238678495753" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.39532801682209284" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4884173966383001" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.05059640477811378" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.526396548558536" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.27592904163248044"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.14120128639634744"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6558167585048752"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.08413876931044417"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1687,15 +2320,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3971188388135273" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6968327458777972" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5912721889865673" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.20826687208813321" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.006006745626875087" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.09938219907602819" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8871180255991463" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.3075574605972865" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5651422915597106" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.26557760503677696" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7615845370860937" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.1967051409387498" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.00886850455179966"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9807862633666683"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.42972708089704725"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6174857363063707"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2036,15 +2669,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8185267913703175" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.42342834213129976" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7450568923222373" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7627470625110465" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.03947720280647482" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5863601293347647" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5739278086513275" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5365836352895011" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7912942348393498" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6603841071800607" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9582866647636984" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.4828682848840433" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.21242136844753567"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.011331464838373106"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5821888659035818"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7141811703764185"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;

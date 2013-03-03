@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wrapping Webkit (Part 2 - Qt/C++) - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6346080140883835" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5568067854404584" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9153927143654018" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4009583342997707" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9269570525893891" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.20558315075644407" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2965192758042905"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1992127932346781"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Wrapping Webkit (Part 2 - Qt/C++) 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
+get bi-directional communication going between Javascript and Vala, using
+GTK+&#39;s Webkit component.</p>
+
+<p>This time I&#39;m going to do the same between Javascript and C++, using
+<a href="http://qt-project.org/">Qt</a>&#39;s Webkit component. Last time out I decided against
+using C++ with GTK+ but Qt seems better suited to the language. Let&#39;s see
+how Qt/C++ compares to GTK+/Vala.</p>
+
+<p>We&#39;ll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
+
+<ol>
+<li>A main function for parsing command line options and initializing things.</li>
+<li>A window class which embeds Webkit and puts it in a Qt window.</li>
+</ol>
+
+<h1 id="toc_0">Main function</h1>
+
+<p>The first thing to do in a Qt application is declare a <strong>QApplication</strong> object:</p>
+
+<pre><code>int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+</code></pre>
+
+<p>This initializes Qt so it&#39;s a good idea to do it early on.</p>
+
+<p>We&#39;ll support the same command line options: <strong>url</strong>, <strong>fullscreen</strong>,
+<strong>hidecursor</strong> and <strong>debug</strong>.  Qt doesn&#39;t have a helper class to parse command
+line options so we&#39;ll use
+<a href="http://tclap.sourceforge.net/">TCLAP</a>, a nice small library for doing just
+that.</p>
+
+<pre><code>TCLAP::CmdLine cmd(&quot;Webkit Example&quot;);
+TCLAP::ValueArg&lt;std::string&gt; urlArg(&quot;u&quot;, &quot;url&quot;, &quot;page to load&quot;, false, &quot;file://&quot; + QDir(a.applicationDirPath()).filePath(&quot;test.html&quot;).toStdString(), &quot;URL&quot;, cmd);
+TCLAP::SwitchArg fullscreenSwitch(&quot;f&quot;, &quot;fullscreen&quot;, &quot;run in fullscreen mode&quot;, cmd, false);
+TCLAP::SwitchArg hidecursorSwitch(&quot;c&quot;, &quot;hidecursor&quot;, &quot;hide mouse cursor&quot;, cmd, false);
+TCLAP::SwitchArg debugSwitch(&quot;d&quot;, &quot;debug&quot;, &quot;enable web inspector&quot;, cmd, false);
+
+cmd.parse(argc, argv);
+</code></pre>
+
+<p>As you can see, we specify the default value for each option at the same time.
+<strong>url</strong> defaults to a file called <strong>test.html</strong> in the same directory as the
+application.</p>
+
+<p>Now we create our Qt window which embeds Webkit (see the next section for
+details of our window class):</p>
+
+<pre><code>MainWindow w(debugSwitch.getValue());
+</code></pre>
+
+<p>Make it full screen if the command line option was passed:</p>
+
+<pre><code>if (fullscreenSwitch.getValue())
+{
+    w.setWindowState(Qt::WindowFullScreen);
+}
+</code></pre>
+
+<p>A slight difference with the Vala version is that we hide the mouse cursor
+using the application object rather than the window:</p>
+
+<pre><code>if (hidecursorSwitch.getValue())
+{
+    a.setOverrideCursor(QCursor(Qt::BlankCursor));
+}
+</code></pre>
+
+<p>Next we can load the URL into Webkit (this is a method on our window class
+which ends up calling into Webkit):</p>
+
+<pre><code>w.load(urlArg.getValue().c_str());
+</code></pre>
+
+<p>and show the window and all its children (including Webkit):</p>
+
+<pre><code>w.show():
+</code></pre>
+
+<p>Finally, we have to start the Qt application (i.e. the main event loop):</p>
+
+<pre><code>return a.exec();
+</code></pre>
+
+<h1 id="toc_1">Window class</h1>
+
+<h2 id="toc_2">Declaration</h2>
+
+<p>This class is going to do the following:</p>
+
+<ul>
+<li>Inherit from the Qt <strong>QMainWindow</strong> class so it&#39;s a top-level window.</li>
+<li>Apply settings and add widgets defined visually in Qt Creator, Qt&#39;s IDE.
+In our GTK+/Vala example, we did this ourselves in code. With Qt Creator,
+you can configure things like the window&#39;s size and add a Webkit component
+to it visually using a form designer.</li>
+<li>Specify what Webkit features are enabled.</li>
+<li>Start a thread which reads data from standard input.</li>
+<li>Expose an object to Javascript which has two methods:
+
+<ol>
+<li>A method which returns data read by the thread from standard input.
+This shows we can get data from C++ into the Web app.</li>
+<li>A method which writes its argument to standard output and then terminates
+the application. This shows we can call C++ functions and pass them data
+from the Web app.</li>
+</ol></li>
+</ul>
+
+<p>Here&#39;s how we declare our window class:</p>
+
+<pre><code>class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+</code></pre>
+
+<p>You can see we inherit from <strong>QMainWindow</strong>. We also have to use the
+<strong>Q_OBJECT</strong> macro in our class because we&#39;ll be using Qt <em>signals</em> and <em>slots</em>.
+Signals and slots are declared like any other C++ method but Qt can connect a
+signal to a slot at runtime. When the signal method is called, Qt makes sure
+that any slot methods connected to it are also called. We&#39;ll be using signals
+slots in this example.</p>
+
+<p>Next we declare our constructor and destructor:</p>
+
+<pre><code>public:
+    explicit MainWindow(bool debug, QWidget *parent = 0);
+    ~MainWindow() {}
+</code></pre>
+
+<p>and a public method to load a URL into Webkit:</p>
+
+<pre><code>void load(const char *url);
+</code></pre>
+
+<p>The <strong>MainWindow</strong> class has the following private data:</p>
+
+<pre><code>private:
+    Ui::MainWindow ui;
+    DataReader reader;
+    QThread readerThread;
+    Bridge bridge;
+</code></pre>
+
+<p><strong>Ui::MainWindow</strong> is a class which Qt Creator&#39;s form designer generates from
+your visual design for the window. Qt Creator saves your design as an XML
+file which is then converted into this class. You can find the XML file for this
+example <a href="https://gist.github.com/davedoesdev/4659070#file-mainwindow-ui">here</a>.
+I put a grid layout onto the window and then dragged a <strong>QWebView</strong> widget
+onto the layout.</p>
+
+<p><strong>DataReader</strong> is a class we&#39;ll define later which reads data from standard
+input and raises a signal with the data when it&#39;s done. This will be done in a
+thread (<strong>readerThread</strong>).</p>
+
+<p><strong>Bridge</strong> is also a class we&#39;ll define later. It contains the methods we want
+to expose to Javascript: one to retrieve the data read by <strong>reader</strong> from
+standard input and one to exit the application. It should also have a slot
+which can receive the data from <strong>reader</strong> and store it.</p>
+
+<p>Finally, we can define a couple of slots &mdash; we&#39;ll connect them to signals
+later:</p>
+
+<pre><code>private slots:
+    void addBridgeToPage();
+    void exit(QString msg);
+</code></pre>
+
+<p><strong>addBridgeToPage</strong> will be called whenever a new page is loaded into Webkit.
+It will add <strong>bridge</strong> to the page. <strong>exit</strong> will print its argument to
+standard output and then close the window. Note we declare these slots
+<strong>private</strong>. This just means the methods which implement them are private to
+the class &mdash; Qt can connect the slots themselves to signals in any class.</p>
+
+<h2 id="toc_3">Implementation</h2>
+
+<p><strong>MainWindow</strong>&#39;s implementation is pretty simple. Let&#39;s look at the constructor
+first:</p>
+
+<pre><code>MainWindow::MainWindow(bool debug, QWidget *parent) :
+    QMainWindow(parent)
+{
+    QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::PluginsEnabled, true);
+    QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::JavascriptEnabled, true);
+    QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::LinksIncludedInFocusChain, false);
+    QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls, true);
+    QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::LocalStorageEnabled, true);
+
+    if (debug)
+    {
+        QWebSettings::globalSettings()-&gt;setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    }
+</code></pre>
+
+<p>You can see we set a bunch of Webkit options:</p>
+
+<ul>
+<li>Enable plugins (you usually don&#39;t need this).</li>
+<li>Enable Javascript.</li>
+<li>Enable tabbing between links.</li>
+<li>Allow pages loaded from local disk to make calls to remote URLs. The
+Javascript in our example doesn&#39;t do this but it&#39;s useful if you want to
+distribute a HTML/JS user interface and have it communicate with a server
+somewhere.</li>
+<li>Enable Local (DOM) storage. Again, our example doesn&#39;t actually need to do
+this.</li>
+<li>Enable Webkit&#39;s Web inspector if the <strong>debug</strong> parameter is true.</li>
+</ul>
+
+<p>Next we have to initialize the user interface we designed visually using
+Qt Creator&#39;s form designer:</p>
+
+<pre><code>ui.setupUi(this);
+</code></pre>
+
+<p>Now we need to hook up a bunch of signals and slots. First, add <strong>bridge</strong>
+to the global Javascript environment when a page is loaded. We do this by
+connecting the <strong>javaScriptWindowObjectCleared</strong> signal from Webkit to our
+<strong>addBridgeToPage</strong> method (which we&#39;ll define later):</p>
+
+<pre><code>connect(ui.webView-&gt;page()-&gt;mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addBridgeToPage()));
+</code></pre>
+
+<p>Next, when Javascript raises the <strong>exit</strong> signal in <strong>bridge</strong>, arrange for the
+<strong>exit</strong> method in <strong>MainWindow</strong> to be called:</p>
+
+<pre><code>connect(&amp;bridge, SIGNAL(exit(QString)), this, SLOT(exit(QString)));
+</code></pre>
+
+<p>When <strong>reader</strong> has finished reading data from standard input, notify <strong>bridge</strong>
+so it can store the data for Javascript to receive when it polls for it:</p>
+
+<pre><code>connect(&amp;reader, SIGNAL(dataRead(QString)), &amp;bridge, SLOT(gotData(QString)));
+</code></pre>
+
+<p>Finally, we need to arrange for <strong>reader</strong> to be run in a separate thread so it
+doesn&#39;t block the main user interface:</p>
+
+<pre><code>connect(&amp;readerThread, SIGNAL(started()), &amp;reader, SLOT(read()));
+connect(&amp;reader, SIGNAL(dataRead(QString)), &amp;readerThread, SLOT(quit()));
+
+reader.moveToThread(&amp;readerThread);
+readerThread.start();
+</code></pre>
+
+<p>The recommended approach to starting a thread in Qt uses signals and slots,
+as you can see above. You connect the <strong>started</strong> signal to the slot that will
+do the work. Then once the work is done (<strong>dataRead</strong>), tell the thread to stop
+(<strong>quit</strong>). Before starting the thread, you must set the affinity of the object
+which will be doing the work (<strong>moveToThread</strong>).</p>
+
+<p>Now we can define <strong>MainWindow</strong>&#39;s methods: <strong>load</strong>, <strong>addBridgeToPage</strong> and
+<strong>exit</strong>.</p>
+
+<pre><code>void MainWindow::load(const char *url)
+{
+    //ui-&gt;webView-&gt;load(QUrl(url));
+    ui.webView-&gt;setHtml(&quot;&lt;script&gt;location.replace(&#39;&quot; + QString(url) + &quot;&#39;);&lt;/script&gt;&quot;);
+}
+</code></pre>
+
+<p><strong>load</strong> tells the Webkit component (<strong>webView</strong>) to visit a URL. If you use
+Webkit&#39;s <strong>load</strong> method to do this, you get an extra entry in the history.
+You can see above I use an alternative which runs some Javascript to replace
+the current page instead.</p>
+
+<pre><code>void MainWindow::addBridgeToPage()
+{
+    ui.webView-&gt;page()-&gt;mainFrame()-&gt;addToJavaScriptWindowObject(&quot;bridge&quot;, &amp;bridge);
+}
+</code></pre>
+
+<p><strong>addBridgeToPage</strong> is called whenever a new page is loaded. It adds <strong>bridge</strong>
+to the page so Javascript can call it.</p>
+
+<pre><code>void MainWindow::exit(QString msg)
+{
+    QTextStream(stdout) &lt;&lt; msg &lt;&lt; endl;
+    close();
+}
+</code></pre>
+
+<p>Remember we connected <strong>MainWindow::exit</strong> to the <strong>exit</strong> signal raised by
+<strong>bridge</strong> (this signal is raised when Javascript calls the <strong>exit</strong> method
+on <strong>bridge</strong> after we exposed it to the page).</p>
+
+<h1 id="toc_4"><strong>DataReader</strong> class</h1>
+
+<h2 id="toc_5">Declaration</h2>
+
+<p>This class just has to read data from standard input and raise a signal with
+the data when it&#39;s done:</p>
+
+<pre><code>class DataReader : public QObject
+{
+    Q_OBJECT
+
+private slots:
+    void read();
+
+signals:
+    void dataRead(QString data);
+};
+</code></pre>
+
+<h2 id="toc_6">Implementation</h2>
+
+<p>We only need to implement <strong>read</strong> &mdash; Qt takes care of generating a method
+for raising the <strong>dataRead</strong> signal (the method has the same prototype as the
+signal but you have to use the <strong>emit</strong> keyword when calling it from C++):</p>
+
+<pre><code>void DataReader::read()
+{
+    emit dataRead(QTextStream(stdin).readAll());
+}
+</code></pre>
+
+<h1 id="toc_7"><strong>Bridge</strong> class</h1>
+
+<h2 id="toc_8">Declaration</h2>
+
+<p>An object of this class (<strong>bridge</strong> in <strong>MainWindow</strong>) will be exposed to
+Javascript. It has:</p>
+
+<ul>
+<li>A signal, <strong>exit</strong>. Javascript apps can just call the <strong>exit</strong> method on the
+<strong>Bridge</strong> object to raise the signal. Remember we connected this
+signal to the <strong>exit</strong> method in <strong>MainWindow</strong>.</li>
+<li>A slot, <strong>getData</strong>, which can be called from Javascript to retrieve data
+read from standard input. If no data has yet been read, it should return
+an empty string.</li>
+<li>A slot, <strong>gotData</strong>, which will receive data read from standard input and
+store it so it can be returned to Javascript when it calls <strong>getData</strong>.</li>
+</ul>
+
+<p>Here&#39;s what this looks like in code:</p>
+
+<pre><code>class Bridge : public QObject
+{
+    Q_OBJECT
+
+signals:
+    void exit(QString msg);
+
+public slots:
+    QString getData();
+
+    // Override slot inherited from QObject which shouldn&#39;t be exposed!
+    // See https://bugs.webkit.org/show_bug.cgi?id=34809
+    void deleteLater() {}
+
+private slots:
+    void gotData(QString data);
+</code></pre>
+
+<p>Finally, we need a member variable to store the data and a mutex because
+Javascript may be calling <strong>getData</strong> at the same time that <strong>gotData</strong> is
+being called (I&#39;m unclear as to where Javascript calls are handled so it&#39;s
+best to be safe):</p>
+
+<pre><code>private:
+    QMutex mutex;
+    QString data;
+};
+</code></pre>
+
+<h2 id="toc_9">Implementation</h2>
+
+<p><strong>getData</strong> and <strong>gotData</strong> are really simple: they just get and set <strong>data</strong>
+inside a lock on <strong>mutex</strong>:</p>
+
+<pre><code>QString Bridge::getData()
+{
+    QMutexLocker locker(&amp;mutex);
+    return data;
+}
+
+void Bridge::gotData(QString data)
+{
+    QMutexLocker locker(&amp;mutex);
+    this-&gt;data = data;
+}
+</code></pre>
+
+<h1 id="toc_10">Test Web page</h1>
+
+<p>To test our example, we can re-use the <a href="/wrapping-webkit-part-1-gtk%2B-vala#test_page">Web page we used to test our Vala version</a>, with a simple modification
+to call call <strong>exit</strong> and <strong>getData</strong> via <strong>bridge</strong> rather than as separate
+functions:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function check_data()
+{
+    var data = bridge.getData();
+
+    if (data === &quot;&quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&#39;data&#39;).innerText = data;
+    }
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&#39;check_data()&#39;&gt;
+&lt;p&gt;
+data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;input type=&quot;button&quot; value=&quot;Exit&quot; onclick=&quot;bridge.exit(&#39;goodbye from Javascript&#39;)&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Test it, as before, by piping data to <strong>webkit-example</strong>:</p>
+
+<pre><code>echo &#39;Hello World!&#39; | ./webkit-example
+</code></pre>
+
+<p>You can find all the source from this article <a href="https://gist.github.com/4659070">here</a>.</p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/wrapping-webkit-part-1-gtk%2B-vala" title="Wrapping Webkit (Part 1 - GTK+/Vala)">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-01-27</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#webkit-ref">webkit <span>2</span></a>
+          </li>          <li>
+            <a href="/tags#html-ref">html <span>2</span></a>
+          </li>          <li>
+            <a href="/tags#javascript-ref">javascript <span>2</span></a>
+          </li>          <li>
+            <a href="/tags#qt-ref">qt <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#c++-ref">c++ <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2012 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>
