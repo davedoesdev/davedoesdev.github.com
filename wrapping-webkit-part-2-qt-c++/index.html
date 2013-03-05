@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3586343063761458" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.09567048802481282" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6854115118571894" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3945777093317602" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.2774778249802716" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5859326563971895" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.977822239367904" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7000994285603654" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.9066476012746976" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8220810757995216" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.037200839536572605" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5244470367386114" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2793999098732074"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.16407718921769243"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.30384379541030637"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4465777653641012"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,7 +140,7 @@ how Qt/C++ compares to GTK+/Vala.</p>
 <strong>hidecursor</strong> and <strong>debug</strong>.  Qt doesn&#39;t have a helper class to parse command
 line options so we&#39;ll use
 <a href="http://tclap.sourceforge.net/">TCLAP</a>, a nice small library for doing just
-that.</p>
+that:</p>
 
 <pre><code>TCLAP::CmdLine cmd(&quot;Webkit Example&quot;);
 TCLAP::ValueArg&lt;std::string&gt; urlArg(&quot;u&quot;, &quot;url&quot;, &quot;page to load&quot;, false, &quot;file://&quot; + QDir(a.applicationDirPath()).filePath(&quot;test.html&quot;).toStdString(), &quot;URL&quot;, cmd);
@@ -202,7 +202,7 @@ which ends up calling into Webkit):</p>
 
 <ul>
 <li>Inherit from the Qt <strong>QMainWindow</strong> class so it&#39;s a top-level window.</li>
-<li>Apply settings and add widgets defined visually in Qt Creator, Qt&#39;s IDE.
+<li>Apply settings and add widgets defined visually in <a href="http://qt-project.org/wiki/Category:Tools::QtCreator">Qt Creator</a>, Qt&#39;s IDE.
 In our GTK+/Vala example, we did this ourselves in code. With Qt Creator,
 you can configure things like the window&#39;s size and add a Webkit component
 to it visually using a form designer.</li>
