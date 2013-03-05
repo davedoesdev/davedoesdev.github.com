@@ -3,7 +3,7 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-03-03 17:54:25 +0000</pubDate>
+    <pubDate>2013-03-05 13:33:46 +0000</pubDate>
     <item>
       <title>Wrapping Webkit (Part 2 - Qt/C++)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-2-qt-c%2B%2B</link>
@@ -19,15 +19,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7715024620012501" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.934407484978516" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7049294561593074" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6087301856154556" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.47919205479998217" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7125894696518315" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.21509962722825227" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8754159957513783" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3012290496340774" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3669666787211687" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.40859210901233556" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.311294204770039" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7911532387235658"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.395577133494437"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8195434250467105"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.890927054696974"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -602,7 +602,7 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
@@ -652,15 +652,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8941345877534496" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.27361713055328596" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.0602176392504673" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9116525328563282" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5853321060500766" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7522223444001214" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6555116646033232" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7334719508129054" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.48809324460467307" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.20609557335030737" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.08195818525341514" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2595982473663696" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7926168894382277"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.14832383075645617"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4777611148170875"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8954652444454354"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1436,7 +1436,7 @@ you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&l
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
@@ -1486,15 +1486,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.21951406711967703" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.48153065668936423" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.36046059859845125" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9819869363237455" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9928041815220685" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.4554958005364791" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.6560360981055543" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.1387652795050346" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.24897521245299958" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4089999947761277" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.11676262714296692" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.28221935377855567" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5242716656074977"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4134292424990853"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8301866141226507"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6053655151681001"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1902,7 +1902,7 @@ to clean things up at the end - press ^C or Enter to exit.&lt;/p&gt;
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
@@ -1952,15 +1952,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3047997470689082" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2580238678495753" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.39532801682209284" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.4884173966383001" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.05059640477811378" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.526396548558536" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.1722023873546813" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7449750273959219" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.868487510641824" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9402365578369063" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.3490278912352418" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.44270129543011427" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6558167585048752"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.08413876931044417"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6642408406708293"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.10790193285640581"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2270,7 +2270,7 @@ cleanup can be done after &lt;strong&gt;rkill.sh&lt;/strong&gt; returns.&lt;/p&g
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
@@ -2320,15 +2320,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8871180255991463" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.3075574605972865" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5651422915597106" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.26557760503677696" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7615845370860937" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.1967051409387498" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.30855510067061975" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.27764319194735576" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7665208905370657" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.12338528511187907" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9787479292796349" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5824899601181621" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.42972708089704725"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6174857363063707"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8967072705029154"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.48514675250674166"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2619,7 +2619,7 @@ your Tiny Core image to put these changes in.&lt;/p&gt;
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
@@ -2669,15 +2669,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5739278086513275" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5365836352895011" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7912942348393498" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6603841071800607" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9582866647636984" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.4828682848840433" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.22183163235898973" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7562138455151284" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.04568563878023113" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3494072957709159" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6802117420431668" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6601866540102148" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5821888659035818"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7141811703764185"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7648471497369749"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7305703848146531"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2986,7 +2986,7 @@ displayed.&lt;/p&gt;
       &lt;/div&gt;
 
       &lt;footer&gt;
-        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2012 
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
           with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
           &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
           &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
