@@ -3,7 +3,557 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-03-05 13:38:05 +0000</pubDate>
+    <pubDate>2013-03-25 10:03:33 +0000</pubDate>
+    <item>
+      <title>Wrapping Webkit (Part 3 - Qt Quick/Python)</title>
+      <link>http://www.davedoesdev.com/wrapping-webkit-part-3-qt-quick-python</link>
+      <pubDate>2013-03-23</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Wrapping Webkit (Part 3 - Qt Quick/Python) - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7152082566156814" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9720780063720471" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6769506380242429" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3117440442694185" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.4284799253776116" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2892054356237269" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.943628627619247"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2613875045673615"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Wrapping Webkit (Part 3 - Qt Quick/Python) 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;&lt;a href="/wrapping-webkit-part-2-qt-c%2B%2B"&gt;Last time out&lt;/a&gt;, I showed how to get
+bi-directional communication going between Javascript and C++, using Qt&amp;#39;s
+Webkit component.&lt;/p&gt;
+
+&lt;p&gt;This time I&amp;#39;m going to stick with Qt but use its new shiny: &lt;a href="http://qt-project.org/doc/qt-4.8/qtquick.html"&gt;Qt Quick&lt;/a&gt;. Qt Quick adds a markup language, &lt;a href="http://qt-project.org/doc/qt-4.8/gettingstartedqml.html"&gt;QML&lt;/a&gt;, to the mix.&lt;/p&gt;
+
+&lt;p&gt;You use QML to declare which components to build your user interface from.
+The idea is that a declarative specification will make your user interface work across different types of device (mobile is the main focus).&lt;/p&gt;
+
+&lt;p&gt;For application logic, you can use Javascript in QML. Alternatively you can
+use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This time I&amp;#39;ll use
+&lt;a href="http://qt-project.org/wiki/PySide"&gt;PySide&lt;/a&gt; &amp;mdash; the Python bindings to Qt.&lt;/p&gt;
+
+&lt;h1 id="toc_0"&gt;The QML&lt;/h1&gt;
+
+&lt;p&gt;Let&amp;#39;s start with the QML for our example. It needs to do a couple of things:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Declare a &lt;strong&gt;WebView&lt;/strong&gt; (Webkit) component which will load our HTML page.&lt;/li&gt;
+&lt;li&gt;Expose a &lt;em&gt;bridge&lt;/em&gt; object to Javascript in the page. The bridge object should
+have a couple of methods to do the following:
+
+&lt;ul&gt;
+&lt;li&gt;Return data read from standard input by our Python code.&lt;/li&gt;
+&lt;li&gt;Ask our Python code to exit the application.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;First we import &lt;strong&gt;QtQuick&lt;/strong&gt; and &lt;strong&gt;QtWebKit&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import QtQuick 1.0
+import QtWebKit 1.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we declare the &lt;strong&gt;WebView&lt;/strong&gt; component. This will be the only Qt component
+in our application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;WebView
+{
+    settings.javascriptEnabled: true;
+    width: 800;
+    height: 600;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see we turn Javascript on in Webkit and set the initial size. Next we
+declare a &lt;strong&gt;bridge&lt;/strong&gt; object for our HTML page to call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;javaScriptWindowObjects: QtObject
+{
+    WebView.windowObjectName: &amp;quot;bridge&amp;quot;;
+
+    function getData()
+    {
+        return the_bridge.getData();
+    }
+
+    function exit(msg)
+    {
+        the_bridge.exit(msg);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;Notice a couple of things here:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We define &lt;strong&gt;bridge&lt;/strong&gt;&amp;#39;s methods in Javascript directly in the QML.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bridge&lt;/strong&gt; is just a proxy to another object called &lt;strong&gt;the_bridge&lt;/strong&gt;.
+&lt;strong&gt;the_bridge&lt;/strong&gt; is undefined in our QML; our Python code will
+have to define it and add to our &lt;strong&gt;WebView&lt;/strong&gt;&amp;#39;s runtime environment.
+Ideally I&amp;#39;d have exposed &lt;strong&gt;the_bridge&lt;/strong&gt; directly to the page but I couldn&amp;#39;t
+get that to work.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id="toc_1"&gt;The Python&lt;/h1&gt;
+
+&lt;p&gt;Our Python code has to do what the C++ code did in &lt;a href="/wrapping-webkit-part-2-qt-c%2B%2B"&gt;my previous example&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Handle command line arguments specifying:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The URL of a page to load into Webkit.&lt;/li&gt;
+&lt;li&gt;Run as a fullscreen application.&lt;/li&gt;
+&lt;li&gt;Hide the mouse cursor.&lt;/li&gt;
+&lt;li&gt;Enable Webkit&amp;#39;s developer tools.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Read data from standard input and make it available to the page when done.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Expose a function to the page so it can exit the application.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id="toc_2"&gt;Imports&lt;/h2&gt;
+
+&lt;p&gt;First up we need to import a bunch of modules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python
+import sys
+import argparse
+import signal
+from os import path
+from threading import Lock
+from PySide import QtGui, QtDeclarative, QtCore
+from PySide.QtWebKit import QWebSettings
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see the Qt modules we&amp;#39;re going to use. &lt;strong&gt;QtDeclarative&lt;/strong&gt; handles the
+QML stuff. Notice also that I&amp;#39;m using the standard Python &lt;strong&gt;Lock&lt;/strong&gt; class rather
+than &lt;strong&gt;QMutex&lt;/strong&gt;. Either would have worked fine.&lt;/p&gt;
+
+&lt;h2 id="toc_3"&gt;Parsing command line arguments&lt;/h2&gt;
+
+&lt;p&gt;Python&amp;#39;s already got decent support for parsing command line arguments via the
+&lt;strong&gt;argparse&lt;/strong&gt; module. So it&amp;#39;s pretty straightforward for us:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;parser = argparse.ArgumentParser(description=&amp;#39;Webkit Example&amp;#39;)
+parser.add_argument(&amp;#39;-u&amp;#39;, &amp;#39;--url&amp;#39;, help=&amp;#39;page to load&amp;#39;, default=&amp;#39;file://&amp;#39; + sys.path[0] + &amp;#39;/test.html&amp;#39;)
+parser.add_argument(&amp;#39;-f&amp;#39;, &amp;#39;--fullscreen&amp;#39;, help=&amp;#39;run in fullscreen mode&amp;#39;, action=&amp;#39;store_true&amp;#39;)
+parser.add_argument(&amp;#39;-c&amp;#39;, &amp;#39;--hidecursor&amp;#39;, help=&amp;#39;hide mouse cursor&amp;#39;, action=&amp;#39;store_true&amp;#39;)
+parser.add_argument(&amp;#39;-d&amp;#39;, &amp;#39;--debug&amp;#39;, help=&amp;#39;enable web inspector&amp;#39;, action=&amp;#39;store_true&amp;#39;)
+args = parser.parse_args()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default page to load is &lt;strong&gt;test.html&lt;/strong&gt; in the same directory as the
+application. The other arguments default to &lt;strong&gt;False&lt;/strong&gt; (&lt;strong&gt;argparse&lt;/strong&gt; assumes this
+because the action to take when they&amp;#39;re specified is &lt;strong&gt;store_true&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;We also have to pass the command line through to &lt;strong&gt;QApplication&lt;/strong&gt; when we
+initialise Qt:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app = QtGui.QApplication(sys.argv)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_4"&gt;&lt;strong&gt;DataReader&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Next we&amp;#39;ll define a class which will read from standard input and raise a Qt
+signal with the data when it&amp;#39;s done:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class DataReader(QtCore.QObject):
+    def __init__(self):
+        super(DataReader, self).__init__()
+
+    @QtCore.Slot(str)
+    def read(self):
+        self.readsig.emit(sys.stdin.read())
+
+    readsig = QtCore.Signal(str)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it&amp;#39;s pretty simple to declare slots and signals in Python:
+use the &lt;strong&gt;Slot&lt;/strong&gt; decorator and the &lt;strong&gt;Signal&lt;/strong&gt; constructor. One thing to note
+is signals have to declared as class attributes. However, Qt makes sure each
+instance of your class has a separate runtime signal object.&lt;/p&gt;
+
+&lt;h2 id="toc_5"&gt;&lt;strong&gt;Bridge&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Now it&amp;#39;s time to define a class which will be exposed to QML (it&amp;#39;ll implement
+the &lt;strong&gt;the_bridge&lt;/strong&gt; object we left undefined above):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Bridge(QtCore.QObject):
+    def __init__(self):
+        super(Bridge, self).__init__()
+        self.data = &amp;#39;&amp;#39;
+        self.lock = Lock()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;data&lt;/strong&gt; will contain data read from standard input by &lt;strong&gt;DataReader&lt;/strong&gt; when it&amp;#39;s
+done. We also create a mutex (&lt;strong&gt;Lock&lt;/strong&gt;) so we can safely read and write to
+&lt;strong&gt;data&lt;/strong&gt; from multiple threads...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    @QtCore.Slot(result=str)
+    def getData(self):
+        with self.lock:
+            return self.data
+
+    @QtCore.Slot(str)
+    def gotData(self, data):
+        with self.lock:
+            self.data = data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We have to declare &lt;strong&gt;getData&lt;/strong&gt; as a slot so it can be called from QML.
+&lt;strong&gt;gotData&lt;/strong&gt; is a slot so we can hook it up to a &lt;strong&gt;DataReader&lt;/strong&gt; later on.&lt;/p&gt;
+
+&lt;p&gt;Finally, we define a signal to raise when application exit is required, plus a
+function (slot) to raise it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    exitsig = QtCore.Signal(str)
+
+    @QtCore.Slot(str)
+    def exit(self, msg):
+        self.exitsig.emit(msg)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_6"&gt;Creating a view&lt;/h2&gt;
+
+&lt;p&gt;Now we need to create a &lt;strong&gt;QDeclarativeView&lt;/strong&gt;, which is like a Qt window but
+uses a QML file to build the user interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view = QtDeclarative.QDeclarativeView()
+view.setWindowTitle(&amp;#39;WebKit Example&amp;#39;)
+view.setResizeMode(QtDeclarative.QDeclarativeView.ResizeMode.SizeRootObjectToView)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We set the window title here and tell it to resize its contents when it is
+resized. Note we don&amp;#39;t load the QML into it yet &amp;mdash; we have some more
+setting up to do first.&lt;/p&gt;
+
+&lt;h2 id="toc_7"&gt;Hooking it all up&lt;/h2&gt;
+
+&lt;p&gt;First let&amp;#39;s make a &lt;strong&gt;DataReader&lt;/strong&gt; and a &lt;strong&gt;Bridge&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;reader = DataReader()
+bridge = Bridge()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need to let &lt;strong&gt;bridge&lt;/strong&gt; know when &lt;strong&gt;reader&lt;/strong&gt; finishes reading from
+standard input:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;reader.readsig.connect(bridge.gotData)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When &lt;strong&gt;bridge&lt;/strong&gt; raises an exit signal, we want to exit the application by
+closing &lt;strong&gt;view&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def exit(msg):
+    print msg
+    view.close()
+
+bridge.exitsig.connect(exit)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we can start &lt;strong&gt;reader&lt;/strong&gt; on a separate thread:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;readerThread = QtCore.QThread()
+readerThread.started.connect(reader.read)
+reader.readsig.connect(readerThread.quit)
+reader.moveToThread(readerThread)
+readerThread.start()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="toc_8"&gt;Miscellaneous settings&lt;/h2&gt;
+
+&lt;p&gt;There&amp;#39;s three odds and ends we need to take care of:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Enable Webkit&amp;#39;s developer tools if specified on the command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;QWebSettings.globalSettings().setAttribute(QWebSettings.WebAttribute.DeveloperExtrasEnabled, args.debug)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hide the mouse cursor if specified on the command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if args.hidecursor:
+    app.setOverrideCursor(QtGui.QCursor(QtCore.Qt.BlankCursor))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note this current generates X errors on Ubuntu 12.10 64-bit due to a &lt;a href="https://bugreports.qt-project.org/browse/PYSIDE-25"&gt;bug in PySide&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Enable Ctrl-C to terminate the program (PySide seems to disable it):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;signal.signal(signal.SIGINT, signal.SIG_DFL)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id="toc_9"&gt;Showing the view&lt;/h2&gt;
+
+&lt;p&gt;Now we can close things out by loading our QML and showing it.&lt;/p&gt;
+
+&lt;p&gt;First we need to add &lt;strong&gt;bridge&lt;/strong&gt; to &lt;strong&gt;view&lt;/strong&gt;&amp;#39;s runtime environment, making it
+available to QML as &lt;strong&gt;the_bridge&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view.rootContext().setContextProperty(&amp;#39;the_bridge&amp;#39;, bridge)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we load the QML &amp;mdash; I place it in a file alongside the Python source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view.setSource(path.basename(__file__).replace(&amp;#39;.py&amp;#39;, &amp;#39;.qml&amp;#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now the QML is loaded, the Webkit component is available as the top-level (root)
+object in &lt;strong&gt;view&lt;/strong&gt;. So we can load a page into it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view.rootObject().setProperty(&amp;#39;url&amp;#39;, args.url)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we show &lt;strong&gt;view&lt;/strong&gt; on the screen (in fullscreen mode if specified on the
+command line):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if args.fullscreen:
+    view.showFullScreen()
+else:
+    view.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And start Qt&amp;#39;s message loop etc:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.exec_()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id="toc_10"&gt;Test Web page&lt;/h1&gt;
+
+&lt;p&gt;To test our example, we can use exactly the same &lt;a href="/wrapping-webkit-part-2-qt-c%2B%2B#test_page"&gt;Web page we used to test our
+C++ version&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+function check_data()
+{
+    var data = bridge.getData();
+
+    if (data === &amp;quot;&amp;quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&amp;#39;data&amp;#39;).innerText = data;
+    }
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body onload=&amp;#39;check_data()&amp;#39;&amp;gt;
+&amp;lt;p&amp;gt;
+data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Exit&amp;quot; onclick=&amp;quot;bridge.exit(&amp;#39;goodbye from Javascript&amp;#39;)&amp;quot;&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test it by piping data to &lt;strong&gt;webkit-example.py&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;#39;Hello World!&amp;#39; | ./webkit-example.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find all the source from this article &lt;a href="https://gist.github.com/5229176"&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/wrapping-webkit-part-2-qt-c%2B%2B" title="Wrapping Webkit (Part 2 - Qt/C++)"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2013-03-23&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#qt quick-ref"&gt;qt quick &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#qml-ref"&gt;qml &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#python-ref"&gt;python &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Wrapping Webkit (Part 2 - Qt/C++)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-2-qt-c%2B%2B</link>
@@ -19,15 +569,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.45416701832362927" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6810054511158862" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.42513719016848306" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6767020032084137" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5369272179598447" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8951688035970301" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.432143105107647" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8322270236642946" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.31427639045481937" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8865311306419488" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2625598302104125" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3915524559634942" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9192205020779212"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.39118888895557946"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.3982766668517199"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1602625960636137"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -504,7 +1054,7 @@ void Bridge::gotData(QString data)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id="toc_10"&gt;Test Web page&lt;/h1&gt;
+&lt;h1 id="toc_10"&gt;&lt;a id="test_page"&gt;&lt;/a&gt;Test Web page&lt;/h1&gt;
 
 &lt;p&gt;To test our example, we can re-use the &lt;a href="/wrapping-webkit-part-1-gtk%2B-vala#test_page"&gt;Web page we used to test our Vala version&lt;/a&gt;, with a simple modification
 to call call &lt;strong&gt;exit&lt;/strong&gt; and &lt;strong&gt;getData&lt;/strong&gt; via &lt;strong&gt;bridge&lt;/strong&gt; rather than as separate
@@ -550,7 +1100,7 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/wrapping-webkit-part-3-qt-quick-python" title="Wrapping Webkit (Part 3 - Qt Quick/Python)"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -585,13 +1135,13 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#c++-ref"&gt;c++ &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;      &lt;/ul&gt;
@@ -652,15 +1202,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.0649244806377186" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.33855428938294896" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.030428674112173537" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.05570790725097241" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.052353264387022924" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7963709062567862" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3847517196347918" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.24443917605278997" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.01270256993070129" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9519449273094879" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.45221940037836017" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3498806369003119" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5602380917167168"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1119879241174433"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2812534642870792"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.527965610086702"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1419,11 +1969,11 @@ you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&l
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#gtk-ref"&gt;gtk &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -1486,15 +2036,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4118176591414062" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.13100682188831758" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.79206579026961" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.45056240075818266" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.11128705689333052" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5706148816630908" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.956962813545032" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23715726205437015" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.49022795822889165" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.942772132409178" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.735942269666527" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6630141989338985" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.56258728744099"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.0024697232046995143"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4213271545719537"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.783648300543577"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1952,15 +2502,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.47378781826478655" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.44834756841686607" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.00871911294915484" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.7782924234814959" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.3193993338014991" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8280023668121733" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7153688323046855" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9298388369886144" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4722761492214016" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.41419898984068215" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9522676940278435" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3618045892871202" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.23864647193579003"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4651041200258228"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6817930972640766"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3967778226096159"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2320,15 +2870,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7643170965920806" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.33057832506900997" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.2503818749729455" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6879045412772005" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2843565097034697" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.07087103673558404" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.394223107513628" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5886044217347083" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5091257949370147" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6975980973699863" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9722190466382145" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3834963552840821" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4364928258371823"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5857734527261715"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9064446629105639"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.09935022882952871"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2669,15 +3219,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7871327036001857" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.41211299557238934" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.11926674816921745" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.41676318565285253" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.4387394073095239" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6407021923612466" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46202056369878264" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8524470047772885" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8705311318482144" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5216290704428684" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.884233879362483" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9266101160900334" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5982495655401612"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8748789274430606"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7801591022831842"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9643651379880501"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;

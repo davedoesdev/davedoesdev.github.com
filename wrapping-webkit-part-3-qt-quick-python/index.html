@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wrapping Webkit (Part 3 - Qt Quick/Python) - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5816280908672665" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5912296239110689" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5724712907553697" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3412730850922645" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.8186854898202254" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7342185187357728" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8527745465299684"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.256933781369878"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Wrapping Webkit (Part 3 - Qt Quick/Python) 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Last time out</a>, I showed how to get
+bi-directional communication going between Javascript and C++, using Qt&#39;s
+Webkit component.</p>
+
+<p>This time I&#39;m going to stick with Qt but use its new shiny: <a href="http://qt-project.org/doc/qt-4.8/qtquick.html">Qt Quick</a>. Qt Quick adds a markup language, <a href="http://qt-project.org/doc/qt-4.8/gettingstartedqml.html">QML</a>, to the mix.</p>
+
+<p>You use QML to declare which components to build your user interface from.
+The idea is that a declarative specification will make your user interface work across different types of device (mobile is the main focus).</p>
+
+<p>For application logic, you can use Javascript in QML. Alternatively you can
+use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This time I&#39;ll use
+<a href="http://qt-project.org/wiki/PySide">PySide</a> &mdash; the Python bindings to Qt.</p>
+
+<h1 id="toc_0">The QML</h1>
+
+<p>Let&#39;s start with the QML for our example. It needs to do a couple of things:</p>
+
+<ol>
+<li>Declare a <strong>WebView</strong> (Webkit) component which will load our HTML page.</li>
+<li>Expose a <em>bridge</em> object to Javascript in the page. The bridge object should
+have a couple of methods to do the following:
+
+<ul>
+<li>Return data read from standard input by our Python code.</li>
+<li>Ask our Python code to exit the application.</li>
+</ul></li>
+</ol>
+
+<p>First we import <strong>QtQuick</strong> and <strong>QtWebKit</strong>:</p>
+
+<pre><code>import QtQuick 1.0
+import QtWebKit 1.0
+</code></pre>
+
+<p>Next we declare the <strong>WebView</strong> component. This will be the only Qt component
+in our application:</p>
+
+<pre><code>WebView
+{
+    settings.javascriptEnabled: true;
+    width: 800;
+    height: 600;
+</code></pre>
+
+<p>You can see we turn Javascript on in Webkit and set the initial size. Next we
+declare a <strong>bridge</strong> object for our HTML page to call:</p>
+
+<pre><code>javaScriptWindowObjects: QtObject
+{
+    WebView.windowObjectName: &quot;bridge&quot;;
+
+    function getData()
+    {
+        return the_bridge.getData();
+    }
+
+    function exit(msg)
+    {
+        the_bridge.exit(msg);
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<p>Notice a couple of things here:</p>
+
+<ol>
+<li>We define <strong>bridge</strong>&#39;s methods in Javascript directly in the QML.</li>
+<li><strong>bridge</strong> is just a proxy to another object called <strong>the_bridge</strong>.
+<strong>the_bridge</strong> is undefined in our QML; our Python code will
+have to define it and add to our <strong>WebView</strong>&#39;s runtime environment.
+Ideally I&#39;d have exposed <strong>the_bridge</strong> directly to the page but I couldn&#39;t
+get that to work.</li>
+</ol>
+
+<h1 id="toc_1">The Python</h1>
+
+<p>Our Python code has to do what the C++ code did in <a href="/wrapping-webkit-part-2-qt-c%2B%2B">my previous example</a>:</p>
+
+<ol>
+<li><p>Handle command line arguments specifying:</p>
+
+<ul>
+<li>The URL of a page to load into Webkit.</li>
+<li>Run as a fullscreen application.</li>
+<li>Hide the mouse cursor.</li>
+<li>Enable Webkit&#39;s developer tools.</li>
+</ul></li>
+<li><p>Read data from standard input and make it available to the page when done.</p></li>
+<li><p>Expose a function to the page so it can exit the application.</p></li>
+</ol>
+
+<h2 id="toc_2">Imports</h2>
+
+<p>First up we need to import a bunch of modules:</p>
+
+<pre><code>#!/usr/bin/env python
+import sys
+import argparse
+import signal
+from os import path
+from threading import Lock
+from PySide import QtGui, QtDeclarative, QtCore
+from PySide.QtWebKit import QWebSettings
+</code></pre>
+
+<p>You can see the Qt modules we&#39;re going to use. <strong>QtDeclarative</strong> handles the
+QML stuff. Notice also that I&#39;m using the standard Python <strong>Lock</strong> class rather
+than <strong>QMutex</strong>. Either would have worked fine.</p>
+
+<h2 id="toc_3">Parsing command line arguments</h2>
+
+<p>Python&#39;s already got decent support for parsing command line arguments via the
+<strong>argparse</strong> module. So it&#39;s pretty straightforward for us:</p>
+
+<pre><code>parser = argparse.ArgumentParser(description=&#39;Webkit Example&#39;)
+parser.add_argument(&#39;-u&#39;, &#39;--url&#39;, help=&#39;page to load&#39;, default=&#39;file://&#39; + sys.path[0] + &#39;/test.html&#39;)
+parser.add_argument(&#39;-f&#39;, &#39;--fullscreen&#39;, help=&#39;run in fullscreen mode&#39;, action=&#39;store_true&#39;)
+parser.add_argument(&#39;-c&#39;, &#39;--hidecursor&#39;, help=&#39;hide mouse cursor&#39;, action=&#39;store_true&#39;)
+parser.add_argument(&#39;-d&#39;, &#39;--debug&#39;, help=&#39;enable web inspector&#39;, action=&#39;store_true&#39;)
+args = parser.parse_args()
+</code></pre>
+
+<p>The default page to load is <strong>test.html</strong> in the same directory as the
+application. The other arguments default to <strong>False</strong> (<strong>argparse</strong> assumes this
+because the action to take when they&#39;re specified is <strong>store_true</strong>).</p>
+
+<p>We also have to pass the command line through to <strong>QApplication</strong> when we
+initialise Qt:</p>
+
+<pre><code>app = QtGui.QApplication(sys.argv)
+</code></pre>
+
+<h2 id="toc_4"><strong>DataReader</strong></h2>
+
+<p>Next we&#39;ll define a class which will read from standard input and raise a Qt
+signal with the data when it&#39;s done:</p>
+
+<pre><code>class DataReader(QtCore.QObject):
+    def __init__(self):
+        super(DataReader, self).__init__()
+
+    @QtCore.Slot(str)
+    def read(self):
+        self.readsig.emit(sys.stdin.read())
+
+    readsig = QtCore.Signal(str)
+</code></pre>
+
+<p>As you can see, it&#39;s pretty simple to declare slots and signals in Python:
+use the <strong>Slot</strong> decorator and the <strong>Signal</strong> constructor. One thing to note
+is signals have to declared as class attributes. However, Qt makes sure each
+instance of your class has a separate runtime signal object.</p>
+
+<h2 id="toc_5"><strong>Bridge</strong></h2>
+
+<p>Now it&#39;s time to define a class which will be exposed to QML (it&#39;ll implement
+the <strong>the_bridge</strong> object we left undefined above):</p>
+
+<pre><code>class Bridge(QtCore.QObject):
+    def __init__(self):
+        super(Bridge, self).__init__()
+        self.data = &#39;&#39;
+        self.lock = Lock()
+</code></pre>
+
+<p><strong>data</strong> will contain data read from standard input by <strong>DataReader</strong> when it&#39;s
+done. We also create a mutex (<strong>Lock</strong>) so we can safely read and write to
+<strong>data</strong> from multiple threads...</p>
+
+<pre><code>    @QtCore.Slot(result=str)
+    def getData(self):
+        with self.lock:
+            return self.data
+
+    @QtCore.Slot(str)
+    def gotData(self, data):
+        with self.lock:
+            self.data = data
+</code></pre>
+
+<p>We have to declare <strong>getData</strong> as a slot so it can be called from QML.
+<strong>gotData</strong> is a slot so we can hook it up to a <strong>DataReader</strong> later on.</p>
+
+<p>Finally, we define a signal to raise when application exit is required, plus a
+function (slot) to raise it:</p>
+
+<pre><code>    exitsig = QtCore.Signal(str)
+
+    @QtCore.Slot(str)
+    def exit(self, msg):
+        self.exitsig.emit(msg)
+</code></pre>
+
+<h2 id="toc_6">Creating a view</h2>
+
+<p>Now we need to create a <strong>QDeclarativeView</strong>, which is like a Qt window but
+uses a QML file to build the user interface:</p>
+
+<pre><code>view = QtDeclarative.QDeclarativeView()
+view.setWindowTitle(&#39;WebKit Example&#39;)
+view.setResizeMode(QtDeclarative.QDeclarativeView.ResizeMode.SizeRootObjectToView)
+</code></pre>
+
+<p>We set the window title here and tell it to resize its contents when it is
+resized. Note we don&#39;t load the QML into it yet &mdash; we have some more
+setting up to do first.</p>
+
+<h2 id="toc_7">Hooking it all up</h2>
+
+<p>First let&#39;s make a <strong>DataReader</strong> and a <strong>Bridge</strong>:</p>
+
+<pre><code>reader = DataReader()
+bridge = Bridge()
+</code></pre>
+
+<p>Now we need to let <strong>bridge</strong> know when <strong>reader</strong> finishes reading from
+standard input:</p>
+
+<pre><code>reader.readsig.connect(bridge.gotData)
+</code></pre>
+
+<p>When <strong>bridge</strong> raises an exit signal, we want to exit the application by
+closing <strong>view</strong>:</p>
+
+<pre><code>def exit(msg):
+    print msg
+    view.close()
+
+bridge.exitsig.connect(exit)
+</code></pre>
+
+<p>Then we can start <strong>reader</strong> on a separate thread:</p>
+
+<pre><code>readerThread = QtCore.QThread()
+readerThread.started.connect(reader.read)
+reader.readsig.connect(readerThread.quit)
+reader.moveToThread(readerThread)
+readerThread.start()
+</code></pre>
+
+<h2 id="toc_8">Miscellaneous settings</h2>
+
+<p>There&#39;s three odds and ends we need to take care of:</p>
+
+<ol>
+<li><p>Enable Webkit&#39;s developer tools if specified on the command line:</p>
+
+<pre><code>QWebSettings.globalSettings().setAttribute(QWebSettings.WebAttribute.DeveloperExtrasEnabled, args.debug)
+</code></pre></li>
+<li><p>Hide the mouse cursor if specified on the command line:</p>
+
+<pre><code>if args.hidecursor:
+    app.setOverrideCursor(QtGui.QCursor(QtCore.Qt.BlankCursor))
+</code></pre>
+
+<p>Note this current generates X errors on Ubuntu 12.10 64-bit due to a <a href="https://bugreports.qt-project.org/browse/PYSIDE-25">bug in PySide</a>.</p></li>
+<li><p>Enable Ctrl-C to terminate the program (PySide seems to disable it):</p>
+
+<pre><code>signal.signal(signal.SIGINT, signal.SIG_DFL)
+</code></pre></li>
+</ol>
+
+<h2 id="toc_9">Showing the view</h2>
+
+<p>Now we can close things out by loading our QML and showing it.</p>
+
+<p>First we need to add <strong>bridge</strong> to <strong>view</strong>&#39;s runtime environment, making it
+available to QML as <strong>the_bridge</strong>:</p>
+
+<pre><code>view.rootContext().setContextProperty(&#39;the_bridge&#39;, bridge)
+</code></pre>
+
+<p>Next we load the QML &mdash; I place it in a file alongside the Python source:</p>
+
+<pre><code>view.setSource(path.basename(__file__).replace(&#39;.py&#39;, &#39;.qml&#39;))
+</code></pre>
+
+<p>Now the QML is loaded, the Webkit component is available as the top-level (root)
+object in <strong>view</strong>. So we can load a page into it:</p>
+
+<pre><code>view.rootObject().setProperty(&#39;url&#39;, args.url)
+</code></pre>
+
+<p>Finally, we show <strong>view</strong> on the screen (in fullscreen mode if specified on the
+command line):</p>
+
+<pre><code>if args.fullscreen:
+    view.showFullScreen()
+else:
+    view.show()
+</code></pre>
+
+<p>And start Qt&#39;s message loop etc:</p>
+
+<pre><code>app.exec_()
+</code></pre>
+
+<h1 id="toc_10">Test Web page</h1>
+
+<p>To test our example, we can use exactly the same <a href="/wrapping-webkit-part-2-qt-c%2B%2B#test_page">Web page we used to test our
+C++ version</a>:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function check_data()
+{
+    var data = bridge.getData();
+
+    if (data === &quot;&quot;)
+    {
+        setTimeout(check_data, 1000);
+    }
+    else
+    {
+        document.getElementById(&#39;data&#39;).innerText = data;
+    }
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&#39;check_data()&#39;&gt;
+&lt;p&gt;
+data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;input type=&quot;button&quot; value=&quot;Exit&quot; onclick=&quot;bridge.exit(&#39;goodbye from Javascript&#39;)&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Test it by piping data to <strong>webkit-example.py</strong>:</p>
+
+<pre><code>echo &#39;Hello World!&#39; | ./webkit-example.py
+</code></pre>
+
+<p>You can find all the source from this article <a href="https://gist.github.com/5229176">here</a>.</p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/wrapping-webkit-part-2-qt-c%2B%2B" title="Wrapping Webkit (Part 2 - Qt/C++)">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-03-23</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#webkit-ref">webkit <span>3</span></a>
+          </li>          <li>
+            <a href="/tags#html-ref">html <span>3</span></a>
+          </li>          <li>
+            <a href="/tags#javascript-ref">javascript <span>3</span></a>
+          </li>          <li>
+            <a href="/tags#qt-ref">qt <span>2</span></a>
+          </li>          <li>
+            <a href="/tags#qt quick-ref">qt quick <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#qml-ref">qml <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#python-ref">python <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2013 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>
