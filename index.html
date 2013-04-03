@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.18261437412336678" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.30939573041757995" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3587206217668858" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.1268633439686846" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.3285827174939383" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.25191157731569525" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7082434596248662" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6784956790407647" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5176839048187767" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8481782240749154" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9186259892745329" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7524201006601309" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.21535397050805083"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4571143927239265"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.11173995386963409"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2250642471003378"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,6 +111,31 @@
   <div class="span12">
     <h2>Latest Posts</h2>
 
+<div class="post">
+  <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
+
+  <p>This is the last in my short series about getting data into and out of a
+Web application running in Webkit. Previously I wrote about hosting Webkit
+<a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
+<a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
+<a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
+
+<p>This time I&#39;m going to do something a bit different: How can I pass data to
+and from a Javascript application running in Chromium? I&#39;ll be using Bash
+and command line utilities. Be on the lookout for egregious hacks!</p>
+
+<h1 id="toc_0">Getting data in</h1>
+
+<p>Getting data into Chromium is easy &mdash; write it to a file and read it using
+<a href="http://www.w3.org/TR/XMLHttpRequest/">XMLHttpRequest</a>.
+jQuery&#39;s <a href="http://api.jquery.com/jQuery.ajax/">ajax</a> function is a convenient way of doing this. Chromium needs the <strong>--allow-file-access-from-files</strong>
+command line option to read files from a Web app loaded from local disk.</p>
+
+
+  <div class="more">
+    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn">read more..</a>
+  </div>
+</div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-3-qt-quick-python">Wrapping Webkit (Part 3 - Qt Quick/Python)</a> <span class="date">2013-03-23</span></h3>
 

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wrapping Webkit (Part 4 - Chromium/Bash/inotify) - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.21696141289967952" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9288743758136012" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3912804017983288" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6850778729103966" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9535133784117215" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5891746813260532" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.21349297572472492"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.4746629961323473"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    Wrapping Webkit (Part 4 - Chromium/Bash/inotify) 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>This is the last in my short series about getting data into and out of a
+Web application running in Webkit. Previously I wrote about hosting Webkit
+<a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
+<a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
+<a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
+
+<p>This time I&#39;m going to do something a bit different: How can I pass data to
+and from a Javascript application running in Chromium? I&#39;ll be using Bash
+and command line utilities. Be on the lookout for egregious hacks!</p>
+
+<h1 id="toc_0">Getting data in</h1>
+
+<p>Getting data into Chromium is easy &mdash; write it to a file and read it using
+<a href="http://www.w3.org/TR/XMLHttpRequest/">XMLHttpRequest</a>.
+jQuery&#39;s <a href="http://api.jquery.com/jQuery.ajax/">ajax</a> function is a convenient way of doing this. Chromium needs the <strong>--allow-file-access-from-files</strong>
+command line option to read files from a Web app loaded from local disk.</p>
+
+<p>An alternative is to pass the data as part the URL. However, the data would
+have to be available before Chromium was launched. I wanted to start Chromium
+and read the data in the background. Also, having the data visible in
+Chromium&#39;s omnibox isn&#39;t always desirable.</p>
+
+<h1 id="toc_1">Getting data out</h1>
+
+<p>Getting data out of Chromium is much more difficult, and this is where a hack
+is required. Javascript running in a Web page can save data to the local
+filesystem using the following mechanisms:</p>
+
+<ul>
+<li><p><a href="http://www.w3.org/TR/webstorage/">Web Storage</a> is basically a key-value
+store, which Chromium implements using <a href="http://www.sqlite.org/">SQLite</a>.
+On Linux it&#39;s stored in <strong>~/.config/chromium/Default/Local Storage</strong>.</dd></p></li>
+<li><p><a href="http://www.w3.org/TR/IndexedDB/">IndexedDB</a> is a key-value store like Web
+Storage but with searching and key traversal functionality. Chromium implements IndexedDB
+using <a href="https://code.google.com/p/leveldb/">LevelDB</a>.</dd></p></li>
+<li><p>The <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/">FileSystem API</a>
+is a Chromium-only way for Web applications to access a single, sandboxed
+section of the local filesystem.</p></li>
+</ul>
+
+<p>We could store data in Javascript using Web Storage, IndexedDB or the
+FileSystem API and access it from outside Chromium. In all three cases, we&#39;d be
+tied to Chromium&#39;s implementation: SQLite for WebStorage, LevelDB for
+IndexedDB, the Chromium-only FileSystem API and where Chromium chooses to store
+the data for all three.</p>
+
+<p>I wanted to see if I could get data out of a Web app in a way which isn&#39;t
+dependent on Chromium&#39;s internals. It would be nice if the technique worked
+on Firefox too.</p>
+
+<h2 id="toc_2">Using inotify (aka the hack)</h2>
+
+<p>So here&#39;s what I ended up doing:</p>
+
+<ul>
+<li><p>Create 256 files, named from 0 to 255. Put some dummy data in each file.</p></li>
+<li><p>Set up an <a href="http://en.wikipedia.org/wiki/Inotify">inotify</a> watch on the files
+so we get notified when each is opened.</p></li>
+<li><p>When one of the files is opened, it means the Web app is passing us a
+byte of data, with a value equal to the name of the file.</p></li>
+<li><p>In the Web app (Javascript), for each byte of data we want to pass out,
+use <strong>jQuery.ajax</strong> to open and read from the file which has the same name
+as the byte&#39;s value.</p></li>
+</ul>
+
+<p>OK so it&#39;s a bit of a hack but it does actually work! It&#39;s not the fastest
+data transfer mechanism but it doesn&#39;t rely on Chromium internals &mdash;
+it works for Firefox too.</p>
+
+<p>Also, it relies on inotify reporting file events in the order they occurred.
+We&#39;ll be serializing reads in Javascript (we won&#39;t start a read until a previous
+one has completed) so it should be okay.</p>
+
+<h1 id="toc_3">Bash script</h1>
+
+<p>The easiest way to set this up is to write a shell script. Here&#39;s what it does:</p>
+
+<ol>
+<li><p>Parse command line arguments, including options to:</p>
+
+<ul>
+<li>Specify the browser to use (default to Chromium).</li>
+<li>Specify the URL to load into the browser (default to <strong>test.html</strong> in the
+same directory as the script).</li>
+<li>Use fullscreen mode when launching the browser.</li>
+</ul>
+
+<pre><code>url="file://$PWD/test.html"
+browser=chromium-browser
+
+for arg in "$@"
+do
+  case "$arg" in
+    -u=*|--url=*) url="$(echo "$arg" | sed 's/^.*=//')";;
+    -f|--fullscreen) args="$args --kiosk";;
+    -b=*|--browser=*) browser="$(echo "$arg" | sed 's/^.*=//')";;
+  esac
+done</code></pre></li>
+<li><p>Allow the browser to read files from local disk. For Chromium:</p>
+
+<pre><code>if test &quot;$browser&quot; = chromium-browser -o &quot;$browser&quot; = google-chrome
+then
+  args=&quot;$args --allow-file-access-from-files&quot;
+fi
+</code></pre>
+
+<p>You can&#39;t turn this on from the command line for Firefox. You&#39;ll need to use
+<strong>about:config</strong> to set <strong>security.fileuri.strict_origin_policy</strong>
+to <strong>false</strong> instead. Note this will apply globally for all sites so be
+careful. It would be a good idea to use <a href="http://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data">Firefox profiles</a>
+to stop the setting being used in your normal browsing.</p></li>
+<li><p>Define some variables we&#39;ll use later for specifying the paths of:
+a temporary file, a file for storing data read from standard input and
+a directory to hold the 0..255 files.</p>
+
+<pre><code>tmp_file=&quot;$(dirname &quot;$0&quot;)/data.tmp&quot;
+data_file=&quot;$(dirname &quot;$0&quot;)/data.txt&quot;
+bytes_dir=&quot;$(dirname &quot;$0&quot;)/bytes&quot;
+</code></pre></li>
+<li><p>Create files named 0 to 255 in a new directory.</p>
+
+<pre><code>mkdir -p &quot;$bytes_dir&quot;
+for byte in {0..255}
+do
+  echo &quot;$byte&quot; &gt; &quot;$bytes_dir/byte$byte&quot;
+done
+</code></pre></li>
+<li><p>Handle Ctrl-C by killing everything and removing all files and directories
+we may have created.</p>
+
+<pre><code>trap &quot;\&quot;$(dirname &quot;$0&quot;)/rkill.sh\&quot; --skip=$BASHPID $$; rm -rf &quot;$bytes_dir&quot; &quot;$tmp_file&quot; &quot;$data_file&quot;; exit&quot; SIGINT
+</code></pre>
+
+<p>(more about <strong>rkill.sh</strong> <a href="/script-cleanup">here</a>)</p></li>
+<li><p>Launch the browser in the background, passing it the URL to load.
+When the browser exits, remove the directory and the 0..255 files.</p>
+
+<pre><code>(
+&quot;$browser&quot; $args &quot;$url&quot;
+rm -rf &quot;$bytes_dir&quot;
+) &amp;
+</code></pre></li>
+<li><p>Read from standard input, again in the background. Write the data to a
+temporary file and then rename the temporary file to the file that the
+Web app is expecting the data to be in. Doing it this way ensures the Web
+app never reads partial data.</p>
+
+<pre><code>cat | (
+cat &gt; &quot;$tmp_file&quot;
+mv &quot;$tmp_file&quot; &quot;$data_file&quot;
+) &amp;
+</code></pre></li>
+<li><p>Use <a href="https://github.com/rvoicilas/inotify-tools/wiki#wiki-info">inotifywait</a> to monitor for:</p>
+
+<ul>
+<li>Any of the 0..255 files being opened.</li>
+<li>The directory we created for them being deleted.</li>
+</ul>
+
+<p><pre><code>inotifywait -m -e OPEN -e DELETE_SELF &quot;$bytes_dir&quot;/* |</pre></code></p></li>
+<li><p>When one of the files is opened, print a byte to standard ouput, value equal
+to the file name.
+When the directory is deleted (i.e. the browser has exited), clean up and
+exit.</p>
+
+<pre><code>(gawk &#39;BEGIN{i=0; j=0; code=0}{
+  if (index($2, &quot;DELETE_SELF&quot;) &gt; 0)
+  {
+    printf(&quot;\n&quot;);
+    exit;
+  }
+  printf(&quot;%c&quot;, gensub(/^(.*\/byte)([0-9]+)$/, &quot;\\2&quot;, 1, $1) + 0);
+}&#39;
+&quot;$(dirname &quot;$0&quot;)/rkill.sh&quot; --skip=$BASHPID $$
+rm -f &quot;$tmp_file&quot; &quot;$data_file&quot;
+)
+</code></pre>
+
+<p>As you can see, I&#39;m using Awk to process the output from inotifywait.</p></li>
+</ol>
+
+<h1 id="toc_4">Test Web page</h1>
+
+<p>Finally, let&#39;s look at <strong>test.html</strong>. It&#39;s a bit longer than the same page in
+my previous posts.</p>
+
+<p>First, we need to include jQuery since we&#39;ll be using it for reading files:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery-1.9.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+</code></pre>
+
+<p>Now we&#39;ll define a function, <strong>exit</strong>, which should pass a message to the
+Bash script. For each byte in the message, it&#39;ll need to read from a file
+with the corresponding name. It should do this for each byte <em>in turn</em> &mdash;
+i.e. only read from a file when the previous read has completed.</p>
+
+<pre><code>function exit(msg, i)
+{
+    if (i === msg.length)
+    {
+        window.close();
+        return;
+    }
+</code></pre>
+
+<p>The first argument, <strong>msg</strong>, is the message and the second argument, <strong>i</strong>,
+is the index of the byte to process next. When we reach the end of the message,
+you can see we close the browser. Note for Firefox you&#39;ll need to use
+<strong>about:config</strong> to set <strong>dom.allow_scripts_to_close_windows</strong> to <strong>true</strong>.
+Again, make sure you don&#39;t have this set for your normal browsing.</p>
+
+<p>We use <strong>jQuery.ajax</strong> to read from the file named after the byte at index <strong>i</strong>:</p>
+
+<pre><code>    $.ajax(
+    {
+        url: &quot;bytes/byte&quot; + msg.charCodeAt(i),
+        cache: false,
+        mimeType: &#39;text/plain&#39;,
+        success: function (data)
+        {
+            exit(msg, i + 1);
+        },
+        error: function ()
+        {
+            window.close();
+        }
+    });
+}
+</code></pre>
+
+<p>Notice we make sure the browser doesn&#39;t cache the result because if the message
+contains the same byte more than once, we want the inotify handler to fire every
+time. Once the file has been read, we call <strong>exit</strong> again to process the next
+byte in the message. If an error occurs, we just close the browser.</p>
+
+<p>Next we&#39;ll define a global, <strong>bridge</strong>, with two methods. First, a method
+to get the data that the Bash script has read from standard input (or an empty
+string if it&#39;s not yet available):</p>
+
+<pre><code>var bridge = {
+    getData: function (cb)
+    {
+        $.ajax(
+        {
+            url: &#39;data.txt&#39;,
+            cache: false,
+            mimeType: &#39;text/plain&#39;,
+            success: function (data)
+            {
+                cb(data);
+            },
+            error: function ()
+            {
+                cb(&#39;&#39;);
+            }
+        });
+    },
+</code></pre>
+
+<p>Second, a method to sit in front of the <strong>exit</strong> function we defined above,
+converting its argument to UTF-8 and starting things off at index 0:</p>
+
+<pre><code>    exit: function (msg)
+    {
+        if (!this.exiting)
+        {
+            // convert to UTF-8 (http://ecmanaut.blogspot.co.uk/2006/07/encoding-decoding-utf8-in-javascript.html)
+            exit(unescape(encodeURIComponent(msg)), 0);
+            this.exiting = true;
+        }
+    }
+};
+</code></pre>
+
+<p>It also guards against being called more than once.</p>
+
+<p>We&#39;ll also need a function which polls for data read from standard input:</p>
+
+<pre><code>function check_data()
+{
+    bridge.getData(function (data)
+    {
+        if (data === &quot;&quot;)
+        {
+            setTimeout(check_data, 1000);
+        }
+        else
+        {
+            $(&#39;#data&#39;).text(data);
+        }
+    });
+}
+&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+
+<p>You can see it writes the data into an element with id <strong>data</strong>.</p>
+
+<p>Finally, here&#39;s the body of the page:</p>
+
+<pre><code>&lt;body onload=&#39;check_data()&#39;&gt;
+&lt;p&gt;
+data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;input type=&quot;button&quot; value=&quot;Exit&quot; onclick=&quot;bridge.exit(&#39;goodbye from Javascript&#39;)&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>When the page loads, we start polling for the data from standard input.
+You can see the <strong>data</strong> element we write the data into.
+There&#39;s also a button which will pass a message out to the Bash script and exit
+the browser when clicked.</p>
+
+<p>Test it all out by piping data to the Bash script like this:</p>
+
+<pre><code>echo &#39;Hello World!&#39; | ./browser_example.sh
+</code></pre>
+
+<p>You can find all the source from this article <a href="https://gist.github.com/5240269">here</a>.</p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/wrapping-webkit-part-3-qt-quick-python" title="Wrapping Webkit (Part 3 - Qt Quick/Python)">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-03-29</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#webkit-ref">webkit <span>4</span></a>
+          </li>          <li>
+            <a href="/tags#html-ref">html <span>4</span></a>
+          </li>          <li>
+            <a href="/tags#javascript-ref">javascript <span>4</span></a>
+          </li>          <li>
+            <a href="/tags#chromium-ref">chromium <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#bash-ref">bash <span>2</span></a>
+          </li>          <li>
+            <a href="/tags#inotify-ref">inotify <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2013 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

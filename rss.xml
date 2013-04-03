@@ -3,7 +3,541 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-03-25 10:03:33 +0000</pubDate>
+    <pubDate>2013-04-03 23:53:31 +0100</pubDate>
+    <item>
+      <title>Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</title>
+      <link>http://www.davedoesdev.com/wrapping-webkit-part-4-chromium-bash-inotify</link>
+      <pubDate>2013-03-29</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Wrapping Webkit (Part 4 - Chromium/Bash/inotify) - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.673712407163941" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.25332286427069406" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8600315007351615" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8211662207500966" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8467832345066633" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.27159037085744886" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6127151541192617"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.11845791140763395"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    Wrapping Webkit (Part 4 - Chromium/Bash/inotify) 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;This is the last in my short series about getting data into and out of a
+Web application running in Webkit. Previously I wrote about hosting Webkit
+&lt;a href="/wrapping-webkit-part-1-gtk%2B-vala"&gt;in a Vala application using GTK+&lt;/a&gt;,
+&lt;a href="/wrapping-webkit-part-2-qt-c%2B%2B"&gt;in a C++ application using Qt&lt;/a&gt; and
+&lt;a href="/wrapping-webkit-part-3-qt-quick-python"&gt;in a Python application using Qt Quick&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This time I&amp;#39;m going to do something a bit different: How can I pass data to
+and from a Javascript application running in Chromium? I&amp;#39;ll be using Bash
+and command line utilities. Be on the lookout for egregious hacks!&lt;/p&gt;
+
+&lt;h1 id="toc_0"&gt;Getting data in&lt;/h1&gt;
+
+&lt;p&gt;Getting data into Chromium is easy &amp;mdash; write it to a file and read it using
+&lt;a href="http://www.w3.org/TR/XMLHttpRequest/"&gt;XMLHttpRequest&lt;/a&gt;.
+jQuery&amp;#39;s &lt;a href="http://api.jquery.com/jQuery.ajax/"&gt;ajax&lt;/a&gt; function is a convenient way of doing this. Chromium needs the &lt;strong&gt;--allow-file-access-from-files&lt;/strong&gt;
+command line option to read files from a Web app loaded from local disk.&lt;/p&gt;
+
+&lt;p&gt;An alternative is to pass the data as part the URL. However, the data would
+have to be available before Chromium was launched. I wanted to start Chromium
+and read the data in the background. Also, having the data visible in
+Chromium&amp;#39;s omnibox isn&amp;#39;t always desirable.&lt;/p&gt;
+
+&lt;h1 id="toc_1"&gt;Getting data out&lt;/h1&gt;
+
+&lt;p&gt;Getting data out of Chromium is much more difficult, and this is where a hack
+is required. Javascript running in a Web page can save data to the local
+filesystem using the following mechanisms:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="http://www.w3.org/TR/webstorage/"&gt;Web Storage&lt;/a&gt; is basically a key-value
+store, which Chromium implements using &lt;a href="http://www.sqlite.org/"&gt;SQLite&lt;/a&gt;.
+On Linux it&amp;#39;s stored in &lt;strong&gt;~/.config/chromium/Default/Local Storage&lt;/strong&gt;.&lt;/dd&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="http://www.w3.org/TR/IndexedDB/"&gt;IndexedDB&lt;/a&gt; is a key-value store like Web
+Storage but with searching and key traversal functionality. Chromium implements IndexedDB
+using &lt;a href="https://code.google.com/p/leveldb/"&gt;LevelDB&lt;/a&gt;.&lt;/dd&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/"&gt;FileSystem API&lt;/a&gt;
+is a Chromium-only way for Web applications to access a single, sandboxed
+section of the local filesystem.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We could store data in Javascript using Web Storage, IndexedDB or the
+FileSystem API and access it from outside Chromium. In all three cases, we&amp;#39;d be
+tied to Chromium&amp;#39;s implementation: SQLite for WebStorage, LevelDB for
+IndexedDB, the Chromium-only FileSystem API and where Chromium chooses to store
+the data for all three.&lt;/p&gt;
+
+&lt;p&gt;I wanted to see if I could get data out of a Web app in a way which isn&amp;#39;t
+dependent on Chromium&amp;#39;s internals. It would be nice if the technique worked
+on Firefox too.&lt;/p&gt;
+
+&lt;h2 id="toc_2"&gt;Using inotify (aka the hack)&lt;/h2&gt;
+
+&lt;p&gt;So here&amp;#39;s what I ended up doing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Create 256 files, named from 0 to 255. Put some dummy data in each file.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Set up an &lt;a href="http://en.wikipedia.org/wiki/Inotify"&gt;inotify&lt;/a&gt; watch on the files
+so we get notified when each is opened.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When one of the files is opened, it means the Web app is passing us a
+byte of data, with a value equal to the name of the file.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In the Web app (Javascript), for each byte of data we want to pass out,
+use &lt;strong&gt;jQuery.ajax&lt;/strong&gt; to open and read from the file which has the same name
+as the byte&amp;#39;s value.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;OK so it&amp;#39;s a bit of a hack but it does actually work! It&amp;#39;s not the fastest
+data transfer mechanism but it doesn&amp;#39;t rely on Chromium internals &amp;mdash;
+it works for Firefox too.&lt;/p&gt;
+
+&lt;p&gt;Also, it relies on inotify reporting file events in the order they occurred.
+We&amp;#39;ll be serializing reads in Javascript (we won&amp;#39;t start a read until a previous
+one has completed) so it should be okay.&lt;/p&gt;
+
+&lt;h1 id="toc_3"&gt;Bash script&lt;/h1&gt;
+
+&lt;p&gt;The easiest way to set this up is to write a shell script. Here&amp;#39;s what it does:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Parse command line arguments, including options to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Specify the browser to use (default to Chromium).&lt;/li&gt;
+&lt;li&gt;Specify the URL to load into the browser (default to &lt;strong&gt;test.html&lt;/strong&gt; in the
+same directory as the script).&lt;/li&gt;
+&lt;li&gt;Use fullscreen mode when launching the browser.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;url="file://$PWD/test.html"
+browser=chromium-browser
+
+for arg in "$@"
+do
+  case "$arg" in
+    -u=*|--url=*) url="$(echo "$arg" | sed 's/^.*=//')";;
+    -f|--fullscreen) args="$args --kiosk";;
+    -b=*|--browser=*) browser="$(echo "$arg" | sed 's/^.*=//')";;
+  esac
+done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Allow the browser to read files from local disk. For Chromium:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if test &amp;quot;$browser&amp;quot; = chromium-browser -o &amp;quot;$browser&amp;quot; = google-chrome
+then
+  args=&amp;quot;$args --allow-file-access-from-files&amp;quot;
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can&amp;#39;t turn this on from the command line for Firefox. You&amp;#39;ll need to use
+&lt;strong&gt;about:config&lt;/strong&gt; to set &lt;strong&gt;security.fileuri.strict_origin_policy&lt;/strong&gt;
+to &lt;strong&gt;false&lt;/strong&gt; instead. Note this will apply globally for all sites so be
+careful. It would be a good idea to use &lt;a href="http://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data"&gt;Firefox profiles&lt;/a&gt;
+to stop the setting being used in your normal browsing.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Define some variables we&amp;#39;ll use later for specifying the paths of:
+a temporary file, a file for storing data read from standard input and
+a directory to hold the 0..255 files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tmp_file=&amp;quot;$(dirname &amp;quot;$0&amp;quot;)/data.tmp&amp;quot;
+data_file=&amp;quot;$(dirname &amp;quot;$0&amp;quot;)/data.txt&amp;quot;
+bytes_dir=&amp;quot;$(dirname &amp;quot;$0&amp;quot;)/bytes&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create files named 0 to 255 in a new directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir -p &amp;quot;$bytes_dir&amp;quot;
+for byte in {0..255}
+do
+  echo &amp;quot;$byte&amp;quot; &amp;gt; &amp;quot;$bytes_dir/byte$byte&amp;quot;
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Handle Ctrl-C by killing everything and removing all files and directories
+we may have created.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;trap &amp;quot;\&amp;quot;$(dirname &amp;quot;$0&amp;quot;)/rkill.sh\&amp;quot; --skip=$BASHPID $$; rm -rf &amp;quot;$bytes_dir&amp;quot; &amp;quot;$tmp_file&amp;quot; &amp;quot;$data_file&amp;quot;; exit&amp;quot; SIGINT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(more about &lt;strong&gt;rkill.sh&lt;/strong&gt; &lt;a href="/script-cleanup"&gt;here&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Launch the browser in the background, passing it the URL to load.
+When the browser exits, remove the directory and the 0..255 files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(
+&amp;quot;$browser&amp;quot; $args &amp;quot;$url&amp;quot;
+rm -rf &amp;quot;$bytes_dir&amp;quot;
+) &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Read from standard input, again in the background. Write the data to a
+temporary file and then rename the temporary file to the file that the
+Web app is expecting the data to be in. Doing it this way ensures the Web
+app never reads partial data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat | (
+cat &amp;gt; &amp;quot;$tmp_file&amp;quot;
+mv &amp;quot;$tmp_file&amp;quot; &amp;quot;$data_file&amp;quot;
+) &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;a href="https://github.com/rvoicilas/inotify-tools/wiki#wiki-info"&gt;inotifywait&lt;/a&gt; to monitor for:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Any of the 0..255 files being opened.&lt;/li&gt;
+&lt;li&gt;The directory we created for them being deleted.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;pre&gt;&lt;code&gt;inotifywait -m -e OPEN -e DELETE_SELF &amp;quot;$bytes_dir&amp;quot;/* |&lt;/pre&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When one of the files is opened, print a byte to standard ouput, value equal
+to the file name.
+When the directory is deleted (i.e. the browser has exited), clean up and
+exit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(gawk &amp;#39;BEGIN{i=0; j=0; code=0}{
+  if (index($2, &amp;quot;DELETE_SELF&amp;quot;) &amp;gt; 0)
+  {
+    printf(&amp;quot;\n&amp;quot;);
+    exit;
+  }
+  printf(&amp;quot;%c&amp;quot;, gensub(/^(.*\/byte)([0-9]+)$/, &amp;quot;\\2&amp;quot;, 1, $1) + 0);
+}&amp;#39;
+&amp;quot;$(dirname &amp;quot;$0&amp;quot;)/rkill.sh&amp;quot; --skip=$BASHPID $$
+rm -f &amp;quot;$tmp_file&amp;quot; &amp;quot;$data_file&amp;quot;
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, I&amp;#39;m using Awk to process the output from inotifywait.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id="toc_4"&gt;Test Web page&lt;/h1&gt;
+
+&lt;p&gt;Finally, let&amp;#39;s look at &lt;strong&gt;test.html&lt;/strong&gt;. It&amp;#39;s a bit longer than the same page in
+my previous posts.&lt;/p&gt;
+
+&lt;p&gt;First, we need to include jQuery since we&amp;#39;ll be using it for reading files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;jquery-1.9.1.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we&amp;#39;ll define a function, &lt;strong&gt;exit&lt;/strong&gt;, which should pass a message to the
+Bash script. For each byte in the message, it&amp;#39;ll need to read from a file
+with the corresponding name. It should do this for each byte &lt;em&gt;in turn&lt;/em&gt; &amp;mdash;
+i.e. only read from a file when the previous read has completed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function exit(msg, i)
+{
+    if (i === msg.length)
+    {
+        window.close();
+        return;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first argument, &lt;strong&gt;msg&lt;/strong&gt;, is the message and the second argument, &lt;strong&gt;i&lt;/strong&gt;,
+is the index of the byte to process next. When we reach the end of the message,
+you can see we close the browser. Note for Firefox you&amp;#39;ll need to use
+&lt;strong&gt;about:config&lt;/strong&gt; to set &lt;strong&gt;dom.allow_scripts_to_close_windows&lt;/strong&gt; to &lt;strong&gt;true&lt;/strong&gt;.
+Again, make sure you don&amp;#39;t have this set for your normal browsing.&lt;/p&gt;
+
+&lt;p&gt;We use &lt;strong&gt;jQuery.ajax&lt;/strong&gt; to read from the file named after the byte at index &lt;strong&gt;i&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    $.ajax(
+    {
+        url: &amp;quot;bytes/byte&amp;quot; + msg.charCodeAt(i),
+        cache: false,
+        mimeType: &amp;#39;text/plain&amp;#39;,
+        success: function (data)
+        {
+            exit(msg, i + 1);
+        },
+        error: function ()
+        {
+            window.close();
+        }
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice we make sure the browser doesn&amp;#39;t cache the result because if the message
+contains the same byte more than once, we want the inotify handler to fire every
+time. Once the file has been read, we call &lt;strong&gt;exit&lt;/strong&gt; again to process the next
+byte in the message. If an error occurs, we just close the browser.&lt;/p&gt;
+
+&lt;p&gt;Next we&amp;#39;ll define a global, &lt;strong&gt;bridge&lt;/strong&gt;, with two methods. First, a method
+to get the data that the Bash script has read from standard input (or an empty
+string if it&amp;#39;s not yet available):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var bridge = {
+    getData: function (cb)
+    {
+        $.ajax(
+        {
+            url: &amp;#39;data.txt&amp;#39;,
+            cache: false,
+            mimeType: &amp;#39;text/plain&amp;#39;,
+            success: function (data)
+            {
+                cb(data);
+            },
+            error: function ()
+            {
+                cb(&amp;#39;&amp;#39;);
+            }
+        });
+    },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Second, a method to sit in front of the &lt;strong&gt;exit&lt;/strong&gt; function we defined above,
+converting its argument to UTF-8 and starting things off at index 0:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    exit: function (msg)
+    {
+        if (!this.exiting)
+        {
+            // convert to UTF-8 (http://ecmanaut.blogspot.co.uk/2006/07/encoding-decoding-utf8-in-javascript.html)
+            exit(unescape(encodeURIComponent(msg)), 0);
+            this.exiting = true;
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It also guards against being called more than once.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ll also need a function which polls for data read from standard input:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function check_data()
+{
+    bridge.getData(function (data)
+    {
+        if (data === &amp;quot;&amp;quot;)
+        {
+            setTimeout(check_data, 1000);
+        }
+        else
+        {
+            $(&amp;#39;#data&amp;#39;).text(data);
+        }
+    });
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see it writes the data into an element with id &lt;strong&gt;data&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, here&amp;#39;s the body of the page:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body onload=&amp;#39;check_data()&amp;#39;&amp;gt;
+&amp;lt;p&amp;gt;
+data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Exit&amp;quot; onclick=&amp;quot;bridge.exit(&amp;#39;goodbye from Javascript&amp;#39;)&amp;quot;&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When the page loads, we start polling for the data from standard input.
+You can see the &lt;strong&gt;data&lt;/strong&gt; element we write the data into.
+There&amp;#39;s also a button which will pass a message out to the Bash script and exit
+the browser when clicked.&lt;/p&gt;
+
+&lt;p&gt;Test it all out by piping data to the Bash script like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;#39;Hello World!&amp;#39; | ./browser_example.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find all the source from this article &lt;a href="https://gist.github.com/5240269"&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/wrapping-webkit-part-3-qt-quick-python" title="Wrapping Webkit (Part 3 - Qt Quick/Python)"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2013-03-29&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#chromium-ref"&gt;chromium &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#bash-ref"&gt;bash &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#inotify-ref"&gt;inotify &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Wrapping Webkit (Part 3 - Qt Quick/Python)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-3-qt-quick-python</link>
@@ -19,15 +553,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7152082566156814" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9720780063720471" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6769506380242429" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3117440442694185" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.4284799253776116" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2892054356237269" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.49002662583704715" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2686372537267112" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.10327871004833189" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.730797609560817" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8098268662450071" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9615055090977662" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.943628627619247"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2613875045673615"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.0604255391938332"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6586974243494719"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -166,23 +700,22 @@ in our application:&lt;/p&gt;
 &lt;p&gt;You can see we turn Javascript on in Webkit and set the initial size. Next we
 declare a &lt;strong&gt;bridge&lt;/strong&gt; object for our HTML page to call:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;javaScriptWindowObjects: QtObject
-{
-    WebView.windowObjectName: &amp;quot;bridge&amp;quot;;
-
-    function getData()
+&lt;pre&gt;&lt;code&gt;    javaScriptWindowObjects: QtObject
     {
-        return the_bridge.getData();
-    }
+        WebView.windowObjectName: &amp;quot;bridge&amp;quot;;
 
-    function exit(msg)
-    {
-        the_bridge.exit(msg);
+        function getData()
+        {
+            return the_bridge.getData();
+        }
+
+        function exit(msg)
+        {
+            the_bridge.exit(msg);
+        }
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;}&lt;/p&gt;
 
 &lt;p&gt;Notice a couple of things here:&lt;/p&gt;
 
@@ -463,7 +996,7 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/wrapping-webkit-part-4-chromium-bash-inotify" title="Wrapping Webkit (Part 4 - Chromium/Bash/inotify)"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -498,11 +1031,11 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -569,15 +1102,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.432143105107647" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8322270236642946" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.31427639045481937" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8865311306419488" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2625598302104125" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3915524559634942" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4391063349876251" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.3857270200133096" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6335513578894788" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.1541355018686622" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6113676249015148" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6101626793985423" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.3982766668517199"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1602625960636137"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.08194814671276618"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7903035429591942"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1135,11 +1668,11 @@ data: &amp;lt;span id=&amp;quot;data&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#qt-ref"&gt;qt &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -1202,15 +1735,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3847517196347918" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.24443917605278997" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.01270256993070129" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9519449273094879" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.45221940037836017" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3498806369003119" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8931651796203859" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7422128755827485" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.537945978042107" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.43151293922633116" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.912336053032259" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6126222400511664" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.2812534642870792"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.527965610086702"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.3334375788740922"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.023543921666962064"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1969,11 +2502,11 @@ you get by building the &lt;a href="https://gist.github.com/4058053"&gt;source&l
       &lt;h4&gt;Tags&lt;/h4&gt;
       &lt;ul class="tag_box"&gt;
           &lt;li&gt;
-            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#webkit-ref"&gt;webkit &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#html-ref"&gt;html &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;3&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#javascript-ref"&gt;javascript &lt;span&gt;4&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#gtk-ref"&gt;gtk &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
@@ -2036,15 +2569,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.956962813545032" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23715726205437015" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.49022795822889165" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.942772132409178" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.735942269666527" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6630141989338985" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46232218126901337" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23871299066407747" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.342705052935241" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6449851904028668" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9649826080064655" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6394366663821298" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.4213271545719537"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.783648300543577"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6545239069492925"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8255528144607353"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2502,15 +3035,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7153688323046855" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.9298388369886144" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.4722761492214016" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.41419898984068215" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9522676940278435" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3618045892871202" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4642307069244237" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23585557034436178" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3460653340808806" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6888349319837417" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7163971320745541" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2250430756822126" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6817930972640766"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3967778226096159"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.38487848857650886"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.686989350912961"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2811,7 +3344,7 @@ cleanup can be done after &lt;strong&gt;rkill.sh&lt;/strong&gt; returns.&lt;/p&g
           &lt;/li&gt;          &lt;li&gt;
             &lt;a href="/tags#linux-ref"&gt;linux &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;          &lt;li&gt;
-            &lt;a href="/tags#bash-ref"&gt;bash &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+            &lt;a href="/tags#bash-ref"&gt;bash &lt;span&gt;2&lt;/span&gt;&lt;/a&gt;
           &lt;/li&gt;      &lt;/ul&gt;
     &lt;/section&gt;
   &lt;/div&gt;
@@ -2870,15 +3403,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.394223107513628" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5886044217347083" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5091257949370147" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6975980973699863" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9722190466382145" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.3834963552840821" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7541520274400362" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8803964559209138" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.2230541187181857" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.1437156829965076" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2289019833452649" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.982206737712964" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9064446629105639"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.09935022882952871"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.25542154797070993"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8883115377973857"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -3219,15 +3752,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46202056369878264" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8524470047772885" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8705311318482144" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5216290704428684" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.884233879362483" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9266101160900334" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9105171925864073" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6777237748461717" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8836467203992006" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.439335217629638" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.0467891300341261" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6187271400283311" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7801591022831842"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.9643651379880501"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7115885110735777"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1842074562642615"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;

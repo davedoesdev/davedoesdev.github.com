@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5816280908672665" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5912296239110689" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5724712907553697" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.3412730850922645" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.8186854898202254" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7342185187357728" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9421080949103384" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5859160416064056" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.7457775658836191" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.34423960343672955" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9396361475397639" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8058893392445453" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8527745465299684"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.256933781369878"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.15959428788027563"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3998282629260731"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,23 +156,22 @@ in our application:</p>
 <p>You can see we turn Javascript on in Webkit and set the initial size. Next we
 declare a <strong>bridge</strong> object for our HTML page to call:</p>
 
-<pre><code>javaScriptWindowObjects: QtObject
-{
-    WebView.windowObjectName: &quot;bridge&quot;;
-
-    function getData()
+<pre><code>    javaScriptWindowObjects: QtObject
     {
-        return the_bridge.getData();
-    }
+        WebView.windowObjectName: &quot;bridge&quot;;
 
-    function exit(msg)
-    {
-        the_bridge.exit(msg);
+        function getData()
+        {
+            return the_bridge.getData();
+        }
+
+        function exit(msg)
+        {
+            the_bridge.exit(msg);
+        }
     }
 }
 </code></pre>
-
-<p>}</p>
 
 <p>Notice a couple of things here:</p>
 
@@ -453,7 +452,7 @@ data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
 
         <a class="btn" href="/archive">Archive</a>
 
-        <a class="btn next disabled">Next &rarr;</a>
+        <a class="btn next" href="/wrapping-webkit-part-4-chromium-bash-inotify" title="Wrapping Webkit (Part 4 - Chromium/Bash/inotify)">Next &rarr;</a>
     </div>
     <hr>
     <div id="disqus_thread"></div>
@@ -488,11 +487,11 @@ data: &lt;span id=&quot;data&quot;&gt;&lt;/span&gt;
       <h4>Tags</h4>
       <ul class="tag_box">
           <li>
-            <a href="/tags#webkit-ref">webkit <span>3</span></a>
+            <a href="/tags#webkit-ref">webkit <span>4</span></a>
           </li>          <li>
-            <a href="/tags#html-ref">html <span>3</span></a>
+            <a href="/tags#html-ref">html <span>4</span></a>
           </li>          <li>
-            <a href="/tags#javascript-ref">javascript <span>3</span></a>
+            <a href="/tags#javascript-ref">javascript <span>4</span></a>
           </li>          <li>
             <a href="/tags#qt-ref">qt <span>2</span></a>
           </li>          <li>
