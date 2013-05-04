@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RSASSA-PSS in Node.js - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5058422793473173" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.5302199368174917" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8704004944168754" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5210838456040054" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9855903781872463" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7477318648434107" type="text/css" rel="stylesheet" media="all">
+
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.14407789079000788"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3390495343356986"></script>
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                  <li><a href="/categories">Categories</a></li>
+                
+                  <li><a href="/pages">Pages</a></li>
+                
+                  <li><a href="/about">About Me</a></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    RSASSA-PSS in Node.js 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>This post is about encoding schemes for RSA signatures. The Public-Key
+Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a>) specifies two schemes:</p>
+
+<ul>
+<li><a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
+Scheme with Appendix - Probabilistic Signature Scheme.</li>
+<li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
+</ul>
+
+<p>Basically, PSS is the newer scheme and can optionally include some randomness
+in the encoding (though it doesn&#39;t rely on it). There are no known attacks
+against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
+recommends PSS in new applications:</p>
+
+<blockquote>
+<p>Although no attacks are known
+against RSASSA-PKCS1-v1_5, in the interest of increased robustness,
+RSASSA-PSS is recommended for eventual adoption in new applications.
+RSASSA-PKCS1-v1_5 is included for compatibility with existing
+applications, and while still appropriate for new applications, a
+gradual transition to RSASSA-PSS is encouraged.</p>
+</blockquote>
+
+<p>I needed RSA signing for a Node.js project and it seemed sensible to use
+RSASSA-PSS since I control both ends of the communication path.</p>
+
+<p>A nice module for doing RSA crypto in Node.js is <a href="https://github.com/Obvious/ursa">ursa</a>. It wraps OpenSSL, which is usually a good thing because you don&#39;t have
+to do it yourself.</p>
+
+<p><strong>ursa</strong> hardcodes the encoding type for signatures to PKCS1-v1_5 so I had to
+modify it to allow applications to choose PSS. <a href="https://github.com/krisb">Kris Brown</a> has already
+done a good job of <a href="https://github.com/Obvious/ursa/pull/16">modifying ursa</a> so applications can choose the encoding
+type for encryption. I forked his version of <strong>ursa</strong> and did the same for
+RSA signing.</p>
+
+<p>Unfortunately, it wasn&#39;t as simple as I first thought. OpenSSL&#39;s RSA signing
+function is <strong>RSA_private_encrypt</strong> and its signature verification function is
+<strong>RSA_public_decrypt</strong>. They both take a padding (encoding) type as their
+last argument:</p>
+
+<pre><code>int RSA_private_encrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+
+int RSA_public_decrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+</code></pre>
+
+<p>So surely we just specify PSS as the <strong>padding</strong> argument we pass in?
+The answer is no! OpenSSL implements PSS in <em>separate</em> functions,
+<strong>RSA_padding_add_PKCS1_PSS</strong> and <strong>RSA_verify_PKCS1_PSS</strong>:</p>
+
+<pre><code>int RSA_padding_add_PKCS1_PSS(RSA *rsa, unsigned char *EM,
+   const unsigned char *mHash,
+   const EVP_MD *Hash, int sLen)
+
+int RSA_verify_PKCS1_PSS(RSA *rsa, const unsigned char *mHash,
+   const EVP_MD *Hash, const unsigned char *EM, int sLen)
+</code></pre>
+
+<p>This is because PSS involves hashing some data and so requires us to pass the
+hash algorithm you want it to use (<strong>Hash</strong>). RSA is very slow so you usually
+only sign a digest of the data (<strong>mHash</strong> here) rather than the data itself.
+Usually you specify the same hash algorithm for <strong>Hash</strong> that you used to
+generate <strong>mHash</strong>.</p>
+
+<p>I added wrappers around <strong>RSA_padding_add_PKCS1_PSS</strong> and <strong>RSA_verify_PKCS1_PSS</strong> to the <strong>ursa</strong> native C++ code and exported them to Javascript.</p>
+
+<p>Signing data using PSS is then done like this:</p>
+
+<ol>
+<li>Hash the data.</li>
+<li>Call <strong>RSA_padding_add_PKCS1_PSS</strong> to encode (pad) the digest.</li>
+<li>Call <strong>RSA_private_encrypt</strong> with the padded digest and specify <strong>RSA_NO_PADDING</strong> as the <strong>padding</strong> argument to ensure no more padding is done.</li>
+</ol>
+
+<p>Verifying a signature against some data using PSS is done like this:</p>
+
+<ol>
+<li>Call <strong>RSA_public_decrypt</strong> with the signature to retrieve the padded digest.</li>
+<li>Hash the data.</li>
+<li>Call <strong>RSA_verify_PKCS1_PSS</strong> with the digest and the padded digest we
+retrieved from the signature. It returns whether the former after padding
+matches the latter.</li>
+</ol>
+
+<p>I did this in the existing <strong>hashAndSign</strong> and <strong>hashAndVerify</strong> functions
+of the <strong>ursa</strong> module. I also exported a constant, <strong>RSA_PKCS1_PSS_PADDING</strong>, 
+to specify use of PSS encoding with these functions.</p>
+
+<p>For example, to sign some data using an RSA key you might do something like
+this:</p>
+
+<pre><code>signature = key.hashAndSign(&#39;sha256&#39;, data, &#39;base64&#39;, &#39;base64&#39;, ursa.RSA_PKCS1_PSS_PADDING);
+</code></pre>
+
+<p>and to verify the signature:</p>
+
+<pre><code>key.hashAndVerify(&#39;sha256&#39;, data, signature, &#39;base64&#39;, ursa.RSA_PKCS1_PSS_PADDING)
+</code></pre>
+
+<p>I&#39;m assuming <strong>key</strong> here is an RSA key read by <strong>ursa</strong> and the data and signature
+are both encoded in Base64.</p>
+
+<p>You can find all the <strong>ursa</strong> changes needed to support PSS in my <a href="https://github.com/krisb/ursa/pull/1">pull request</a> and <a href="https://github.com/davedoesdev/ursa">forked repo</a>. They also contain some minor cleanups I spotted while
+making my changes.</p>
+
+<p>In my next post I&#39;ll look at implementing RSASSA-PSS in Javascript without
+using OpenSSL. I&#39;ll also implement RSAES-OAEP, an encryption scheme specified
+in RFC 3447.</p>
+
+    <hr>
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/wrapping-webkit-part-4-chromium-bash-inotify" title="Wrapping Webkit (Part 4 - Chromium/Bash/inotify)">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-05-04</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Categories</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#Node.js-ref">Node.js <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#crypto-ref">crypto <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#RSA-ref">RSA <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#PSS-ref">PSS <span>1</span></a>
+          </li>          <li>
+            <a href="/tags#OpenSSL-ref">OpenSSL <span>1</span></a>
+          </li>      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2013 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

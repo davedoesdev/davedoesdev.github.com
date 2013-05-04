@@ -9,15 +9,15 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7082434596248662" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6784956790407647" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.5176839048187767" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8481782240749154" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.9186259892745329" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.7524201006601309" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4283542210686345" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6558950169256389" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.07031137203340299" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.5975896552498813" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/stylesheets/css/style.css?0.5854239740348351" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9343024778993929" type="text/css" rel="stylesheet" media="all">
 
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.11173995386963409"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2250642471003378"></script>
+<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.08230531124077445"></script>
+<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5805038759618097"></script>
  
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,6 +111,37 @@
   <div class="span12">
     <h2>Latest Posts</h2>
 
+<div class="post">
+  <h3 class="title"><a href="/rsassa-pss-in-node-js">RSASSA-PSS in Node.js</a> <span class="date">2013-05-04</span></h3>
+
+  <p>This post is about encoding schemes for RSA signatures. The Public-Key
+Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a>) specifies two schemes:</p>
+
+<ul>
+<li><a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
+Scheme with Appendix - Probabilistic Signature Scheme.</li>
+<li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
+</ul>
+
+<p>Basically, PSS is the newer scheme and can optionally include some randomness
+in the encoding (though it doesn&#39;t rely on it). There are no known attacks
+against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
+recommends PSS in new applications:</p>
+
+<blockquote>
+<p>Although no attacks are known
+against RSASSA-PKCS1-v1_5, in the interest of increased robustness,
+RSASSA-PSS is recommended for eventual adoption in new applications.
+RSASSA-PKCS1-v1_5 is included for compatibility with existing
+applications, and while still appropriate for new applications, a
+gradual transition to RSASSA-PSS is encouraged.</p>
+</blockquote>
+
+
+  <div class="more">
+    <a href="/rsassa-pss-in-node-js" class="btn">read more..</a>
+  </div>
+</div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
 

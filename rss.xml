@@ -3,7 +3,325 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-04-03 23:53:31 +0100</pubDate>
+    <pubDate>2013-05-04 23:53:46 +0100</pubDate>
+    <item>
+      <title>RSASSA-PSS in Node.js</title>
+      <link>http://www.davedoesdev.com/rsassa-pss-in-node-js</link>
+      <pubDate>2013-05-04</pubDate>
+      <description>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;RSASSA-PSS in Node.js - Dave Does Dev&lt;/title&gt;
+    &lt;meta name="author" content="David Halls"&gt;
+
+    &lt;!-- HTML5 shim, for IE6-8 support of HTML elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.5377877290096857" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.29126794438366355" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8471766268810142" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.063765150748755" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7554230999120416" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.0818015484084792" type="text/css" rel="stylesheet" media="all"&gt;
+
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5344651379501832"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2628504751158284"&gt;&lt;/script&gt;
+ 
+    
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="shortcut icon" href="/assets/media/favicon.ico"&gt;
+    &lt;!-- fav and touch icons --&gt;
+  &lt;!-- Update these with your own images
+    &lt;link rel="shortcut icon" href="images/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="images/apple-touch-icon.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"&gt;
+    &lt;link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"&gt;
+  --&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class="navbar"&gt;
+      &lt;div class="navbar-inner"&gt;
+        &lt;div class="container"&gt;
+          &lt;!-- .btn-navbar is used as the toggle for collapsed navbar content --&gt;
+          &lt;a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+            &lt;span class="icon-bar"&gt;&lt;/span&gt;
+          &lt;/a&gt;      
+
+
+          &lt;a class="brand" href="/"&gt;Dave Does Dev&lt;/a&gt;
+
+
+          &lt;div class="nav-collapse"&gt;
+            &lt;ul class="nav"&gt;
+                
+                  &lt;li&gt;&lt;a href="/archive"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/tags"&gt;Tags&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/categories"&gt;Categories&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/pages"&gt;Pages&lt;/a&gt;&lt;/li&gt;
+                
+                  &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Github&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self"&gt;Twitter&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self"&gt;LinkedIn&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="hidden-desktop" target="_self"&gt;RSS&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul class="nav pull-right social visible-desktop"&gt;
+              &lt;li class="divider-vertical"&gt;&lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Github&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;Twitter&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self"&gt;
+                    &lt;span class="hidden-desktop"&gt;LinkedIn&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a href="/rss.xml" class="zocial rss icon" target="_self"&gt;
+                  &lt;span class="hidden-desktop"&gt;RSS&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="container"&gt;
+      &lt;div class="content"&gt;
+        &lt;div class="page-header"&gt;
+  &lt;h1&gt;
+    RSASSA-PSS in Node.js 
+  &lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="span9"&gt;
+    &lt;p&gt;This post is about encoding schemes for RSA signatures. The Public-Key
+Cryptography Standards (PKCS) #1 (&lt;a href="http://tools.ietf.org/html/rfc3447"&gt;RFC 3447&lt;/a&gt;) specifies two schemes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://tools.ietf.org/html/rfc3447#section-8.1"&gt;RSASSA-PSS&lt;/a&gt;, RSA Signature
+Scheme with Appendix - Probabilistic Signature Scheme.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://tools.ietf.org/html/rfc3447#section-8.2"&gt;RSASSA-PKCS1-v1_5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Basically, PSS is the newer scheme and can optionally include some randomness
+in the encoding (though it doesn&amp;#39;t rely on it). There are no known attacks
+against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
+recommends PSS in new applications:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Although no attacks are known
+against RSASSA-PKCS1-v1_5, in the interest of increased robustness,
+RSASSA-PSS is recommended for eventual adoption in new applications.
+RSASSA-PKCS1-v1_5 is included for compatibility with existing
+applications, and while still appropriate for new applications, a
+gradual transition to RSASSA-PSS is encouraged.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I needed RSA signing for a Node.js project and it seemed sensible to use
+RSASSA-PSS since I control both ends of the communication path.&lt;/p&gt;
+
+&lt;p&gt;A nice module for doing RSA crypto in Node.js is &lt;a href="https://github.com/Obvious/ursa"&gt;ursa&lt;/a&gt;. It wraps OpenSSL, which is usually a good thing because you don&amp;#39;t have
+to do it yourself.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ursa&lt;/strong&gt; hardcodes the encoding type for signatures to PKCS1-v1_5 so I had to
+modify it to allow applications to choose PSS. &lt;a href="https://github.com/krisb"&gt;Kris Brown&lt;/a&gt; has already
+done a good job of &lt;a href="https://github.com/Obvious/ursa/pull/16"&gt;modifying ursa&lt;/a&gt; so applications can choose the encoding
+type for encryption. I forked his version of &lt;strong&gt;ursa&lt;/strong&gt; and did the same for
+RSA signing.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, it wasn&amp;#39;t as simple as I first thought. OpenSSL&amp;#39;s RSA signing
+function is &lt;strong&gt;RSA_private_encrypt&lt;/strong&gt; and its signature verification function is
+&lt;strong&gt;RSA_public_decrypt&lt;/strong&gt;. They both take a padding (encoding) type as their
+last argument:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int RSA_private_encrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+
+int RSA_public_decrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So surely we just specify PSS as the &lt;strong&gt;padding&lt;/strong&gt; argument we pass in?
+The answer is no! OpenSSL implements PSS in &lt;em&gt;separate&lt;/em&gt; functions,
+&lt;strong&gt;RSA_padding_add_PKCS1_PSS&lt;/strong&gt; and &lt;strong&gt;RSA_verify_PKCS1_PSS&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int RSA_padding_add_PKCS1_PSS(RSA *rsa, unsigned char *EM,
+   const unsigned char *mHash,
+   const EVP_MD *Hash, int sLen)
+
+int RSA_verify_PKCS1_PSS(RSA *rsa, const unsigned char *mHash,
+   const EVP_MD *Hash, const unsigned char *EM, int sLen)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is because PSS involves hashing some data and so requires us to pass the
+hash algorithm you want it to use (&lt;strong&gt;Hash&lt;/strong&gt;). RSA is very slow so you usually
+only sign a digest of the data (&lt;strong&gt;mHash&lt;/strong&gt; here) rather than the data itself.
+Usually you specify the same hash algorithm for &lt;strong&gt;Hash&lt;/strong&gt; that you used to
+generate &lt;strong&gt;mHash&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;I added wrappers around &lt;strong&gt;RSA_padding_add_PKCS1_PSS&lt;/strong&gt; and &lt;strong&gt;RSA_verify_PKCS1_PSS&lt;/strong&gt; to the &lt;strong&gt;ursa&lt;/strong&gt; native C++ code and exported them to Javascript.&lt;/p&gt;
+
+&lt;p&gt;Signing data using PSS is then done like this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Hash the data.&lt;/li&gt;
+&lt;li&gt;Call &lt;strong&gt;RSA_padding_add_PKCS1_PSS&lt;/strong&gt; to encode (pad) the digest.&lt;/li&gt;
+&lt;li&gt;Call &lt;strong&gt;RSA_private_encrypt&lt;/strong&gt; with the padded digest and specify &lt;strong&gt;RSA_NO_PADDING&lt;/strong&gt; as the &lt;strong&gt;padding&lt;/strong&gt; argument to ensure no more padding is done.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Verifying a signature against some data using PSS is done like this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Call &lt;strong&gt;RSA_public_decrypt&lt;/strong&gt; with the signature to retrieve the padded digest.&lt;/li&gt;
+&lt;li&gt;Hash the data.&lt;/li&gt;
+&lt;li&gt;Call &lt;strong&gt;RSA_verify_PKCS1_PSS&lt;/strong&gt; with the digest and the padded digest we
+retrieved from the signature. It returns whether the former after padding
+matches the latter.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I did this in the existing &lt;strong&gt;hashAndSign&lt;/strong&gt; and &lt;strong&gt;hashAndVerify&lt;/strong&gt; functions
+of the &lt;strong&gt;ursa&lt;/strong&gt; module. I also exported a constant, &lt;strong&gt;RSA_PKCS1_PSS_PADDING&lt;/strong&gt;, 
+to specify use of PSS encoding with these functions.&lt;/p&gt;
+
+&lt;p&gt;For example, to sign some data using an RSA key you might do something like
+this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;signature = key.hashAndSign(&amp;#39;sha256&amp;#39;, data, &amp;#39;base64&amp;#39;, &amp;#39;base64&amp;#39;, ursa.RSA_PKCS1_PSS_PADDING);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and to verify the signature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key.hashAndVerify(&amp;#39;sha256&amp;#39;, data, signature, &amp;#39;base64&amp;#39;, ursa.RSA_PKCS1_PSS_PADDING)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;#39;m assuming &lt;strong&gt;key&lt;/strong&gt; here is an RSA key read by &lt;strong&gt;ursa&lt;/strong&gt; and the data and signature
+are both encoded in Base64.&lt;/p&gt;
+
+&lt;p&gt;You can find all the &lt;strong&gt;ursa&lt;/strong&gt; changes needed to support PSS in my &lt;a href="https://github.com/krisb/ursa/pull/1"&gt;pull request&lt;/a&gt; and &lt;a href="https://github.com/davedoesdev/ursa"&gt;forked repo&lt;/a&gt;. They also contain some minor cleanups I spotted while
+making my changes.&lt;/p&gt;
+
+&lt;p&gt;In my next post I&amp;#39;ll look at implementing RSASSA-PSS in Javascript without
+using OpenSSL. I&amp;#39;ll also implement RSAES-OAEP, an encryption scheme specified
+in RFC 3447.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;div class="pagination pagination-centered btn-group"&gt;
+        &lt;a class="btn prev" href="/wrapping-webkit-part-4-chromium-bash-inotify" title="Wrapping Webkit (Part 4 - Chromium/Bash/inotify)"&gt;&amp;larr; Previous&lt;/a&gt;
+
+        &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
+
+        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href="http://disqus.com" class="dsq-brlink"&gt;blog comments powered by &lt;span class="logo-disqus"&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+
+  &lt;/div&gt;
+  
+  &lt;div class="span3"&gt;
+    &lt;section&gt;
+      &lt;h4&gt;Published&lt;/h4&gt;
+      &lt;div class="date"&gt;&lt;span&gt;2013-05-04&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container_empty" &gt;
+      &lt;h4&gt;Categories&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section class="tag_box_container" &gt;
+      &lt;h4&gt;Tags&lt;/h4&gt;
+      &lt;ul class="tag_box"&gt;
+          &lt;li&gt;
+            &lt;a href="/tags#Node.js-ref"&gt;Node.js &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#crypto-ref"&gt;crypto &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#RSA-ref"&gt;RSA &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#PSS-ref"&gt;PSS &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;          &lt;li&gt;
+            &lt;a href="/tags#OpenSSL-ref"&gt;OpenSSL &lt;span&gt;1&lt;/span&gt;&lt;/a&gt;
+          &lt;/li&gt;      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;a href="mailto:dave@davedoesdev.com"&gt;David Halls&lt;span class="icon-envelope icon-white"&gt;&lt;/span&gt;&lt;/a&gt; 2013 
+          with help from &lt;a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework"&gt;ruhoh&lt;/a&gt;,
+          &lt;a href="http://twitter.github.com/bootstrap/" target="_self"&gt;Twitter Bootstrap&lt;/a&gt; and
+          &lt;a href="http://www.glyphicons.com"&gt;Glyphicons&lt;/a&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;This site uses cookies for &lt;a href="http://www.getclicky.com/terms" target="_self"&gt;analytics&lt;/a&gt; and &lt;a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self"&gt;commenting&lt;/a&gt;.&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt; &lt;!-- /container --&gt;
+
+    &lt;script&gt;
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+&lt;/script&gt;
+&lt;noscript&gt;&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /&gt;&lt;/p&gt;&lt;/noscript&gt;
+    &lt;!-- Google Prettify --&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i &lt; pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+&lt;/script&gt;
+&lt;!-- end Google Prettify --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+    </item>
     <item>
       <title>Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</title>
       <link>http://www.davedoesdev.com/wrapping-webkit-part-4-chromium-bash-inotify</link>
@@ -19,15 +337,15 @@
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.673712407163941" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.25332286427069406" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8600315007351615" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.8211662207500966" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8467832345066633" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.27159037085744886" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.23541571815848328" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.24597655813445263" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6340288967992537" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.42445689498971373" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2525728706922634" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.18880471976205637" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6127151541192617"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.11845791140763395"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.18513827430572638"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.01457650108086217"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -449,7 +767,7 @@ the browser when clicked.&lt;/p&gt;
 
         &lt;a class="btn" href="/archive"&gt;Archive&lt;/a&gt;
 
-        &lt;a class="btn next disabled"&gt;Next &amp;rarr;&lt;/a&gt;
+        &lt;a class="btn next" href="/rsassa-pss-in-node-js" title="RSASSA-PSS in Node.js"&gt;Next &amp;rarr;&lt;/a&gt;
     &lt;/div&gt;
     &lt;hr&gt;
     &lt;div id="disqus_thread"&gt;&lt;/div&gt;
@@ -553,15 +871,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.49002662583704715" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.2686372537267112" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.10327871004833189" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.730797609560817" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8098268662450071" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.9615055090977662" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.2275380305207617" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.4810878327002531" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.46756613619432885" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.11976691642043513" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.4378609833199699" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.42100397861665073" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.0604255391938332"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6586974243494719"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.37376335448259457"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.3449314736224819"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1102,15 +1420,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4391063349876251" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.3857270200133096" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6335513578894788" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.1541355018686622" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.6113676249015148" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6101626793985423" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.042565347861594494" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.33177652282327663" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.6827887905922654" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9627311603747615" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.8239077298342588" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8186661137660133" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.08194814671276618"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.7903035429591942"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.5779684094735313"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5715770723376924"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -1735,15 +2053,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8931651796203859" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7422128755827485" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.537945978042107" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.43151293922633116" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.912336053032259" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6126222400511664" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.09503543561074623" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.22019109656909308" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3261482568554066" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.9885755686543926" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.5203159270379917" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.03649612289023019" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.3334375788740922"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.023543921666962064"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6616209450140025"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8694966986664414"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -2569,15 +2887,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.46232218126901337" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23871299066407747" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.342705052935241" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6449851904028668" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9649826080064655" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6394366663821298" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.3000268048103599" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.47759132025547346" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.07829035881184454" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.19483718009997797" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.9273688832239436" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.5874315341773177" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.6545239069492925"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8255528144607353"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.05753600436083417"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.703117458460884"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -3035,15 +3353,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4642307069244237" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.23585557034436178" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.3460653340808806" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.6888349319837417" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7163971320745541" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.2250430756822126" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.4152555998357488" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.7414799218015772" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.09213792705374135" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.06507425899078711" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.7555094772385387" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8554805191150285" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.38487848857650886"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.686989350912961"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8093904551157046"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5009734665025558"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -3403,15 +3721,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.7541520274400362" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.8803964559209138" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.2230541187181857" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.1437156829965076" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.2289019833452649" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.982206737712964" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.12421094419711243" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6019966145439338" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8625672522180652" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.917790720015055" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.058889556175037217" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.057691365423551244" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.25542154797070993"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.8883115377973857"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.8388490192784914"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.6315137884414702"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -3752,15 +4070,15 @@ clicky_site_ids.push(66642016);
     &lt;!--[if lt IE 9]&gt;
       &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
     &lt;![endif]--&gt;
-    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.9105171925864073" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.6777237748461717" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.8836467203992006" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.439335217629638" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.0467891300341261" type="text/css" rel="stylesheet" media="all"&gt;
-&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.6187271400283311" type="text/css" rel="stylesheet" media="all"&gt;
+    &lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.08143702835158384" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.37879862966824374" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.stripped.css?0.1305833566557989" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/darkstrap.css?0.851298900604459" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/stylesheets/css/style.css?0.29115714575424234" type="text/css" rel="stylesheet" media="all"&gt;
+&lt;link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.8608039691128981" type="text/css" rel="stylesheet" media="all"&gt;
 
-&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.7115885110735777"&gt;&lt;/script&gt;
-&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.1842074562642615"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/jquery.min.js?0.9240785598544453"&gt;&lt;/script&gt;
+&lt;script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.5628789817090623"&gt;&lt;/script&gt;
  
     
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
