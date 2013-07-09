@@ -3,12 +3,12 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-07-09 15:50:26 +0100</pubDate>
+    <pubDate>2013-07-09 15:53:31 +0100</pubDate>
     <item>
       <title>RSASSA-PSS in Node.js</title>
       <link>http://www.davedoesdev.com/rsassa-pss-in-node-js</link>
       <pubDate>2013-05-04</pubDate>
-      <description>Exposing RSSSSA-PSS and RSASSA-PKCS1 to Node.js programs by modifying the ursa module</description>
+      <description>Exposing RSASSA-PSS and RSASSA-PKCS1 to Node.js programs by modifying the ursa module</description>
     </item>
     <item>
       <title>Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</title>
