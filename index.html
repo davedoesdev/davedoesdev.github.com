@@ -9,17 +9,14 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap.min.css?0.8953544769516849" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/bootstrap/css/bootstrap-responsive.min.css?0.15887395036082308" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css-social-buttons/zocial.css?0.625888529818789" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/darkstrap.min.css?0.33009699982171037" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/stylesheets/css/style.css?0.06366211809800681" type="text/css" rel="stylesheet" media="all">
-<link href="/assets/my_hooligan/widgets/google_prettify/stylesheets/sunburst.css?0.4217905155124644" type="text/css" rel="stylesheet" media="all">
-
-<script src="/assets/my_hooligan/javascripts/jquery.min.js?0.333864774178951"></script>
-<script src="/assets/my_hooligan/javascripts/bootstrap.min.js?0.2948851711882824"></script>
- 
-    
+<link href='/assets/stylesheets/bootstrap.min-773663342c4b27251f35fa027a605ddf.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/bootstrap-responsive.min-9fd80f893c6b31dbcad6fc61fe2ea5b8.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/css-social-buttons/zocial-81e57ee5b6f0abce2ea30679affb050b.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/darkstrap.min-7f93918a0089feb935ac0a9475fcf8fd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-2b0230a7fb03c7e88c05de0e93b2ea89.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sunburst-8118663bce28503cede9a6ee5a43a027.css' type='text/css' rel='stylesheet' media='all'>
+<script src='/assets/javascripts/jquery.min-b11ced65f32fedbe9bf81ef9db0f3c94.js'></script>
+<script src='/assets/javascripts/bootstrap.min-aabe25ca085001cce9fbaf5ab575807d.js'></script>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/media/favicon.ico">
     <!-- fav and touch icons -->
@@ -51,9 +48,12 @@
                 
                   <li><a href="/archive">Archive</a></li>
                 
+                
                   <li><a href="/tags">Tags</a></li>
                 
+                
                   <li><a href="/about">About Me</a></li>
+                
                 <li>
                   <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
                 </li>
@@ -97,123 +97,105 @@
 
     <div class="container">
       <div class="content">
-        <div class="page-header-wrapper">
-  <div class="page-header">
-      <h1>Welcome  <small>this is my blog</small></h1>
-    </div>
+        <div class="page-header">
+  <h1>Welcome  <small>this is my blog</small></h1>
 </div>
 
-<div class="row">
+<div class="row-fluid">
   <div class="span12">
-    <h2>Latest Posts</h2>
-
-<div class="post">
+    <div class="post">
   <h3 class="title"><a href="/rsassa-pss-in-node-js">RSASSA-PSS in Node.js</a> <span class="date">2013-05-04</span></h3>
 
-  <p>This post is about encoding schemes for RSA signatures. The Public-Key
+  <div class="summary ellipsis">
+<p>This post is about encoding schemes for RSA signatures. The Public-Key
 Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a>) specifies two schemes:</p>
 
 <ul>
-<li><a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
+<li>
+<a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
 Scheme with Appendix - Probabilistic Signature Scheme.</li>
 <li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
 </ul>
-
 <p>Basically, PSS is the newer scheme and can optionally include some randomness
-in the encoding (though it doesn&#39;t rely on it). There are no known attacks
+in the encoding (though it doesn't rely on it). There are no known attacks
 against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
 recommends PSS in new applications:</p>
 
-<blockquote>
-<p>Although no attacks are known
-against RSASSA-PKCS1-v1_5, in the interest of increased robustness,
-RSASSA-PSS is recommended for eventual adoption in new applications.
-RSASSA-PKCS1-v1_5 is included for compatibility with existing
-applications, and while still appropriate for new applications, a
-gradual transition to RSASSA-PSS is encouraged.</p>
-</blockquote>
-
+</div>
 
   <div class="more">
-    <a href="/rsassa-pss-in-node-js" class="btn">read more..</a>
+    <a href="/rsassa-pss-in-node-js" class="btn btn-small">read more..</a>
   </div>
 </div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
 
-  <p>This is the last in my short series about getting data into and out of a
+  <div class="summary ellipsis">
+<p>This is the last in my short series about getting data into and out of a
 Web application running in Webkit. Previously I wrote about hosting Webkit
 <a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
 <a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
 <a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
 
-<p>This time I&#39;m going to do something a bit different: How can I pass data to
-and from a Javascript application running in Chromium? I&#39;ll be using Bash
+<p>This time I'm going to do something a bit different: How can I pass data to
+and from a Javascript application running in Chromium? I'll be using Bash
 and command line utilities. Be on the lookout for egregious hacks!</p>
 
 <h1 id="toc_0">Getting data in</h1>
-
-<p>Getting data into Chromium is easy &mdash; write it to a file and read it using
-<a href="http://www.w3.org/TR/XMLHttpRequest/">XMLHttpRequest</a>.
-jQuery&#39;s <a href="http://api.jquery.com/jQuery.ajax/">ajax</a> function is a convenient way of doing this. Chromium needs the <strong>--allow-file-access-from-files</strong>
-command line option to read files from a Web app loaded from local disk.</p>
-
+</div>
 
   <div class="more">
-    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn">read more..</a>
+    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn btn-small">read more..</a>
   </div>
 </div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-3-qt-quick-python">Wrapping Webkit (Part 3 - Qt Quick/Python)</a> <span class="date">2013-03-23</span></h3>
 
-  <p><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Last time out</a>, I showed how to get
-bi-directional communication going between Javascript and C++, using Qt&#39;s
+  <div class="summary ellipsis">
+<p><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Last time out</a>, I showed how to get
+bi-directional communication going between Javascript and C++, using Qt's
 Webkit component.</p>
 
-<p>This time I&#39;m going to stick with Qt but use its new shiny: <a href="http://qt-project.org/doc/qt-4.8/qtquick.html">Qt Quick</a>. Qt Quick adds a markup language, <a href="http://qt-project.org/doc/qt-4.8/gettingstartedqml.html">QML</a>, to the mix.</p>
+<p>This time I'm going to stick with Qt but use its new shiny: <a href="http://qt-project.org/doc/qt-4.8/qtquick.html">Qt Quick</a>. Qt Quick adds a markup language, <a href="http://qt-project.org/doc/qt-4.8/gettingstartedqml.html">QML</a>, to the mix.</p>
 
 <p>You use QML to declare which components to build your user interface from.
 The idea is that a declarative specification will make your user interface work across different types of device (mobile is the main focus).</p>
 
 <p>For application logic, you can use Javascript in QML. Alternatively you can
-use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This time I&#39;ll use
+use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This time I'll use
 <a href="http://qt-project.org/wiki/PySide">PySide</a> &mdash; the Python bindings to Qt.</p>
-
-<h1 id="toc_0">The QML</h1>
-
+</div>
 
   <div class="more">
-    <a href="/wrapping-webkit-part-3-qt-quick-python" class="btn">read more..</a>
+    <a href="/wrapping-webkit-part-3-qt-quick-python" class="btn btn-small">read more..</a>
   </div>
 </div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Wrapping Webkit (Part 2 - Qt/C++)</a> <span class="date">2013-01-27</span></h3>
 
-  <p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
+  <div class="summary ellipsis">
+<p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
 get bi-directional communication going between Javascript and Vala, using
-GTK+&#39;s Webkit component.</p>
+GTK+'s Webkit component.</p>
 
-<p>This time I&#39;m going to do the same between Javascript and C++, using
-<a href="http://qt-project.org/">Qt</a>&#39;s Webkit component. Last time out I decided against
-using C++ with GTK+ but Qt seems better suited to the language. Let&#39;s see
+<p>This time I'm going to do the same between Javascript and C++, using
+<a href="http://qt-project.org/">Qt</a>'s Webkit component. Last time out I decided against
+using C++ with GTK+ but Qt seems better suited to the language. Let's see
 how Qt/C++ compares to GTK+/Vala.</p>
 
-<p>We&#39;ll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
+<p>We'll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
 
-<ol>
-<li>A main function for parsing command line options and initializing things.</li>
-<li>A window class which embeds Webkit and puts it in a Qt window.</li>
-</ol>
-
+</div>
 
   <div class="more">
-    <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn">read more..</a>
+    <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn btn-small">read more..</a>
   </div>
 </div>
 <div class="post">
   <h3 class="title"><a href="/wrapping-webkit-part-1-gtk%2B-vala">Wrapping Webkit (Part 1 - GTK+/Vala)</a> <span class="date">2012-11-10</span></h3>
 
-  <p>I wanted to write a user interface in HTML and Javascript but run the rest of
+  <div class="summary ellipsis">
+<p>I wanted to write a user interface in HTML and Javascript but run the rest of
 the application in some other language that has access to system facilities.
 Therefore I needed
 bi-directional communication between the user interface and the application
@@ -223,107 +205,20 @@ logic. I also wanted to run it as a normal standalone application.</p>
 the <a href="http://www.webkit.org">Webkit</a> browser engine to do this. Another option
 is to run <a href="http://www.chromium.org/Home">Chromium</a> in kiosk mode.</p>
 
-<p>This post is about using GTK+&#39;s Webkit component. Future posts will look at
+<p>This post is about using GTK+'s Webkit component. Future posts will look at
 Qt and Chromium.</p>
-
+</div>
 
   <div class="more">
-    <a href="/wrapping-webkit-part-1-gtk%2B-vala" class="btn">read more..</a>
+    <a href="/wrapping-webkit-part-1-gtk%2B-vala" class="btn btn-small">read more..</a>
   </div>
 </div>
-<div class="post">
-  <h3 class="title"><a href="/vu-meter">Vu Meter</a> <span class="date">2012-10-07</span></h3>
 
-  <p>I wanted a large on-screen volume indicator showing:</p>
-
-<ul>
-<li><p>The microphone amplification level, changing as you adjust it (by pressing
-keys, for example).</p></li>
-<li><p>Whether the microphone is muted.</p></li>
-<li><p>The current microphone level, changing as you speak into the microphone.</p></li>
-</ul>
-
-<p>Here&#39;s what I did.</p>
-
-<h2 id="toc_0">xosdd</h2>
-
-<p><a href="http://sourceforge.net/projects/libxosd/">XOSD</a> does the real work here.
-It displays text anywhere on your X desktop and it looks like an old skool TV/VCR&#39;s
-display.</p>
-
-
-  <div class="more">
-    <a href="/vu-meter" class="btn">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/script-cleanup">Script Cleanup</a> <span class="date">2012-09-29</span></h3>
-
-  <p>Sometimes I like to write complicated <a href="http://www.gnu.org/software/bash/bash.html">Bash</a> scripts. You know the ones - multiple background subprocesses,
-communicating through pipes or fifos. In fact, my next post will be about
-one I&#39;ve written recently.</p>
-
-<p>At the end of the script, you have to make sure all those background processes
-are killed.</p>
-
-<h2 id="toc_0">rkill.sh</h2>
-
-<p>I&#39;ve pulled code to do this out into a separate file, <a href="https://gist.github.com/3808428#file-rkill-sh">rkill.sh</a>.
-It&#39;s listed below, but I&#39;ve split it into sections here to make it easier to
-explain.</p>
-
-
-  <div class="more">
-    <a href="/script-cleanup" class="btn">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/old-skool-splash-screen">Old Skool Splash Screen</a> <span class="date">2012-09-22</span></h3>
-
-  <p>After I <a href="/quieter-boot">got rid of most boot messages</a>, I wanted to display a
-splash screen.</p>
-
-<p><a href="http://www.syslinux.org">Syslinux</a> can show a splash screen but it doesn&#39;t stay around until X starts.
-I could have taken the easy route and put <a href="https://launchpad.net/usplash">Usplash</a>
-or <a href="http://alioth.debian.org/projects/splashy/">Splashy</a> into <a href="http://distro.ibiblio.org/tinycorelinux/">Tiny Core Linux</a>
-on my USB stick.</p>
-
-<p>But no! I took another route. I used
-<a href="http://www.svgalib.org/rus/zgv/">Zgv</a>. Zgv is an <a href="http://www.svgalib.org">SVGAlib</a>-based image viewer,
-so it runs on the Linux console. Feed it an image early on in the Tiny
-Core <strong>init.d</strong> scripts and voila, a splash screen!</p>
-
-
-  <div class="more">
-    <a href="/old-skool-splash-screen" class="btn">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/quieter-boot">Quieter Boot</a> <span class="date">2012-09-16</span></h3>
-
-  <p>One of my PCs has a rather unique boot sequence:</p>
-
-<ol>
-<li><p><a href="http://www.syslinux.org">Syslinux</a>, from an SD card and configured to chain
-load the next stage.</p></li>
-<li><p>A pre-boot environment, <a href="http://www.freedos.org">FreeDOS</a>, from the SD card.
-The pre-boot environment does the following:</p>
-
-<ol>
-<li>Check if a USB stick is inserted. If there is one inserted, then continue
-to the next stage in the boot sequence. Otherwise...</li>
-<li>Display a message asking the user to insert the USB stick.</li>
-<li>Wait 20 seconds for the USB stick to be inserted.</li>
-<li>If the USB stick is inserted within those 20 seconds, then continue to
-the next stage in the boot sequence, but pass a flag indicating to boot
-into a maintenance mode. Otherwise...</li>
-</ol></li>
-</ol>
-
-
-  <div class="more">
-    <a href="/quieter-boot" class="btn">read more..</a>
-  </div>
+<div class="pagination">
+  <ul>
+      <li class="active"><a href="/">1</a></li>
+      <li><a href="/posts/index/2">2</a></li>
+  </ul>
 </div>
 
   </div>
