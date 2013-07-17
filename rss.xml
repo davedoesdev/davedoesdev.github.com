@@ -3,47 +3,12 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-07-17 09:09:34 +0100</pubDate>
+    <pubDate>2013-07-17 09:12:47 +0100</pubDate>
     <item>
       <title>RSSSSA-PSS and RSAES-OAEP in Javascript</title>
       <link>http://www.davedoesdev.com/rssssa-pss-and-rsaes-oaep-in-javascript</link>
       <pubDate>2013-07-06</pubDate>
-      <description>&lt;p&gt;&lt;a href="/rsassa-pss-in-node-js"&gt;Last time out&lt;/a&gt;, I added support for &lt;a href="http://tools.ietf.org/html/rfc3447#section-8.1"&gt;RSASSA-PSS&lt;/a&gt; encoded signatures to the &lt;a href="https://github.com/Obvious/ursa"&gt;ursa&lt;/a&gt; Node.js module. The code I added exposes the OpenSSL implementation of RSASSA-PSS to Node.js programs. &lt;a href="http://tools.ietf.org/html/rfc3447"&gt;RFC 3447&lt;/a&gt; recommends new applications use RSASSA-PSS instead of the older RSASSA-PKCS1-v1_5 scheme.&lt;/p&gt;
-
-&lt;p&gt;RFC 3447 also recommends new applications use &lt;a href="http://tools.ietf.org/html/rfc3447#section-7.1"&gt;RSAES-OAEP&lt;/a&gt; ciphertext encoding instead of the older RSAES-PKCS1-v1_5 scheme. &lt;strong&gt;ursa&lt;/strong&gt; already exposes the OpenSSL RSAES-OAEP implementation to Node.js programs.&lt;/p&gt;
-
-&lt;p&gt;I&amp;#39;ve been using Tom Wu&amp;#39;s &lt;a href="http://www-cs-students.stanford.edu/%7Etjw/jsbn/"&gt;RSA Javascript library&lt;/a&gt; in a non-Node.js project. Tom&amp;#39;s library is pure Javascript (it doesn&amp;#39;t wrap native code) and I wanted to contribute something back:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;A Javascript implementation of RSASSA-PSS signature encoding.&lt;/li&gt;
-&lt;li&gt;A Javascript implementation of RSAES-OAEP ciphertext encoding.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id="toc_0"&gt;RSASSA-PSS in Javascript&lt;/h1&gt;
-
-&lt;p&gt;I&amp;#39;m really standing on the shoulders of giants here. The &lt;a href="https://github.com/digitalbazaar/forge"&gt;Forge project&lt;/a&gt; already has a &lt;a href="https://github.com/digitalbazaar/forge/blob/master/js/pss.js"&gt;PSS implementation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The PSS algorithm relies on hash functions and so the Forge implementation
-necessarily relies on other bits of Forge.&lt;/p&gt;
-
-&lt;p&gt;The project I&amp;#39;m working on actually uses Tom Wu&amp;#39;s RSA library as distributed in
-Kenji Urushima&amp;#39;s excellent &lt;a href="http://kjur.github.io/jsjws/"&gt;jsjws&lt;/a&gt;. &lt;strong&gt;jsjws&lt;/strong&gt; implements &lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13"&gt;JSON Web Signatures&lt;/a&gt; (JWS) in pure Javascript. JWS is a standard mechanism and format for signing JSON data. I&amp;#39;ll write some more about &lt;strong&gt;jsjws&lt;/strong&gt; in future posts.&lt;/p&gt;
-
-&lt;p&gt;So what I ended up doing was to add a PSS implementation to &lt;strong&gt;jsjws&lt;/strong&gt;, using
-RFC 3447 and the Forge PSS implementation as references. &lt;a href="https://github.com/kjur/jsjws/commit/7e9641b60ac175ceaa736a7b69ffc3d399aef239"&gt;The code&lt;/a&gt; isn&amp;#39;t too complicated but it&amp;#39;s best to read it alongside &lt;a href="http://tools.ietf.org/html/rfc3447#section-8.1"&gt;the spec&lt;/a&gt;. You&amp;#39;ll also need to refer to the &lt;a href="http://tools.ietf.org/html/rfc3447#section-9.1"&gt;encoding section&lt;/a&gt; of the spec.&lt;/p&gt;
-
-&lt;p&gt;RSASSA-PSS encoding is now merged into &lt;strong&gt;jwjws&lt;/strong&gt; mainline. In a future post I&amp;#39;ll describe a simple signing and verification library I wrote which makes it easy to use PSS (and OAEP) for common cases on Node.js or in the browser. I&amp;#39;ll also describe some interoperability tests I ran between OpenSSL, Node.js and browser.&lt;/p&gt;
-
-&lt;h1 id="toc_1"&gt;RSAES-OAEP in Javascript&lt;/h1&gt;
-
-&lt;p&gt;More giants and shoulders here! Ellis Pritchard has &lt;a href="http://webrsa.cvs.sourceforge.net/viewvc/webrsa/Client/RSAES-OAEP.js?content-type=text%2Fplain"&gt;implemented RSAES-OAEP in Javascript&lt;/a&gt; and &lt;a href="https://groups.google.com/forum/#!topic/crypto-js/VotElO00yHc"&gt;so has David Madden&lt;/a&gt;. &lt;/p&gt;
-
-&lt;p&gt;Ellis&amp;#39;s implementation is part of &lt;a href="http://webrsa.sourceforge.net/"&gt;webrsa&lt;/a&gt; and David&amp;#39;s uses &lt;a href="https://code.google.com/p/crypto-js/"&gt;CryptoJS&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;So again, I used these together with &lt;a href="http://tools.ietf.org/html/rfc3447#section-7.1"&gt;the RFC&lt;/a&gt; to help me add OAEP encoding to &lt;strong&gt;jsjws&lt;/strong&gt;. &lt;a href="https://github.com/kjur/jsjws/commit/4a2d8958c82100bf0fecfda9933bb399a83b8b14#"&gt;The code&lt;/a&gt; has been merged into &lt;strong&gt;jsjws&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Next time out, I&amp;#39;ll describe another enhancement I made to &lt;strong&gt;jsjws&lt;/strong&gt; plus some libraries I derived from it.&lt;/p&gt;
-</description>
+      <description>Implementations of RSSSSA-PSS and RSAES-OAEP in Javascript, with some help from giants</description>
     </item>
     <item>
       <title>RSASSA-PSS in Node.js</title>
