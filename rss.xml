@@ -3,11 +3,11 @@
   <channel>
     <title>Dave Does Dev</title>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-07-17 09:07:06 +0100</pubDate>
+    <pubDate>2013-07-17 09:09:34 +0100</pubDate>
     <item>
       <title>RSSSSA-PSS and RSAES-OAEP in Javascript</title>
       <link>http://www.davedoesdev.com/rssssa-pss-and-rsaes-oaep-in-javascript</link>
-      <pubDate>2013-07-6</pubDate>
+      <pubDate>2013-07-06</pubDate>
       <description>&lt;p&gt;&lt;a href="/rsassa-pss-in-node-js"&gt;Last time out&lt;/a&gt;, I added support for &lt;a href="http://tools.ietf.org/html/rfc3447#section-8.1"&gt;RSASSA-PSS&lt;/a&gt; encoded signatures to the &lt;a href="https://github.com/Obvious/ursa"&gt;ursa&lt;/a&gt; Node.js module. The code I added exposes the OpenSSL implementation of RSASSA-PSS to Node.js programs. &lt;a href="http://tools.ietf.org/html/rfc3447"&gt;RFC 3447&lt;/a&gt; recommends new applications use RSASSA-PSS instead of the older RSASSA-PKCS1-v1_5 scheme.&lt;/p&gt;
 
 &lt;p&gt;RFC 3447 also recommends new applications use &lt;a href="http://tools.ietf.org/html/rfc3447#section-7.1"&gt;RSAES-OAEP&lt;/a&gt; ciphertext encoding instead of the older RSAES-PKCS1-v1_5 scheme. &lt;strong&gt;ursa&lt;/strong&gt; already exposes the OpenSSL RSAES-OAEP implementation to Node.js programs.&lt;/p&gt;
