@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Welcome - Dave Does Dev</title>
+    <title>RSSSSA-PSS and RSAES-OAEP in Javascript - Dave Does Dev</title>
     <meta name="author" content="David Halls">
 
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -98,130 +98,102 @@
     <div class="container">
       <div class="content">
         <div class="page-header">
-  <h1>Welcome  <small>this is my blog</small></h1>
+  <h1>
+    RSSSSA-PSS and RSAES-OAEP in Javascript 
+  </h1>
 </div>
 
-<div class="row-fluid">
-  <div class="span12">
-    <div class="post">
-  <h3 class="title"><a href="/rssssa-pss-and-rsaes-oaep-in-javascript">RSSSSA-PSS and RSAES-OAEP in Javascript</a> <span class="date">2013-07-6</span></h3>
-
-  <div class="summary ellipsis">
-<p><a href="/rsassa-pss-in-node-js">Last time out</a>, I added support for <a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a> encoded signatures to the <a href="https://github.com/Obvious/ursa">ursa</a> Node.js module. The code I added exposes the OpenSSL implementation of RSASSA-PSS to Node.js programs. <a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a> recommends new applications use RSASSA-PSS instead of the older RSASSA-PKCS1-v1_5 scheme.</p>
+<div class="row">
+  <div class="span9">
+    <p><a href="/rsassa-pss-in-node-js">Last time out</a>, I added support for <a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a> encoded signatures to the <a href="https://github.com/Obvious/ursa">ursa</a> Node.js module. The code I added exposes the OpenSSL implementation of RSASSA-PSS to Node.js programs. <a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a> recommends new applications use RSASSA-PSS instead of the older RSASSA-PKCS1-v1_5 scheme.</p>
 
 <p>RFC 3447 also recommends new applications use <a href="http://tools.ietf.org/html/rfc3447#section-7.1">RSAES-OAEP</a> ciphertext encoding instead of the older RSAES-PKCS1-v1_5 scheme. <strong>ursa</strong> already exposes the OpenSSL RSAES-OAEP implementation to Node.js programs.</p>
 
-<p>I've been using Tom Wu's <a href="http://www-cs-students.stanford.edu/%7Etjw/jsbn/">RSA Javascript library</a> in a non-Node.js project. Tom's library is pure Javascript (it doesn't wrap native code) and I wanted to contribute something back:</p>
+<p>I&#39;ve been using Tom Wu&#39;s <a href="http://www-cs-students.stanford.edu/%7Etjw/jsbn/">RSA Javascript library</a> in a non-Node.js project. Tom&#39;s library is pure Javascript (it doesn&#39;t wrap native code) and I wanted to contribute something back:</p>
 
 <ul>
 <li>A Javascript implementation of RSASSA-PSS signature encoding.</li>
 <li>A Javascript implementation of RSAES-OAEP ciphertext encoding.</li>
 </ul>
+
 <h1 id="toc_0">RSASSA-PSS in Javascript</h1>
 
-<p>I'm really standing on the shoulders of giants here. The <a href="https://github.com/digitalbazaar/forge">Forge project</a> already has a <a href="https://github.com/digitalbazaar/forge/blob/master/js/pss.js">PSS implementation</a>.</p>
-</div>
+<p>I&#39;m really standing on the shoulders of giants here. The <a href="https://github.com/digitalbazaar/forge">Forge project</a> already has a <a href="https://github.com/digitalbazaar/forge/blob/master/js/pss.js">PSS implementation</a>.</p>
 
-  <div class="more">
-    <a href="/rssssa-pss-and-rsaes-oaep-in-javascript" class="btn btn-small">read more..</a>
+<p>The PSS algorithm relies on hash functions and so the Forge implementation
+necessarily relies on other bits of Forge.</p>
+
+<p>The project I&#39;m working on actually uses Tom Wu&#39;s RSA library as distributed in
+Kenji Urushima&#39;s excellent <a href="http://kjur.github.io/jsjws/">jsjws</a>. <strong>jsjws</strong> implements <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13">JSON Web Signatures</a> (JWS) in pure Javascript. JWS is a standard mechanism and format for signing JSON data. I&#39;ll write some more about <strong>jsjws</strong> in future posts.</p>
+
+<p>So what I ended up doing was to add a PSS implementation to <strong>jsjws</strong>, using
+RFC 3447 and the Forge PSS implementation as references. <a href="https://github.com/kjur/jsjws/commit/7e9641b60ac175ceaa736a7b69ffc3d399aef239">The code</a> isn&#39;t too complicated but it&#39;s best to read it alongside <a href="http://tools.ietf.org/html/rfc3447#section-8.1">the spec</a>. You&#39;ll also need to refer to the <a href="http://tools.ietf.org/html/rfc3447#section-9.1">encoding section</a> of the spec.</p>
+
+<p>RSASSA-PSS encoding is now merged into <strong>jwjws</strong> mainline. In a future post I&#39;ll describe a simple signing and verification library I wrote which makes it easy to use PSS (and OAEP) for common cases on Node.js or in the browser. I&#39;ll also describe some interoperability tests I ran between OpenSSL, Node.js and browser.</p>
+
+<h1 id="toc_1">RSAES-OAEP in Javascript</h1>
+
+<p>More giants and shoulders here! Ellis Pritchard has <a href="http://webrsa.cvs.sourceforge.net/viewvc/webrsa/Client/RSAES-OAEP.js?content-type=text%2Fplain">implemented RSAES-OAEP in Javascript</a> and <a href="https://groups.google.com/forum/#!topic/crypto-js/VotElO00yHc">so has David Madden</a>. </p>
+
+<p>Ellis&#39;s implementation is part of <a href="http://webrsa.sourceforge.net/">webrsa</a> and David&#39;s uses <a href="https://code.google.com/p/crypto-js/">CryptoJS</a>.</p>
+
+<p>So again, I used these together with <a href="http://tools.ietf.org/html/rfc3447#section-7.1">the RFC</a> to help me add OAEP encoding to <strong>jsjws</strong>. <a href="https://github.com/kjur/jsjws/commit/4a2d8958c82100bf0fecfda9933bb399a83b8b14#">The code</a> has been merged into <strong>jsjws</strong>.</p>
+
+<p>Next time out, I&#39;ll describe another enhancement I made to <strong>jsjws</strong> plus some libraries I derived from it.</p>
+
+    <hr>
+    <div class="pagination-centered-wrapper">
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/rsassa-pss-in-node-js" title="RSASSA-PSS in Node.js">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
   </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/rsassa-pss-in-node-js">RSASSA-PSS in Node.js</a> <span class="date">2013-05-04</span></h3>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-07-6</span></div>
+    </section>
 
-  <div class="summary ellipsis">
-<p>This post is about encoding schemes for RSA signatures. The Public-Key
-Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a>) specifies two schemes:</p>
-
-<ul>
-<li>
-<a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
-Scheme with Appendix - Probabilistic Signature Scheme.</li>
-<li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
-</ul>
-<p>Basically, PSS is the newer scheme and can optionally include some randomness
-in the encoding (though it doesn't rely on it). There are no known attacks
-against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
-recommends PSS in new applications:</p>
-
-</div>
-
-  <div class="more">
-    <a href="/rsassa-pss-in-node-js" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
-
-  <div class="summary ellipsis">
-<p>This is the last in my short series about getting data into and out of a
-Web application running in Webkit. Previously I wrote about hosting Webkit
-<a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
-<a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
-<a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
-
-<p>This time I'm going to do something a bit different: How can I pass data to
-and from a Javascript application running in Chromium? I'll be using Bash
-and command line utilities. Be on the lookout for egregious hacks!</p>
-
-<h1 id="toc_0">Getting data in</h1>
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-3-qt-quick-python">Wrapping Webkit (Part 3 - Qt Quick/Python)</a> <span class="date">2013-03-23</span></h3>
-
-  <div class="summary ellipsis">
-<p><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Last time out</a>, I showed how to get
-bi-directional communication going between Javascript and C++, using Qt's
-Webkit component.</p>
-
-<p>This time I'm going to stick with Qt but use its new shiny: <a href="http://qt-project.org/doc/qt-4.8/qtquick.html">Qt Quick</a>. Qt Quick adds a markup language, <a href="http://qt-project.org/doc/qt-4.8/gettingstartedqml.html">QML</a>, to the mix.</p>
-
-<p>You use QML to declare which components to build your user interface from.
-The idea is that a declarative specification will make your user interface work across different types of device (mobile is the main focus).</p>
-
-<p>For application logic, you can use Javascript in QML. Alternatively you can
-use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This time I'll use
-<a href="http://qt-project.org/wiki/PySide">PySide</a> &mdash; the Python bindings to Qt.</p>
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-3-qt-quick-python" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Wrapping Webkit (Part 2 - Qt/C++)</a> <span class="date">2013-01-27</span></h3>
-
-  <div class="summary ellipsis">
-<p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
-get bi-directional communication going between Javascript and Vala, using
-GTK+'s Webkit component.</p>
-
-<p>This time I'm going to do the same between Javascript and C++, using
-<a href="http://qt-project.org/">Qt</a>'s Webkit component. Last time out I decided against
-using C++ with GTK+ but Qt seems better suited to the language. Let's see
-how Qt/C++ compares to GTK+/Vala.</p>
-
-<p>We'll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
-
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn btn-small">read more..</a>
-  </div>
-</div>
-
-<div class="pagination">
-  <ul>
-      <li class="active"><a href="/">1</a></li>
-      <li><a href="/posts/index/2">2</a></li>
-  </ul>
-</div>
-
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#javascript-ref">javascript <span>5</span></a>
+          </li>
+          <li>
+            <a href="/tags#crypto-ref">crypto <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#RSA-ref">RSA <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#RSASSA-PSS-ref">RSASSA-PSS <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#RSAES-OAEP-ref">RSAES-OAEP <span>1</span></a>
+          </li>
+      </ul>
+    </section>
   </div>
 </div>
 
