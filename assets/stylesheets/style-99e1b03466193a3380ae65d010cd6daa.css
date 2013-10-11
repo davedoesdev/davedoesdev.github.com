@@ -356,3 +356,13 @@ a {
   -moz-transition: none;
   -o-transition: none;
   transition: none; }
+
+pre {
+  font-size: 12px; }
+
+table {
+  margin: 15px 0; }
+
+th, td {
+  border: solid 1px;
+  padding: 6px 13px; }

@@ -13,7 +13,7 @@
 <link href='/assets/stylesheets/bootstrap-responsive.min-f889adb0886162aa4ceab5ff6338d888.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/css-social-buttons/zocial-81e57ee5b6f0abce2ea30679affb050b.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/darkstrap.min-7f93918a0089feb935ac0a9475fcf8fd.css' type='text/css' rel='stylesheet' media='all'>
-<link href='/assets/stylesheets/style-2ca954930da37bed9d823417fe6d0d89.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-99e1b03466193a3380ae65d010cd6daa.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/google_prettify/sunburst-8118663bce28503cede9a6ee5a43a027.css' type='text/css' rel='stylesheet' media='all'>
 <script src='/assets/javascripts/jquery.min-628072e7212db1e8cdacb22b21752cda.js'></script>
 <script src='/assets/javascripts/bootstrap.min-d700a93337122b390b90bbfe21e64f71.js'></script>    
@@ -104,6 +104,29 @@
 <div class="row-fluid">
   <div class="span12">
     <div class="post">
+  <h3 class="title"><a href="/json-web-signatures-on-node-js">JSON Web Signatures on Node.js</a> <span class="date">2013-10-09</span></h3>
+
+  <div class="summary ellipsis">
+<p>My <a href="/rssssa-pss-and-rsaes-oaep-in-javascript">previous article</a> was really
+just a pointer to some enhancements I made to Kenji Urushima's <a href="http://kjur.github.io/jsjws/">jsjws</a> project. <strong>jsjws</strong> is an implementation of <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13">JSON Web Signatures</a> (JWS) in Javascript.</p>
+
+<p>Although an excellent library, <strong>jsjws</strong> as it stands isn't usable on Node.js
+for the following reasons:</p>
+
+<ul>
+<li>It uses pure Javascript crypto routines which are slower that those provided by Node.js modules.</li>
+<li>It uses some global functions which are provided by browsers.</li>
+<li>It isn't packaged up as Node.js module.</li>
+</ul>
+<p>This article describes:</p>
+
+</div>
+
+  <div class="more">
+    <a href="/json-web-signatures-on-node-js" class="btn btn-small">read more..</a>
+  </div>
+</div>
+<div class="post">
   <h3 class="title"><a href="/rssssa-pss-and-rsaes-oaep-in-javascript">RSSSSA-PSS and RSAES-OAEP in Javascript</a> <span class="date">2013-07-06</span></h3>
 
   <div class="summary ellipsis">
@@ -193,32 +216,12 @@ use a language which has Qt (and Qt Quick) bindings. Last time I used C++. This 
     <a href="/wrapping-webkit-part-3-qt-quick-python" class="btn btn-small">read more..</a>
   </div>
 </div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Wrapping Webkit (Part 2 - Qt/C++)</a> <span class="date">2013-01-27</span></h3>
-
-  <div class="summary ellipsis">
-<p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
-get bi-directional communication going between Javascript and Vala, using
-GTK+'s Webkit component.</p>
-
-<p>This time I'm going to do the same between Javascript and C++, using
-<a href="http://qt-project.org/">Qt</a>'s Webkit component. Last time out I decided against
-using C++ with GTK+ but Qt seems better suited to the language. Let's see
-how Qt/C++ compares to GTK+/Vala.</p>
-
-<p>We'll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
-
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn btn-small">read more..</a>
-  </div>
-</div>
 
 <div class="pagination">
   <ul>
       <li class="active"><a href="/">1</a></li>
       <li><a href="/posts/index/2">2</a></li>
+      <li><a href="/posts/index/3">3</a></li>
   </ul>
 </div>
 

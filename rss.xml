@@ -2,8 +2,303 @@
 <rss version="2.0">
   <channel>
     <title>Dave Does Dev</title>
+    <description>Dave Does Dev</description>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-07-17 09:12:47 +0100</pubDate>
+    <pubDate>2013-10-11</pubDate>
+    <item>
+      <title>JSON Web Signatures on Node.js</title>
+      <link>http://www.davedoesdev.com/json-web-signatures-on-node-js</link>
+      <pubDate>2013-10-09</pubDate>
+      <description>&lt;p&gt;My &lt;a href="/rssssa-pss-and-rsaes-oaep-in-javascript"&gt;previous article&lt;/a&gt; was really
+just a pointer to some enhancements I made to Kenji Urushima&amp;#39;s &lt;a href="http://kjur.github.io/jsjws/"&gt;jsjws&lt;/a&gt; project. &lt;strong&gt;jsjws&lt;/strong&gt; is an implementation of &lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13"&gt;JSON Web Signatures&lt;/a&gt; (JWS) in Javascript.&lt;/p&gt;
+
+&lt;p&gt;Although an excellent library, &lt;strong&gt;jsjws&lt;/strong&gt; as it stands isn&amp;#39;t usable on Node.js
+for the following reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It uses pure Javascript crypto routines which are slower that those provided by Node.js modules.&lt;/li&gt;
+&lt;li&gt;It uses some global functions which are provided by browsers.&lt;/li&gt;
+&lt;li&gt;It isn&amp;#39;t packaged up as Node.js module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This article describes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Enhancements I made to &lt;strong&gt;jsjws&lt;/strong&gt; to make it run much faster on Node.js.&lt;/li&gt;
+&lt;li&gt;A module, &lt;a href="https://github.com/davedoesdev/node-jsjws"&gt;node-jsjws&lt;/a&gt; which you can use in your Node.js projects.&lt;/li&gt;
+&lt;li&gt;Extensions I made to &lt;strong&gt;jsjws&lt;/strong&gt; to support &lt;a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html"&gt;JSON Web Tokens&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id="toc_0"&gt;About JSON Web Signatures&lt;/h1&gt;
+
+&lt;p&gt;A JSON Web Signature (JWS) is a standard format for representing JSON data.
+It has three parts:&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;Header&lt;/dt&gt;
+&lt;dd&gt;Metadata such as the algorithm used to generate the signature&lt;/dd&gt;
+
+&lt;dt&gt;Payload&lt;/dt&gt;
+&lt;dd&gt;The data itself&lt;/dd&gt;
+
+&lt;dt&gt;Signature&lt;/dt&gt;
+&lt;dd&gt;A cryptographic signature derived from the header and payload&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;&lt;strong&gt;jsjws&lt;/strong&gt; supports the following signature algorithms:&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;&lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-13#section-3.3"&gt;RS256, RS512&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;These use RSASSA-PKCS1-V1_5 and SHA-256 or SHA-512 to generate the signature.&lt;/dd&gt;
+
+&lt;dt&gt;&lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-13#section-3.5"&gt;PS256, PS512&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;These use RSASSA-PSS and SHA-256 or SHA-512 to generate the signature. I'd previously added PSS support &lt;a href="/rsassa-pss-in-node-js"&gt;to ursa&lt;/a&gt; (a Node.js interface to OpenSSL) and &lt;a href="/rssssa-pss-and-rsaes-oaep-in-javascript"&gt;to jsjws&lt;/a&gt;.&lt;/dd&gt;
+
+&lt;dt&gt;&lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14#section-3.2"&gt;HS256, HS512&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;These use HMAC and SHA-256 or SHA-512 to generate the signature.
+
+&lt;dt&gt;&lt;a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14#section-3.6"&gt;none&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An empty string is used as the signature.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;h2 id="toc_1"&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Say we have the following JSON payload data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="json"&gt;{&amp;quot;iss&amp;quot;:&amp;quot;joe&amp;quot;,
+ &amp;quot;exp&amp;quot;:1300819380,
+ &amp;quot;http://example.com/is_root&amp;quot;:true}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and we want to use &lt;strong&gt;HS256&lt;/strong&gt; to generate a JSON Web Signature.&lt;/p&gt;
+
+&lt;p&gt;First we make the header, which is an object with a single property, &lt;code&gt;alg&lt;/code&gt;, specifying the algorithm we&amp;#39;re using. Here&amp;#39;s the JSON representation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="json"&gt;{&amp;quot;alg&amp;quot;:&amp;quot;HS256&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we encode the header and payload as &lt;a href="http://tools.ietf.org/html/rfc4648#section-5"&gt;URL-safe Base 64&lt;/a&gt; (base64url). So in our example, the base64url encoding of the header is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;span class="nocode"&gt;eyJhbGciOiJIUzI1NiJ9&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the base64url encoding of the payload is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;span class="nocode"&gt;eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need to generate a cryptographic signature from the header and payload.
+The input to the signature operation is the concatenation of the base64url
+header, the character &lt;code&gt;.&lt;/code&gt; and the base64url payload:&lt;/p&gt;
+
+&lt;pre&gt;&lt;span class="nocode"&gt;eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, we&amp;#39;re using the &lt;strong&gt;HS256&lt;/strong&gt; JWS signature algorithm, which is HMAC with SHA-256 as the digest operation. We feed the signature input (above) as the message to HMAC SHA-256 along with some secret key.&lt;/p&gt;
+
+&lt;p&gt;If we choose &lt;code&gt;foobar&lt;/code&gt; as our secret key then the base64url encoding of the generated cryptographic signature is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;span class="nocode"&gt;74x4aMvBBGj5DPfbi6HEk5RxJuc1lnMlnIlhweidQCw&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, the JSON Web Signature is the concatenation of the signature input (i.e.  the base64url header, the character &lt;code&gt;.&lt;/code&gt; and the base64url payload), the character &lt;code&gt;.&lt;/code&gt; and the base64url cryptographic signature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;span class="nocode"&gt;eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.74x4aMvBBGj5DPfbi6HEk5RxJuc1lnMlnIlhweidQCw&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;The JWS can be sent to other parties, who can decode the header and payload components and determine its validity by verifying the cryptographic signature component.&lt;/p&gt;
+
+&lt;h1 id="toc_2"&gt;Optimising &lt;strong&gt;jsjws&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;jsjws&lt;/strong&gt; is a great pure Javascript library for generating and verifying
+JSON Web Signatures. However, the main use case for JSON Web Signatures on
+Node.js is probably asserting identity between different web sites. On busy
+sites this might require many JWS operations per second so it&amp;#39;s important that
+we optimise &lt;strong&gt;jsjws&lt;/strong&gt; in this scenario.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve modified &lt;strong&gt;jsjws&lt;/strong&gt; to speed it up a bit on Node.js:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Only parse the header once. &lt;strong&gt;jsjws&lt;/strong&gt; was parsing the header twice: once to
+verify it&amp;#39;s a valid JSON string and another to extract data from it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use the built-in &lt;code&gt;Buffer&lt;/code&gt; class to perform base64 encoding instead of doing it
+in Javascript.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use the built-in &lt;code&gt;crypto&lt;/code&gt; module to hash data instead of doing it in
+Javascript.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use the &lt;a href="https://github.com/Obvious/ursa"&gt;ursa&lt;/a&gt; module to sign data instead
+of doing it in Javascript. &lt;strong&gt;ursa&lt;/strong&gt; uses OpenSSL to do the heavy lifting.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Kenji Urushima has merged my changes back into &lt;strong&gt;jsjws&lt;/strong&gt; (and its sister project,
+&lt;a href="https://github.com/kjur/jsrsasign"&gt;jsrsasign&lt;/a&gt;) so it&amp;#39;s ready to run on Node.js.&lt;/p&gt;
+
+&lt;h2 id="toc_3"&gt;Introducing &lt;a href="https://github.com/davedoesdev/node-jsjws"&gt;node-jsjws&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;To make &lt;strong&gt;jsjws&lt;/strong&gt; easier to use on Node.js, I&amp;#39;ve created a module which you can
+use in your projects. It&amp;#39;s &lt;a href="https://npmjs.org/package/jsjws"&gt;available on npm&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="bash"&gt;npm install jsjws
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;#39;s an example which generates a private key and then uses it to generate a
+JSON Web Signature from some data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="javascript"&gt;var jsjws = require(&amp;#39;jsjws&amp;#39;);
+var key = jsjws.generatePrivateKey(2048, 65537);
+var header = { alg: &amp;#39;PS256&amp;#39; };
+var payload = { foo: &amp;#39;bar&amp;#39;, wup: 90 };
+var sig = new jsjws.JWS().generateJWSByKey(header, payload, key);
+var jws = new jsjws.JWS();
+assert(jws.verifyJWSByKey(sig, key));
+assert.deepEqual(jws.getParsedHeader(), header);
+assert.deepEqual(jws.getParsedPayload(), payload);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use the &lt;code&gt;JWS&lt;/code&gt; class to generate and verify JSON Web Signatures and access the
+header and payload. The full &lt;a href="https://github.com/davedoesdev/node-jsjws#api"&gt;API is documented&lt;/a&gt; on the &lt;a href="https://github.com/davedoesdev/node-jsjws"&gt;node-jsjws homepage&lt;/a&gt;, where the source is available too.&lt;/p&gt;
+
+&lt;p&gt;You&amp;#39;ll also find a full set of unit tests, including tests for interoperability with &lt;a href="https://github.com/mozilla/jwcrypto"&gt;jwcrypto&lt;/a&gt;, &lt;a href="https://github.com/brianloveswords/python-jws"&gt;python-jws&lt;/a&gt; and &lt;strong&gt;jsjws&lt;/strong&gt; in the browser (using the excellent &lt;a href="http://phantomjs.org/"&gt;PhantomJS&lt;/a&gt; headless browser).&lt;/p&gt;
+
+&lt;h2 id="toc_4"&gt;Benchmarks&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;node-jsjws&lt;/strong&gt; also comes with a set of benchmarks. Here are some results on a laptop with an Intel Core i5-3210M 2.5Ghz CPU and 6Gb RAM running Ubuntu 13.04.&lt;/p&gt;
+
+&lt;p&gt;In the tables, &lt;em&gt;jsjws-fast&lt;/em&gt; uses &lt;a href="https://github.com/Obvious/ursa"&gt;ursa&lt;/a&gt; (&lt;a href="http://www.openssl.org/"&gt;OpenSSL&lt;/a&gt;) for crypto whereas &lt;em&gt;jsjws-slow&lt;/em&gt; does everything in Javascript. &lt;a href="https://github.com/mozilla/jwcrypto"&gt;jwcrypto&lt;/a&gt; is Mozilla&amp;#39;s
+implementation of JSON Web Signatures on Node.js.&lt;/p&gt;
+
+&lt;p&gt;The algorithm used was &lt;strong&gt;RS256&lt;/strong&gt; because &lt;strong&gt;jwcrypto&lt;/strong&gt; doesn&amp;#39;t support &lt;strong&gt;PS256&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;generate_key x10&lt;/th&gt;
+&lt;th align="right"&gt;total (ms)&lt;/th&gt;
+&lt;th align="right"&gt;average (ns)&lt;/th&gt;
+&lt;th align="right"&gt;diff (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jwcrypto&lt;/td&gt;
+&lt;td align="right"&gt;1,183&lt;/td&gt;
+&lt;td align="right"&gt;118,263,125&lt;/td&gt;
+&lt;td align="right"&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-fast&lt;/td&gt;
+&lt;td align="right"&gt;1,296&lt;/td&gt;
+&lt;td align="right"&gt;129,561,098&lt;/td&gt;
+&lt;td align="right"&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-slow&lt;/td&gt;
+&lt;td align="right"&gt;32,090&lt;/td&gt;
+&lt;td align="right"&gt;3,209,012,197&lt;/td&gt;
+&lt;td align="right"&gt;2,613&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;generate_signature x1,000&lt;/th&gt;
+&lt;th align="right"&gt;total (ms)&lt;/th&gt;
+&lt;th align="right"&gt;average (ns)&lt;/th&gt;
+&lt;th align="right"&gt;diff (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-fast&lt;/td&gt;
+&lt;td align="right"&gt;2,450&lt;/td&gt;
+&lt;td align="right"&gt;2,450,449&lt;/td&gt;
+&lt;td align="right"&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jwcrypto&lt;/td&gt;
+&lt;td align="right"&gt;4,786&lt;/td&gt;
+&lt;td align="right"&gt;4,786,343&lt;/td&gt;
+&lt;td align="right"&gt;95&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-slow&lt;/td&gt;
+&lt;td align="right"&gt;68,589&lt;/td&gt;
+&lt;td align="right"&gt;68,588,742&lt;/td&gt;
+&lt;td align="right"&gt;2,699&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;load_key x1,000&lt;/th&gt;
+&lt;th align="right"&gt;total (ms)&lt;/th&gt;
+&lt;th align="right"&gt;average (ns)&lt;/th&gt;
+&lt;th align="right"&gt;diff (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-fast&lt;/td&gt;
+&lt;td align="right"&gt;46&lt;/td&gt;
+&lt;td align="right"&gt;45,996&lt;/td&gt;
+&lt;td align="right"&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-slow&lt;/td&gt;
+&lt;td align="right"&gt;232&lt;/td&gt;
+&lt;td align="right"&gt;232,481&lt;/td&gt;
+&lt;td align="right"&gt;405&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="left"&gt;verify_signature x1,000&lt;/th&gt;
+&lt;th align="right"&gt;total (ms)&lt;/th&gt;
+&lt;th align="right"&gt;average (ns)&lt;/th&gt;
+&lt;th align="right"&gt;diff (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-fast&lt;/td&gt;
+&lt;td align="right"&gt;134&lt;/td&gt;
+&lt;td align="right"&gt;134,032&lt;/td&gt;
+&lt;td align="right"&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jwcrypto&lt;/td&gt;
+&lt;td align="right"&gt;173&lt;/td&gt;
+&lt;td align="right"&gt;173,194&lt;/td&gt;
+&lt;td align="right"&gt;29&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="left"&gt;jsjws-slow&lt;/td&gt;
+&lt;td align="right"&gt;1,706&lt;/td&gt;
+&lt;td align="right"&gt;1,705,810&lt;/td&gt;
+&lt;td align="right"&gt;1,173&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;You can see that in every case, my optimisations make &lt;strong&gt;jsjws&lt;/strong&gt; much faster on
+Node.js. It&amp;#39;s also faster than &lt;strong&gt;jwcrypto&lt;/strong&gt; for generating and verifying
+JSON Web Signatures, but slower for generating keys.&lt;/p&gt;
+
+&lt;p&gt;The source to the benchmarks &lt;a href="https://github.com/davedoesdev/node-jsjws/tree/master/bench"&gt;is available&lt;/a&gt; from the &lt;strong&gt;node-jsjws&lt;/strong&gt; homepage.&lt;/p&gt;
+
+&lt;h1 id="toc_5"&gt;JSON Web Tokens&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html"&gt;JSON Web Tokens&lt;/a&gt; are JSON Web Signatures with some well-defined metadata in the header.&lt;/p&gt;
+
+&lt;p&gt;I added support for JSON Web Tokens to &lt;strong&gt;node-jsjws&lt;/strong&gt;, adding the following
+metadata to the header:&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;exp&lt;/dt&gt;
+&lt;dd&gt;The expiry date and time of the token&lt;/dd&gt;
+
+&lt;dt&gt;nbf&lt;/dt&gt;
+&lt;dd&gt;The valid-from date and time of the token&lt;/dd&gt;
+
+&lt;dt&gt;iat&lt;/dt&gt;
+&lt;dd&gt;The date and time at which the token was generated&lt;/dd&gt;
+
+&lt;dt&gt;jti&lt;/dt&gt;
+&lt;dd&gt;A unique identifier for the token&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;Again, the JWT API &lt;a href="https://github.com/davedoesdev/node-jsjws#json-web-token-functions"&gt;is documented&lt;/a&gt; on the &lt;strong&gt;node-jsjws&lt;/strong&gt; homepage.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>RSSSSA-PSS and RSAES-OAEP in Javascript</title>
       <link>http://www.davedoesdev.com/rssssa-pss-and-rsaes-oaep-in-javascript</link>

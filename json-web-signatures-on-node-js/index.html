@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JSON Web Signatures on Node.js - Dave Does Dev</title>
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link href='/assets/stylesheets/bootstrap.min-4082271c7f87b09c7701ffe554e61edd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/bootstrap-responsive.min-f889adb0886162aa4ceab5ff6338d888.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/css-social-buttons/zocial-81e57ee5b6f0abce2ea30679affb050b.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/darkstrap.min-7f93918a0089feb935ac0a9475fcf8fd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-99e1b03466193a3380ae65d010cd6daa.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sunburst-8118663bce28503cede9a6ee5a43a027.css' type='text/css' rel='stylesheet' media='all'>
+<script src='/assets/javascripts/jquery.min-628072e7212db1e8cdacb22b21752cda.js'></script>
+<script src='/assets/javascripts/bootstrap.min-d700a93337122b390b90bbfe21e64f71.js'></script>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                
+                  <li><a href="/about">About Me</a></li>
+                
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    JSON Web Signatures on Node.js 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>My <a href="/rssssa-pss-and-rsaes-oaep-in-javascript">previous article</a> was really
+just a pointer to some enhancements I made to Kenji Urushima&#39;s <a href="http://kjur.github.io/jsjws/">jsjws</a> project. <strong>jsjws</strong> is an implementation of <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13">JSON Web Signatures</a> (JWS) in Javascript.</p>
+
+<p>Although an excellent library, <strong>jsjws</strong> as it stands isn&#39;t usable on Node.js
+for the following reasons:</p>
+
+<ul>
+<li>It uses pure Javascript crypto routines which are slower that those provided by Node.js modules.</li>
+<li>It uses some global functions which are provided by browsers.</li>
+<li>It isn&#39;t packaged up as Node.js module.</li>
+</ul>
+
+<p>This article describes:</p>
+
+<ul>
+<li>Enhancements I made to <strong>jsjws</strong> to make it run much faster on Node.js.</li>
+<li>A module, <a href="https://github.com/davedoesdev/node-jsjws">node-jsjws</a> which you can use in your Node.js projects.</li>
+<li>Extensions I made to <strong>jsjws</strong> to support <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JSON Web Tokens</a>.</li>
+</ul>
+
+<h1 id="toc_0">About JSON Web Signatures</h1>
+
+<p>A JSON Web Signature (JWS) is a standard format for representing JSON data.
+It has three parts:</p>
+
+<dl>
+<dt>Header</dt>
+<dd>Metadata such as the algorithm used to generate the signature</dd>
+
+<dt>Payload</dt>
+<dd>The data itself</dd>
+
+<dt>Signature</dt>
+<dd>A cryptographic signature derived from the header and payload</dd>
+</dl>
+
+<p><strong>jsjws</strong> supports the following signature algorithms:</p>
+
+<dl>
+<dt><a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-13#section-3.3">RS256, RS512</a></dt>
+<dd>These use RSASSA-PKCS1-V1_5 and SHA-256 or SHA-512 to generate the signature.</dd>
+
+<dt><a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-13#section-3.5">PS256, PS512</a></dt>
+<dd>These use RSASSA-PSS and SHA-256 or SHA-512 to generate the signature. I'd previously added PSS support <a href="/rsassa-pss-in-node-js">to ursa</a> (a Node.js interface to OpenSSL) and <a href="/rssssa-pss-and-rsaes-oaep-in-javascript">to jsjws</a>.</dd>
+
+<dt><a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14#section-3.2">HS256, HS512</a></dt>
+<dd>These use HMAC and SHA-256 or SHA-512 to generate the signature.
+
+<dt><a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14#section-3.6">none</a></dt>
+<dd>An empty string is used as the signature.</dd>
+</dl>
+
+<h2 id="toc_1">Example</h2>
+
+<p>Say we have the following JSON payload data:</p>
+
+<pre><code class="json">{&quot;iss&quot;:&quot;joe&quot;,
+ &quot;exp&quot;:1300819380,
+ &quot;http://example.com/is_root&quot;:true}
+</code></pre>
+
+<p>and we want to use <strong>HS256</strong> to generate a JSON Web Signature.</p>
+
+<p>First we make the header, which is an object with a single property, <code>alg</code>, specifying the algorithm we&#39;re using. Here&#39;s the JSON representation:</p>
+
+<pre><code class="json">{&quot;alg&quot;:&quot;HS256&quot;}
+</code></pre>
+
+<p>Next we encode the header and payload as <a href="http://tools.ietf.org/html/rfc4648#section-5">URL-safe Base 64</a> (base64url). So in our example, the base64url encoding of the header is:</p>
+
+<pre><span class="nocode">eyJhbGciOiJIUzI1NiJ9</span></pre>
+
+<p>and the base64url encoding of the payload is:</p>
+
+<pre><span class="nocode">eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ</span></pre>
+
+<p>Now we need to generate a cryptographic signature from the header and payload.
+The input to the signature operation is the concatenation of the base64url
+header, the character <code>.</code> and the base64url payload:</p>
+
+<pre><span class="nocode">eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ</span></pre>
+
+<p>In this example, we&#39;re using the <strong>HS256</strong> JWS signature algorithm, which is HMAC with SHA-256 as the digest operation. We feed the signature input (above) as the message to HMAC SHA-256 along with some secret key.</p>
+
+<p>If we choose <code>foobar</code> as our secret key then the base64url encoding of the generated cryptographic signature is:</p>
+
+<pre><span class="nocode">74x4aMvBBGj5DPfbi6HEk5RxJuc1lnMlnIlhweidQCw</span></pre>
+
+<p>Finally, the JSON Web Signature is the concatenation of the signature input (i.e.  the base64url header, the character <code>.</code> and the base64url payload), the character <code>.</code> and the base64url cryptographic signature:</p>
+
+<pre><span class="nocode">eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.74x4aMvBBGj5DPfbi6HEk5RxJuc1lnMlnIlhweidQCw</span></pre>
+
+<p>The JWS can be sent to other parties, who can decode the header and payload components and determine its validity by verifying the cryptographic signature component.</p>
+
+<h1 id="toc_2">Optimising <strong>jsjws</strong></h1>
+
+<p><strong>jsjws</strong> is a great pure Javascript library for generating and verifying
+JSON Web Signatures. However, the main use case for JSON Web Signatures on
+Node.js is probably asserting identity between different web sites. On busy
+sites this might require many JWS operations per second so it&#39;s important that
+we optimise <strong>jsjws</strong> in this scenario.</p>
+
+<p>I&#39;ve modified <strong>jsjws</strong> to speed it up a bit on Node.js:</p>
+
+<ul>
+<li><p>Only parse the header once. <strong>jsjws</strong> was parsing the header twice: once to
+verify it&#39;s a valid JSON string and another to extract data from it.</p></li>
+<li><p>Use the built-in <code>Buffer</code> class to perform base64 encoding instead of doing it
+in Javascript.</p></li>
+<li><p>Use the built-in <code>crypto</code> module to hash data instead of doing it in
+Javascript.</p></li>
+<li><p>Use the <a href="https://github.com/Obvious/ursa">ursa</a> module to sign data instead
+of doing it in Javascript. <strong>ursa</strong> uses OpenSSL to do the heavy lifting.</p></li>
+</ul>
+
+<p>Kenji Urushima has merged my changes back into <strong>jsjws</strong> (and its sister project,
+<a href="https://github.com/kjur/jsrsasign">jsrsasign</a>) so it&#39;s ready to run on Node.js.</p>
+
+<h2 id="toc_3">Introducing <a href="https://github.com/davedoesdev/node-jsjws">node-jsjws</a></h2>
+
+<p>To make <strong>jsjws</strong> easier to use on Node.js, I&#39;ve created a module which you can
+use in your projects. It&#39;s <a href="https://npmjs.org/package/jsjws">available on npm</a>:</p>
+
+<pre><code class="bash">npm install jsjws
+</code></pre>
+
+<p>Here&#39;s an example which generates a private key and then uses it to generate a
+JSON Web Signature from some data:</p>
+
+<pre><code class="javascript">var jsjws = require(&#39;jsjws&#39;);
+var key = jsjws.generatePrivateKey(2048, 65537);
+var header = { alg: &#39;PS256&#39; };
+var payload = { foo: &#39;bar&#39;, wup: 90 };
+var sig = new jsjws.JWS().generateJWSByKey(header, payload, key);
+var jws = new jsjws.JWS();
+assert(jws.verifyJWSByKey(sig, key));
+assert.deepEqual(jws.getParsedHeader(), header);
+assert.deepEqual(jws.getParsedPayload(), payload);
+</code></pre>
+
+<p>Use the <code>JWS</code> class to generate and verify JSON Web Signatures and access the
+header and payload. The full <a href="https://github.com/davedoesdev/node-jsjws#api">API is documented</a> on the <a href="https://github.com/davedoesdev/node-jsjws">node-jsjws homepage</a>, where the source is available too.</p>
+
+<p>You&#39;ll also find a full set of unit tests, including tests for interoperability with <a href="https://github.com/mozilla/jwcrypto">jwcrypto</a>, <a href="https://github.com/brianloveswords/python-jws">python-jws</a> and <strong>jsjws</strong> in the browser (using the excellent <a href="http://phantomjs.org/">PhantomJS</a> headless browser).</p>
+
+<h2 id="toc_4">Benchmarks</h2>
+
+<p><strong>node-jsjws</strong> also comes with a set of benchmarks. Here are some results on a laptop with an Intel Core i5-3210M 2.5Ghz CPU and 6Gb RAM running Ubuntu 13.04.</p>
+
+<p>In the tables, <em>jsjws-fast</em> uses <a href="https://github.com/Obvious/ursa">ursa</a> (<a href="http://www.openssl.org/">OpenSSL</a>) for crypto whereas <em>jsjws-slow</em> does everything in Javascript. <a href="https://github.com/mozilla/jwcrypto">jwcrypto</a> is Mozilla&#39;s
+implementation of JSON Web Signatures on Node.js.</p>
+
+<p>The algorithm used was <strong>RS256</strong> because <strong>jwcrypto</strong> doesn&#39;t support <strong>PS256</strong>.</p>
+
+<table><thead>
+<tr>
+<th align="left">generate_key x10</th>
+<th align="right">total (ms)</th>
+<th align="right">average (ns)</th>
+<th align="right">diff (%)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">jwcrypto</td>
+<td align="right">1,183</td>
+<td align="right">118,263,125</td>
+<td align="right">-</td>
+</tr>
+<tr>
+<td align="left">jsjws-fast</td>
+<td align="right">1,296</td>
+<td align="right">129,561,098</td>
+<td align="right">10</td>
+</tr>
+<tr>
+<td align="left">jsjws-slow</td>
+<td align="right">32,090</td>
+<td align="right">3,209,012,197</td>
+<td align="right">2,613</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th align="left">generate_signature x1,000</th>
+<th align="right">total (ms)</th>
+<th align="right">average (ns)</th>
+<th align="right">diff (%)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">jsjws-fast</td>
+<td align="right">2,450</td>
+<td align="right">2,450,449</td>
+<td align="right">-</td>
+</tr>
+<tr>
+<td align="left">jwcrypto</td>
+<td align="right">4,786</td>
+<td align="right">4,786,343</td>
+<td align="right">95</td>
+</tr>
+<tr>
+<td align="left">jsjws-slow</td>
+<td align="right">68,589</td>
+<td align="right">68,588,742</td>
+<td align="right">2,699</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th align="left">load_key x1,000</th>
+<th align="right">total (ms)</th>
+<th align="right">average (ns)</th>
+<th align="right">diff (%)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">jsjws-fast</td>
+<td align="right">46</td>
+<td align="right">45,996</td>
+<td align="right">-</td>
+</tr>
+<tr>
+<td align="left">jsjws-slow</td>
+<td align="right">232</td>
+<td align="right">232,481</td>
+<td align="right">405</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th align="left">verify_signature x1,000</th>
+<th align="right">total (ms)</th>
+<th align="right">average (ns)</th>
+<th align="right">diff (%)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">jsjws-fast</td>
+<td align="right">134</td>
+<td align="right">134,032</td>
+<td align="right">-</td>
+</tr>
+<tr>
+<td align="left">jwcrypto</td>
+<td align="right">173</td>
+<td align="right">173,194</td>
+<td align="right">29</td>
+</tr>
+<tr>
+<td align="left">jsjws-slow</td>
+<td align="right">1,706</td>
+<td align="right">1,705,810</td>
+<td align="right">1,173</td>
+</tr>
+</tbody></table>
+
+<p>You can see that in every case, my optimisations make <strong>jsjws</strong> much faster on
+Node.js. It&#39;s also faster than <strong>jwcrypto</strong> for generating and verifying
+JSON Web Signatures, but slower for generating keys.</p>
+
+<p>The source to the benchmarks <a href="https://github.com/davedoesdev/node-jsjws/tree/master/bench">is available</a> from the <strong>node-jsjws</strong> homepage.</p>
+
+<h1 id="toc_5">JSON Web Tokens</h1>
+
+<p><a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JSON Web Tokens</a> are JSON Web Signatures with some well-defined metadata in the header.</p>
+
+<p>I added support for JSON Web Tokens to <strong>node-jsjws</strong>, adding the following
+metadata to the header:</p>
+
+<dl>
+<dt>exp</dt>
+<dd>The expiry date and time of the token</dd>
+
+<dt>nbf</dt>
+<dd>The valid-from date and time of the token</dd>
+
+<dt>iat</dt>
+<dd>The date and time at which the token was generated</dd>
+
+<dt>jti</dt>
+<dd>A unique identifier for the token</dd>
+</dl>
+
+<p>Again, the JWT API <a href="https://github.com/davedoesdev/node-jsjws#json-web-token-functions">is documented</a> on the <strong>node-jsjws</strong> homepage.</p>
+
+    <hr>
+    <div class="pagination-centered-wrapper">
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/rssssa-pss-and-rsaes-oaep-in-javascript" title="RSSSSA-PSS and RSAES-OAEP in Javascript">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-10-09</span></div>
+    </section>
+
+    <section class="tag_box_container_empty" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2013 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

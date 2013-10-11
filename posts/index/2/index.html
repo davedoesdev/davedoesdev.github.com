@@ -13,7 +13,7 @@
 <link href='/assets/stylesheets/bootstrap-responsive.min-f889adb0886162aa4ceab5ff6338d888.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/css-social-buttons/zocial-81e57ee5b6f0abce2ea30679affb050b.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/darkstrap.min-7f93918a0089feb935ac0a9475fcf8fd.css' type='text/css' rel='stylesheet' media='all'>
-<link href='/assets/stylesheets/style-2ca954930da37bed9d823417fe6d0d89.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-99e1b03466193a3380ae65d010cd6daa.css' type='text/css' rel='stylesheet' media='all'>
 <link href='/assets/stylesheets/google_prettify/sunburst-8118663bce28503cede9a6ee5a43a027.css' type='text/css' rel='stylesheet' media='all'>
 <script src='/assets/javascripts/jquery.min-628072e7212db1e8cdacb22b21752cda.js'></script>
 <script src='/assets/javascripts/bootstrap.min-d700a93337122b390b90bbfe21e64f71.js'></script>    
@@ -99,6 +99,27 @@
       <div class="content">
         <div class="row-fluid">
   <div class="span12">
+      <div class="post">
+        <h3 class="title"><a href="/wrapping-webkit-part-2-qt-c%2B%2B">Wrapping Webkit (Part 2 - Qt/C++)</a> <span class="date">2013-01-27</span></h3>
+
+        <div class="summary ellipsis">
+<p>In my <a href="/wrapping-webkit-part-1-gtk%2B-vala">previous post</a>, I showed how to
+get bi-directional communication going between Javascript and Vala, using
+GTK+'s Webkit component.</p>
+
+<p>This time I'm going to do the same between Javascript and C++, using
+<a href="http://qt-project.org/">Qt</a>'s Webkit component. Last time out I decided against
+using C++ with GTK+ but Qt seems better suited to the language. Let's see
+how Qt/C++ compares to GTK+/Vala.</p>
+
+<p>We'll be sticking to the same example <a href="/wrapping-webkit-part-1-gtk%2B-vala#example">we used before with Vala</a>:</p>
+
+</div>
+
+        <div class="more">
+          <a href="/wrapping-webkit-part-2-qt-c%2B%2B" class="btn btn-small">read more..</a>
+        </div>
+      </div>
       <div class="post">
         <h3 class="title"><a href="/wrapping-webkit-part-1-gtk%2B-vala">Wrapping Webkit (Part 1 - GTK+/Vala)</a> <span class="date">2012-11-10</span></h3>
 
@@ -190,53 +211,12 @@ Core <strong>init.d</strong> scripts and voila, a splash screen!</p>
           <a href="/old-skool-splash-screen" class="btn btn-small">read more..</a>
         </div>
       </div>
-      <div class="post">
-        <h3 class="title"><a href="/quieter-boot">Quieter Boot</a> <span class="date">2012-09-16</span></h3>
-
-        <div class="summary ellipsis">
-<p>One of my PCs has a rather unique boot sequence:</p>
-
-<ol>
-<li><p><a href="http://www.syslinux.org">Syslinux</a>, from an SD card and configured to chain
-load the next stage.</p></li>
-<li>
-<p>A pre-boot environment, <a href="http://www.freedos.org">FreeDOS</a>, from the SD card.
-The pre-boot environment does the following:</p>
-
-<ol>
-<li>Check if a USB stick is inserted. If there is one inserted, then continue
-to the next stage in the boot sequence. Otherwise...</li>
-<li>Display a message asking the user to insert the USB stick.</li>
-<li>Wait 20 seconds for the USB stick to be inserted.</li>
-<li>If the USB stick is inserted within those 20 seconds, then continue to
-the next stage in the boot sequence, but pass a flag indicating to boot
-into a maintenance mode. Otherwise...</li>
-<li>Go to a DOS prompt.</li>
-</ol>
-<p>FreeDOS makes a great pre-boot environment - it's super fast to boot, very
-small and you don't have to faff about producing custom initrds. I used
-<a href="http://bretjohnson.us">Bret Johnson</a>'s USBDOS drivers to do the USB stick
-detection.</p>
-</li>
-<li><p><a href="http://www.solemnwarning.net/kexec-loader/">kexec-loader</a>, from the SD card
-(via <a href="http://busybox.net/%7Evda/linld/">Linld</a>) and configured to boot the next
-stage from the USB stick. I used kexec-loader here because it contains
-USB 2.0 drivers, so loading the next stage is much faster than using the
-BIOS's legacy emulation mode.</p></li>
-<li><p>The fantastic <a href="http://distro.ibiblio.org/tinycorelinux/welcome.html">Tiny Core Linux</a>,
-from the USB stick, booting into X with some custom extensions.</p></li>
-</ol>
-</div>
-
-        <div class="more">
-          <a href="/quieter-boot" class="btn btn-small">read more..</a>
-        </div>
-      </div>
     
     <div class="pagination">
       <ul>
           <li><a href="/">1</a></li>
           <li class="active"><a href="/posts/index/2">2</a></li>
+          <li><a href="/posts/index/3">3</a></li>
       </ul>
     </div>
   </div>
