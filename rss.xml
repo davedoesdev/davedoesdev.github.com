@@ -4,7 +4,13 @@
     <title>Dave Does Dev</title>
     <description>Dave Does Dev</description>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-10-11</pubDate>
+    <pubDate>2013-10-12</pubDate>
+    <item>
+      <title>JSON Web Tokens in Python</title>
+      <link>http://www.davedoesdev.com/json-web-tokens-in-python</link>
+      <pubDate>2013-10-12</pubDate>
+      <description>python-jwt: A Python module for generating and verifying JSON Web Tokens</description>
+    </item>
     <item>
       <title>JSON Web Signatures on Node.js</title>
       <link>http://www.davedoesdev.com/json-web-signatures-on-node-js</link>

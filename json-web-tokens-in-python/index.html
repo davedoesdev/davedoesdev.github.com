@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Welcome - Dave Does Dev</title>
+    <title>JSON Web Tokens in Python - Dave Does Dev</title>
+    <meta name="description" content="python-jwt: A Python module for generating and verifying JSON Web Tokens">
     <meta name="author" content="David Halls">
 
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -98,133 +99,126 @@
     <div class="container">
       <div class="content">
         <div class="page-header">
-  <h1>Welcome  <small>this is my blog</small></h1>
+  <h1>
+    JSON Web Tokens in Python 
+  </h1>
 </div>
 
-<div class="row-fluid">
-  <div class="span12">
-    <div class="post">
-  <h3 class="title"><a href="/json-web-tokens-in-python">JSON Web Tokens in Python</a> <span class="date">2013-10-12</span></h3>
-
-  <div class="summary ellipsis">
-<p>My <a href="/json-web-signatures-on-node-js">previous article</a> introduced a Node.js
+<div class="row">
+  <div class="span9">
+    <p>My <a href="/json-web-signatures-on-node-js">previous article</a> introduced a Node.js
 module, <a href="https://github.com/davedoesdev/node-jsjws">node-jsjws</a>, for performant
 generation and verification of <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13">JSON Web Signatures</a> and <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JSON Web Tokens</a>.</p>
 
-<p>Brian J Brennan's <a href="https://github.com/brianloveswords/python-jws">python-jws</a> is a
-nice module for generating and verifying JSON Web Signatures in Python. I've
+<p>Brian J Brennan&#39;s <a href="https://github.com/brianloveswords/python-jws">python-jws</a> is a
+nice module for generating and verifying JSON Web Signatures in Python. I&#39;ve
 already written some unit tests for <strong>node-jsjws</strong> which show that the JSON Web
 Signatures it generates can be verified by <strong>python-jws</strong> and vice versa.</p>
 
 <p>Note that I had to make <a href="https://github.com/brianloveswords/python-jws/pull/5">some minor changes</a> to <strong>python-jws</strong> in order to add
 support for the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-13#section-3.5">RSASSA-PSS</a> signature algorithms (<strong>PS256</strong>, <strong>PS384</strong> and
 <strong>PS512</strong>).</p>
-</div>
 
-  <div class="more">
-    <a href="/json-web-tokens-in-python" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/json-web-signatures-on-node-js">JSON Web Signatures on Node.js</a> <span class="date">2013-10-09</span></h3>
+<p>Interoperability between <strong>node-jsjws</strong> and <strong>python-jws</strong> is useful because it
+means a Web site written in Python can send a JSON Web Signature to another site running on Node.js, for example.</p>
 
-  <div class="summary ellipsis">
-<p>My <a href="/rssssa-pss-and-rsaes-oaep-in-javascript">previous article</a> was really
-just a pointer to some enhancements I made to Kenji Urushima's <a href="http://kjur.github.io/jsjws/">jsjws</a> project. <strong>jsjws</strong> is an implementation of <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-13">JSON Web Signatures</a> (JWS) in Javascript.</p>
+<p>I wanted to be able to do the same with JSON Web Tokens: send a token from a site running on Google App Engine, for example, to a service running on Node.js.</p>
 
-<p>Although an excellent library, <strong>jsjws</strong> as it stands isn't usable on Node.js
-for the following reasons:</p>
+<h1 id="toc_0">Introducing <a href="https://github.com/davedoesdev/python-jwt">python-jwt</a></h1>
+
+<p><strong>python-jws</strong> does have a JWT example, <a href="https://github.com/brianloveswords/python-jws/blob/master/examples/minijwt.py">minijwt</a>, but as its name suggests it&#39;s a limited implementation of JSON Web Tokens.</p>
+
+<p>I&#39;ve added the following things to the JWT header and turned <strong>minijwt</strong> into a standalone module, <strong>python-jwt</strong>:</p>
 
 <ul>
-<li>It uses pure Javascript crypto routines which are slower that those provided by Node.js modules.</li>
-<li>It uses some global functions which are provided by browsers.</li>
-<li>It isn't packaged up as Node.js module.</li>
+<li>Expiry date and time of the token (<strong>exp</strong>).</li>
+<li>Date and time at which the token was generated (<strong>iat</strong>).</li>
+<li>Date and time from which the token is generated (<strong>nbf</strong>).</li>
+<li>A unique identifier for the token (<strong>jti</strong>).</li>
 </ul>
-<p>This article describes:</p>
 
-</div>
+<p><strong>exp</strong>, <strong>iat</strong> and <strong>nbf</strong> are checked against the current time when a token
+is verified.</p>
 
-  <div class="more">
-    <a href="/json-web-signatures-on-node-js" class="btn btn-small">read more..</a>
+<p>I also added support for the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-14#section-3.6">none</a> signature algorithm (i.e. an empty signature).</p>
+
+<h2 id="toc_1">Example</h2>
+
+<p>Here&#39;s a simple example using a key generated by <a href="https://www.dlitz.net/software/pycrypto/">PyCrypto</a>:</p>
+
+<pre><code class="python">import jwt, Crypto.PublicKey.RSA as RSA, datetime
+key = RSA.generate(2048)
+payload = { &#39;foo&#39;: &#39;bar&#39;, &#39;wup&#39;: 90 };
+token = jwt.generate_jwt(payload, key, &#39;PS256&#39;, datetime.timedelta(minutes=5))
+header, claims = jwt.verify_jwt(token, key)
+for k in payload: assert claims[k] == payload[k]
+</code></pre>
+
+<p>The expiry time of the token is set to 5 minutes.</p>
+
+<p>The <a href="http://githubraw.herokuapp.com/davedoesdev/python-jwt/master/docs/_build/html/index.html">API documentation</a> is linked to from the <a href="https://github.com/davedoesdev/python-jwt">python-jwt homepage</a>. <strong>python-jwt</strong> comes with
+a full set of unit tests (including interoperability with <strong>node-jsjws</strong>) and some
+benchmarks.</p>
+
+<p>I&#39;ve decided not to compare benchmark results with <strong>node-jsjws</strong> because I
+don&#39;t want to get into comparing Node.js with Python.</p>
+
+    <hr>
+    <div class="pagination-centered-wrapper">
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/json-web-signatures-on-node-js" title="JSON Web Signatures on Node.js">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
   </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/rssssa-pss-and-rsaes-oaep-in-javascript">RSSSSA-PSS and RSAES-OAEP in Javascript</a> <span class="date">2013-07-06</span></h3>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-10-12</span></div>
+    </section>
 
-  <div class="summary ellipsis">
-<p><a href="/rsassa-pss-in-node-js">Last time out</a>, I added support for <a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a> encoded signatures to the <a href="https://github.com/Obvious/ursa">ursa</a> Node.js module. The code I added exposes the OpenSSL implementation of RSASSA-PSS to Node.js programs. <a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a> recommends new applications use RSASSA-PSS instead of the older RSASSA-PKCS1-v1_5 scheme.</p>
-
-<p>RFC 3447 also recommends new applications use <a href="http://tools.ietf.org/html/rfc3447#section-7.1">RSAES-OAEP</a> ciphertext encoding instead of the older RSAES-PKCS1-v1_5 scheme. <strong>ursa</strong> already exposes the OpenSSL RSAES-OAEP implementation to Node.js programs.</p>
-
-<p>I've been using Tom Wu's <a href="http://www-cs-students.stanford.edu/%7Etjw/jsbn/">RSA Javascript library</a> in a non-Node.js project. Tom's library is pure Javascript (it doesn't wrap native code) and I wanted to contribute something back:</p>
-
-<ul>
-<li>A Javascript implementation of RSASSA-PSS signature encoding.</li>
-<li>A Javascript implementation of RSAES-OAEP ciphertext encoding.</li>
-</ul>
-<h1 id="toc_0">RSASSA-PSS in Javascript</h1>
-
-<p>I'm really standing on the shoulders of giants here. The <a href="https://github.com/digitalbazaar/forge">Forge project</a> already has a <a href="https://github.com/digitalbazaar/forge/blob/master/js/pss.js">PSS implementation</a>.</p>
-</div>
-
-  <div class="more">
-    <a href="/rssssa-pss-and-rsaes-oaep-in-javascript" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/rsassa-pss-in-node-js">RSASSA-PSS in Node.js</a> <span class="date">2013-05-04</span></h3>
-
-  <div class="summary ellipsis">
-<p>This post is about encoding schemes for RSA signatures. The Public-Key
-Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">RFC 3447</a>) specifies two schemes:</p>
-
-<ul>
-<li>
-<a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a>, RSA Signature
-Scheme with Appendix - Probabilistic Signature Scheme.</li>
-<li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
-</ul>
-<p>Basically, PSS is the newer scheme and can optionally include some randomness
-in the encoding (though it doesn't rely on it). There are no known attacks
-against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
-recommends PSS in new applications:</p>
-
-</div>
-
-  <div class="more">
-    <a href="/rsassa-pss-in-node-js" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
-
-  <div class="summary ellipsis">
-<p>This is the last in my short series about getting data into and out of a
-Web application running in Webkit. Previously I wrote about hosting Webkit
-<a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
-<a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
-<a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
-
-<p>This time I'm going to do something a bit different: How can I pass data to
-and from a Javascript application running in Chromium? I'll be using Bash
-and command line utilities. Be on the lookout for egregious hacks!</p>
-
-<h1 id="toc_0">Getting data in</h1>
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn btn-small">read more..</a>
-  </div>
-</div>
-
-<div class="pagination">
-  <ul>
-      <li class="active"><a href="/">1</a></li>
-      <li><a href="/posts/index/2">2</a></li>
-      <li><a href="/posts/index/3">3</a></li>
-  </ul>
-</div>
-
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#python-ref">python <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#crypto-ref">crypto <span>4</span></a>
+          </li>
+          <li>
+            <a href="/tags#JWS-ref">JWS <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#JWT-ref">JWT <span>2</span></a>
+          </li>
+          <li>
+            <a href="/tags#python-jws-ref">python-jws <span>1</span></a>
+          </li>
+          <li>
+            <a href="/tags#python-jwt-ref">python-jwt <span>1</span></a>
+          </li>
+      </ul>
+    </section>
   </div>
 </div>
 
