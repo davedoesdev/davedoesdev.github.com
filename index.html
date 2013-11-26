@@ -104,6 +104,46 @@
 <div class="row-fluid">
   <div class="span12">
     <div class="post">
+  <h3 class="title"><a href="/a-simple-and-consistent-wrapper-for-javascript-crypto">A simple and consistent wrapper for Javascript crypto</a> <span class="date">2013-11-24</span></h3>
+
+  <div class="summary ellipsis">
+<p>This post is about <a href="https://github.com/davedoesdev/simple-crypt">simple-crypt</a>, a Javascript wrapper library for encrypting and signing data.</p>
+
+<p>Here's what I did and didn't want to do with <strong>simple-crypt</strong>:</p>
+
+<ul>
+<li>Don't re-implement any cryptographic algorithms.</li>
+<li>Don't get into key exchange protocols.</li>
+<li>Do write extensive unit tests, ideally including some well-known test vectors.</li>
+<li>Do make a consistent API for encrypting and signing data using different types of keys:
+
+<ul>
+<li>Symmetric keys</li>
+<li>Asymmetric keys</li>
+<li>Password-derived keys</li>
+</ul>
+</li>
+<li>Do hardcode which encryption and signature algorithms to use:
+
+<ul>
+<li>HMAC-SHA-256 for symmetric signing.</li>
+<li>RSA-SHA-256 with <a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a> encoding for asymmetric signing.</li>
+<li>AES-128-CBC for symmetric key encryption.</li>
+<li>RSA, <a href="http://tools.ietf.org/html/rfc3447#section-7.1">RSAES-OAEP</a> encoding and AES-128-CBC for asymmetric encryption.</li>
+</ul>
+</li>
+<li>Do add a checksum before encrypting data.</li>
+<li>Do JSON encode data before encrypting or signing it.</li>
+<li>Do make it easy to disable processing and pass plaintext through instead.</li>
+<li>Do make it easy to add metadata so the recipient knows which key to use.</li>
+</ul>
+</div>
+
+  <div class="more">
+    <a href="/a-simple-and-consistent-wrapper-for-javascript-crypto" class="btn btn-small">read more..</a>
+  </div>
+</div>
+<div class="post">
   <h3 class="title"><a href="/json-web-tokens-in-python">JSON Web Tokens in Python</a> <span class="date">2013-10-12</span></h3>
 
   <div class="summary ellipsis">
@@ -193,27 +233,6 @@ recommends PSS in new applications:</p>
 
   <div class="more">
     <a href="/rsassa-pss-in-node-js" class="btn btn-small">read more..</a>
-  </div>
-</div>
-<div class="post">
-  <h3 class="title"><a href="/wrapping-webkit-part-4-chromium-bash-inotify">Wrapping Webkit (Part 4 - Chromium/Bash/inotify)</a> <span class="date">2013-03-29</span></h3>
-
-  <div class="summary ellipsis">
-<p>This is the last in my short series about getting data into and out of a
-Web application running in Webkit. Previously I wrote about hosting Webkit
-<a href="/wrapping-webkit-part-1-gtk%2B-vala">in a Vala application using GTK+</a>,
-<a href="/wrapping-webkit-part-2-qt-c%2B%2B">in a C++ application using Qt</a> and
-<a href="/wrapping-webkit-part-3-qt-quick-python">in a Python application using Qt Quick</a>.</p>
-
-<p>This time I'm going to do something a bit different: How can I pass data to
-and from a Javascript application running in Chromium? I'll be using Bash
-and command line utilities. Be on the lookout for egregious hacks!</p>
-
-<h1 id="toc_0">Getting data in</h1>
-</div>
-
-  <div class="more">
-    <a href="/wrapping-webkit-part-4-chromium-bash-inotify" class="btn btn-small">read more..</a>
   </div>
 </div>
 

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>A simple and consistent wrapper for Javascript crypto - Dave Does Dev</title>
+    <meta name="description" content="simple-crypt: A simple and easy-to-use encryption and signing library">
+    <meta name="author" content="David Halls">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link href='/assets/stylesheets/bootstrap.min-4082271c7f87b09c7701ffe554e61edd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/bootstrap-responsive.min-f889adb0886162aa4ceab5ff6338d888.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/css-social-buttons/zocial-81e57ee5b6f0abce2ea30679affb050b.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/darkstrap.min-7f93918a0089feb935ac0a9475fcf8fd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-15874d318370cffde0314c5c86ff5e61.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sunburst-8118663bce28503cede9a6ee5a43a027.css' type='text/css' rel='stylesheet' media='all'>
+<script src='/assets/javascripts/jquery.min-628072e7212db1e8cdacb22b21752cda.js'></script>
+<script src='/assets/javascripts/bootstrap.min-d700a93337122b390b90bbfe21e64f71.js'></script>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/media/favicon.ico">
+    <!-- fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>      
+
+
+          <a class="brand" href="/">Dave Does Dev</a>
+
+
+          <div class="nav-collapse">
+            <ul class="nav">
+                
+                  <li><a href="/archive">Archive</a></li>
+                
+                
+                  <li><a href="/tags">Tags</a></li>
+                
+                
+                  <li><a href="/about">About Me</a></li>
+                
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="hidden-desktop" target="_self">Github</a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="hidden-desktop" target="_self">Twitter</a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="hidden-desktop" target="_self">LinkedIn</a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="hidden-desktop" target="_self">RSS</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right social visible-desktop">
+              <li class="divider-vertical"></li>
+                <li>
+                  <a href="https://www.github.com/davedoesdev" class="zocial github icon" target="_self">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.twitter.com/davedoesdev" class="zocial twitter icon" target="_self">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/in/dhalls" class="zocial linkedin icon" target="_self">
+                    <span class="hidden-desktop">LinkedIn</span>
+                  </a>
+                </li>
+              <li>
+                <a href="/rss.xml" class="zocial rss icon" target="_self">
+                  <span class="hidden-desktop">RSS</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+  <h1>
+    A simple and consistent wrapper for Javascript crypto 
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <p>This post is about <a href="https://github.com/davedoesdev/simple-crypt">simple-crypt</a>, a Javascript wrapper library for encrypting and signing data.</p>
+
+<p>Here&#39;s what I did and didn&#39;t want to do with <strong>simple-crypt</strong>:</p>
+
+<ul>
+<li>Don&#39;t re-implement any cryptographic algorithms.</li>
+<li>Don&#39;t get into key exchange protocols.</li>
+<li>Do write extensive unit tests, ideally including some well-known test vectors.</li>
+<li>Do make a consistent API for encrypting and signing data using different types of keys:
+
+<ul>
+<li>Symmetric keys</li>
+<li>Asymmetric keys</li>
+<li>Password-derived keys</li>
+</ul></li>
+<li>Do hardcode which encryption and signature algorithms to use:
+
+<ul>
+<li>HMAC-SHA-256 for symmetric signing.</li>
+<li>RSA-SHA-256 with <a href="http://tools.ietf.org/html/rfc3447#section-8.1">RSASSA-PSS</a> encoding for asymmetric signing.</li>
+<li>AES-128-CBC for symmetric key encryption.</li>
+<li>RSA, <a href="http://tools.ietf.org/html/rfc3447#section-7.1">RSAES-OAEP</a> encoding and AES-128-CBC for asymmetric encryption.</li>
+</ul></li>
+<li>Do add a checksum before encrypting data.</li>
+<li>Do JSON encode data before encrypting or signing it.</li>
+<li>Do make it easy to disable processing and pass plaintext through instead.</li>
+<li>Do make it easy to add metadata so the recipient knows which key to use.</li>
+</ul>
+
+<h1 id="toc_0">Basic usage</h1>
+
+<p>Here&#39;s what I came up with. Everything revolves around the <code>Crypt</code> class. Say you have some <code>key</code> (symmetric, public, private or password). Then you&#39;d pass it to <code>Crypt.make</code> to make a <code>Crypt</code> object like this:</p>
+
+<pre><code class="javascript">Crypt.make(key, function (err, crypt)
+{
+    // if err exists then handle it
+    // otherwise crypt is a Crypt object
+});
+</code></pre>
+
+<p>You can then use <code>crypt</code> to sign, encrypt, verify or decrypt data. For example, 
+using a symmetric key:</p>
+
+<pre><code class="javascript">key = crypto.randomBytes(Crypt.get_key_size());
+
+Crypt.make(key, function (err, crypt)
+{
+    crypt.sign({ foo: 90 }, function (err, signed)
+    {
+        // send &#39;signed&#39; somewhere else
+    });
+});
+
+// somewhere else (how to get exchange key securely is left to the application)...
+Crypt.make(key, function (err, crypt)
+{
+    crypt.verify(signed, function (err, verified)
+    {
+        assert.deepEqual(verified, { foo: 90 });
+    });
+});
+</code></pre>
+
+<h1 id="toc_1">Keys</h1>
+
+<h2 id="toc_2">Symmetric keys</h2>
+
+<p>Symmetric keys should be fixed length. On Node.js you might make one like this:</p>
+
+<pre><code class="javascript">var key = crypto.randomBytes(Crypt.get_key_size());
+</code></pre>
+
+<h2 id="toc_3">Asymmetric keys</h2>
+
+<p>You can pass PEM-encoded RSA public and private keys to <code>Crypt.make</code>:</p>
+
+<pre><code class="javascript">var priv_pem = &#39;-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEA4qiw...Se2gIJ/QJ3YJVQI=\n-----END RSA PRIVATE KEY-----&#39;;
+var pub_pem = &#39;-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w...BoeoyBrpTuc4egSCpj\nsQIDAQAB\n-----END PUBLIC KEY-----&#39;;
+</code></pre>
+
+<p>Use the public key to encrypt and the private key to decrypt:</p>
+
+<pre><code class="javascript">Crypt.make(pub_pem, function (err, crypt)
+{
+    crypt.encrypt({ bar: &#39;hi&#39; }, function (err, encrypted)
+    {
+        // send &#39;encrypted&#39; somewhere else
+    });
+});
+
+// somewhere else...
+Crypt.make(priv_pem, function (err, crypt)
+{
+    crypt.decrypt(encrypted, function (err, decrypted)
+    {
+        assert.deepEqual(decrypted, { bar: &#39;hi&#39; });
+    });
+});
+</code></pre>
+
+<p>(the private key can also sign and the public key verify).</p>
+
+<h2 id="toc_4">Passwords</h2>
+
+<p>You&#39;ll need to specify the number of iterations (for PBKDF2) along with the password, for example:</p>
+
+<pre><code class="javascript">var key = { password: &#39;P@ssW0rd!&#39;, iterations: 10000 };
+</code></pre>
+
+<h1 id="toc_5">Producing plaintext</h1>
+
+<p>I wanted to be able to turn off signing or encryption easily and pass the data through untouched. Here&#39;s how:</p>
+
+<pre><code class="javascript">Crypt.make(key, function (err, crypt)
+{
+    var whether_to_encrypt = false;
+    crypt.maybe_encrypt(whether_to_encrypt, 123.456, function (err, encrypted)
+    {
+        // send &#39;encrypted&#39; somewhere else...
+    });
+});
+
+// somewhere else has to call maybe_decrypt...
+Crypt.make(key, function (err, crypt)
+{
+    crypt.maybe_decrypt(encrypted, function (err, decrypted)
+    {
+        assert.equal(decrypted, 123.456);
+    });
+});
+</code></pre>
+
+<p>There are <code>maybe_sign</code> and <code>maybe_verify</code> too.</p>
+
+<h1 id="toc_6">Adding metadata</h1>
+
+<p><em>Unencrypted</em> metadata can be added alongside the encrypted payload. Typically the recipient would use it to determine which key to use to decrypt the actual data.</p>
+
+<p>Instead of passing the key to <code>Crypt.make</code>, you pass a function to <code>maybe_encrypt</code> which supplies the key and metadata:</p>
+
+<pre><code class="javascript">var keys = { super_secret_sensor_29: &#39;some random key!&#39; };
+var data = { device_id: &#39;super_secret_sensor_29&#39;, value: 42 };
+
+Crypt.make().maybe_encrypt(data, function (err, encrypted)
+{
+    // send &#39;encrypted&#39; somewhere else
+}, function (device_id, cb) // must supply key and metadata to &#39;cb&#39;
+{
+    cb(null, keys[device_id], device_id);
+}, data.device_id /* any metadata you want to pass into the function */);
+
+// somewhere else...
+
+Crypt.make().maybe_decrypt(encrypted, function (err, decrypted)
+{
+    assert.deepEqual(decrypted, data);
+}, function (cb, device_id) // receives metadata, must supply key to &#39;cb&#39;
+{
+    cb(null, keys[device_id]);
+});
+</code></pre>
+
+<h1 id="toc_7">What <strong>simple-crypt</strong> does <em>not</em> do</h1>
+
+<p><strong>simple-crypt</strong> doesn&#39;t implement the signing and encryption algorithms itself.</p>
+
+<ul>
+<li><p>On Node.js it wraps the <a href="http://nodejs.org/api/crypto.html">crypto</a> and <a href="https://github.com/Obvious/ursa">ursa</a> modules. </p></li>
+<li><p>When running in a pure Javascript environment, it wraps  <a href="https://code.google.com/p/slowaes/">SlowAES</a>, <a href="http://anandam.name/pbkdf2/">pbkdf2.js</a>, <a href="https://code.google.com/p/crypto-js/">CryptoJS</a>, <a href="http://kjur.github.io/jsrsasign/">jsrsasign</a> and <a href="https://bitbucket.org/adrianpasternak/js-rsa-pem/wiki/Home">js-rsa-pem</a>. </p></li>
+</ul>
+
+<p><strong>simple-crypt</strong> doesn&#39;t say anything about how to exchange keys. If you want <a href="http://en.wikipedia.org/wiki/Forward_secrecy#Perfect_Forward_Secrecy">Perfect Forward Secrecy</a> then you might consider using something like <a href="http://nodejs.org/api/crypto.html#crypto_crypto_getdiffiehellman_group_name">Diffie-Hellman</a> to exchange symmetric keys. You might also need some kind of public key infrastructure to support your asymmetric keys.</p>
+
+<p>Finally, <strong>simple-crypt</strong> doesn&#39;t get into key derivation. Key derivation algorithms are useful if you intend to use the same key for multiple purposes. <strong>simple-crypt</strong> expects any key derivation to be done beforehand &mdash; i.e. it expects to be used with the <em>derived</em> key.</p>
+
+<p>The reason for this is that it&#39;s impossible to cater for the wide range of ancillary data which might be fed into a key derivation algorithm. For examples of key derivation functions, consider:</p>
+
+<ul>
+<li><p><a href="http://csrc.nist.gov/publications/nistpubs/800-108/sp800-108.pdf">Recommendation for Key Derivation Using Pseudorandom Functions</a></p></li>
+<li><p><a href="http://csrc.nist.gov/publications/nistpubs/800-56C/SP-800-56C.pdf">Recommendation for Key Derivation through Extraction-then-Expansion</a></p></li>
+<li><p><a href="http://tools.ietf.org/html/rfc5869">HMAC-based Extract-and-Expand Key Derivation Function</a></p></li>
+</ul>
+
+<h1 id="toc_8">Where to get it</h1>
+
+<p>You can find the <strong>simple-crypt</strong> source, API documentation and unit tests <a href="https://github.com/davedoesdev/simple-crypt">here</a>.</p>
+
+<p>Please let me know if you have a problem or spot something wrong!</p>
+
+    <hr>
+    <div class="pagination-centered-wrapper">
+    <div class="pagination pagination-centered btn-group">
+        <a class="btn prev" href="/json-web-tokens-in-python" title="JSON Web Tokens in Python">&larr; Previous</a>
+
+        <a class="btn" href="/archive">Archive</a>
+
+        <a class="btn next disabled">Next &rarr;</a>
+    </div>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'davedoesdev'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span3">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>2013-11-24</span></div>
+    </section>
+
+    <section class="tag_box_container" >
+      <h4>Tags</h4>
+      <ul class="tag_box">
+          <li>
+            <a href="/tags#javascript-ref">javascript <span>7</span></a>
+          </li>
+          <li>
+            <a href="/tags#Node.js-ref">Node.js <span>4</span></a>
+          </li>
+          <li>
+            <a href="/tags#crypto-ref">crypto <span>5</span></a>
+          </li>
+          <li>
+            <a href="/tags#AES-128-CBC-ref">AES-128-CBC <span>1</span></a>
+          </li>
+          <li>
+            <a href="/tags#PBKDF2-ref">PBKDF2 <span>1</span></a>
+          </li>
+          <li>
+            <a href="/tags#RSA-ref">RSA <span>3</span></a>
+          </li>
+          <li>
+            <a href="/tags#HMAC-ref">HMAC <span>1</span></a>
+          </li>
+          <li>
+            <a href="/tags#SHA-256-ref">SHA-256 <span>1</span></a>
+          </li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; <a href="mailto:dave@davedoesdev.com">David Halls<span class="icon-envelope icon-white"></span></a> 2013 
+          with help from <a href="http://ruhoh.com" target="_self" title="The Definitive Technical Blogging Framework">ruhoh</a>,
+          <a href="http://twitter.github.com/bootstrap/" target="_self">Twitter Bootstrap</a> and
+          <a href="http://www.glyphicons.com">Glyphicons</a>.
+        </p>
+        <p>This site uses cookies for <a href="http://www.getclicky.com/terms" target="_self">analytics</a> and <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_self">commenting</a>.</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(66642016);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66642016ns.gif" /></p></noscript>
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint ";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+  </body>
+</html>

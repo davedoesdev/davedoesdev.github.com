@@ -4,7 +4,13 @@
     <title>Dave Does Dev</title>
     <description>Dave Does Dev</description>
     <link>http://www.davedoesdev.com</link>
-    <pubDate>2013-11-25</pubDate>
+    <pubDate>2013-11-26</pubDate>
+    <item>
+      <title>A simple and consistent wrapper for Javascript crypto</title>
+      <link>http://www.davedoesdev.com/a-simple-and-consistent-wrapper-for-javascript-crypto</link>
+      <pubDate>2013-11-24</pubDate>
+      <description>simple-crypt: A simple and easy-to-use encryption and signing library</description>
+    </item>
     <item>
       <title>JSON Web Tokens in Python</title>
       <link>http://www.davedoesdev.com/json-web-tokens-in-python</link>
