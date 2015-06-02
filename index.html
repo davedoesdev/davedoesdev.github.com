@@ -180,7 +180,6 @@ for the following reasons:</p>
 <li>It uses some global functions which are provided by browsers.</li>
 <li>It isn't packaged up as Node.js module.</li>
 </ul>
-<p>This article describes:</p>
 
 </div>
 
@@ -202,9 +201,7 @@ for the following reasons:</p>
 <li>A Javascript implementation of RSASSA-PSS signature encoding.</li>
 <li>A Javascript implementation of RSAES-OAEP ciphertext encoding.</li>
 </ul>
-<h1 id="toc_0">RSASSA-PSS in Javascript</h1>
 
-<p>I'm really standing on the shoulders of giants here. The <a href="https://github.com/digitalbazaar/forge">Forge project</a> already has a <a href="https://github.com/digitalbazaar/forge/blob/master/js/pss.js">PSS implementation</a>.</p>
 </div>
 
   <div class="more">
@@ -224,11 +221,11 @@ Cryptography Standards (PKCS) #1 (<a href="http://tools.ietf.org/html/rfc3447">R
 Scheme with Appendix - Probabilistic Signature Scheme.</li>
 <li><a href="http://tools.ietf.org/html/rfc3447#section-8.2">RSASSA-PKCS1-v1_5</a></li>
 </ul>
+
 <p>Basically, PSS is the newer scheme and can optionally include some randomness
 in the encoding (though it doesn't rely on it). There are no known attacks
 against PKCS1-v1_5 but you have to be more careful when using it. PKCS#1
 recommends PSS in new applications:</p>
-
 </div>
 
   <div class="more">
